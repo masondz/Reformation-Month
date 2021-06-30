@@ -95,7 +95,7 @@ app.put('/readers/:id', async (req, res) => {
                 id,
             ]
         )
-        await res.json('Reader was updated')
+        res.json('Reader was updated')
     } catch (err) {
         console.error(err.message)
     }
