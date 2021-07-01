@@ -5,7 +5,7 @@ const pool = require('./db')
 
 //middleware
 app.use(cors())
-app.use(express.json())
+app.use(express.json()) //for req.body
 
 //ROUTES
 
@@ -110,6 +110,26 @@ app.delete('/readers/:id', async (req, res) => {
         console.error(err.message)
     }
 })
+
+//CRUD FOR READING CHALLENGE
+
+// get all reading challenges
+app.get('/reading_challenges', async (req, res) => {
+    try {
+        const allChallenges = pool.query('SELECT * FROM reading_challenges')
+        res.json(allChallenges.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+// get a reading challenge
+
+// create reading challenge
+
+// update reading challenge
+
+// delete reading challenge
 
 app.listen(5000, () => {
     console.log(`Server listening on PORT 5000`)
