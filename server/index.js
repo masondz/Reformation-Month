@@ -8,6 +8,8 @@ app.use(cors())
 app.use(express.json()) //for req.body
 
 //ROUTES
+//register and login routes
+app.use('/auth', require('./routes/jwtAuth'))
 
 //CRUD FOR readers
 //create new reader with app.post
