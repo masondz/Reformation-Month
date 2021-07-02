@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const pool = require('../db')
 const bcrypt = require('bcrypt')
+
+const jwtGenerator = require('../utils/jwtGenerator')
 //registering
 
 router.post('/register', async (req, res) => {
@@ -37,9 +39,46 @@ router.post('/register', async (req, res) => {
         RETURNING *`,
             [first_name, last_name, email, bcryptPassword] //rest of columns have default values
         )
-        res.json(newReader.rows[0])
+        // res.json(newReader.rows[0])
 
         //5. generating our jwt token
+
+        const token = jwtGenerator(newReader.rows[0].id)
+
+        res.json({ token })
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
+})
+
+//login route
+
+router.post('/login', async (req, res) => {
+    try {
+        //1. destrucutr the req.body
+
+        const { email, password } = req.body //these are entered by the user
+
+        //2. check if user doesn't exist (if not, throw error)
+
+        const readerr = await pool.query(
+            'SELECT * FROM readers WHERE email = $1',
+            [email]
+        )
+        if (reader.rows.length === 0) {
+            return res.status(401).json('Password or Email is incorrect')
+        }
+        //3. check if incoming password is same as database password
+
+        const validPassword = bcrypt.compare(
+            password,
+            reader.rows[0].user_password
+        )
+
+        console.log(validPassword)
+
+        //4. give them the jwt token
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
