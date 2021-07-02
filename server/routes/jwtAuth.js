@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 
         //2. check if user doesn't exist (if not, throw error)
 
-        const readerr = await pool.query(
+        const reader = await pool.query(
             'SELECT * FROM readers WHERE email = $1',
             [email]
         )
@@ -71,14 +71,20 @@ router.post('/login', async (req, res) => {
         }
         //3. check if incoming password is same as database password
 
-        const validPassword = bcrypt.compare(
-            password,
-            reader.rows[0].user_password
+        const validPassword = await bcrypt.compare(
+            //"compare" returns a boolean. bcyrpt takes some time, therefore we must await
+            password, //the user's inputted password
+            reader.rows[0].user_password //the password stored in the database
         )
-
-        console.log(validPassword)
+        if (!validPassword) {
+            return res.status(401).json('Password or Email is incorrect')
+        }
 
         //4. give them the jwt token
+
+        const token = jwtGenerator(reader.rows[0].id)
+
+        res.json({ token })
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
