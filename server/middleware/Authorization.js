@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     try {
         const jwtToken = req.header('token')
 
-        if (!jwtToke) {
+        if (!jwtToken) {
             return res.status(403).json('Not Authorized')
         }
 
@@ -16,4 +16,5 @@ module.exports = async (req, res, next) => {
         console.error(err.message)
         res.status(403).json('Not Authorized')
     }
+    next() //don't forget this, otherwise the GET request in jwtAuth for is-verify route won't advance.
 }
