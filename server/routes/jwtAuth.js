@@ -1,11 +1,13 @@
 const router = require('express').Router()
 const pool = require('../db')
 const bcrypt = require('bcrypt')
+const validInfo = require('../middleware/validinfo')
 
 const jwtGenerator = require('../utils/jwtGenerator')
 //registering
 
-router.post('/register', async (req, res) => {
+router.post('/register', validInfo, async (req, res) => {
+    //valid info: middlware that checks if email has '@' sign, and that password an name are not blank.
     try {
         //1. destructure req.body
 
@@ -54,7 +56,7 @@ router.post('/register', async (req, res) => {
 
 //login route
 
-router.post('/login', async (req, res) => {
+router.post('/login', validInfo, async (req, res) => {
     try {
         //1. destrucutr the req.body
 
