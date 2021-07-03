@@ -11,6 +11,10 @@ app.use(express.json()) //for req.body
 //register and login routes
 app.use('/auth', require('./routes/jwtAuth'))
 
+//dashboard route
+
+app.use('/dashboard', require('../server/routes/dashboard'))
+
 //CRUD FOR readers
 //create new reader with app.post
 
