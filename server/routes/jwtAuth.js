@@ -62,7 +62,7 @@ router.post('/login', validInfo, async (req, res) => {
     try {
         //1. destrucutr the req.body
 
-        const { email, password } = req.body //these are entered by the user
+        const { email, user_password } = req.body //these are entered by the user
 
         //2. check if user doesn't exist (if not, throw error)
 
@@ -77,7 +77,7 @@ router.post('/login', validInfo, async (req, res) => {
 
         const validPassword = await bcrypt.compare(
             //"compare" returns a boolean. bcyrpt takes some time, therefore we must await
-            password, //the user's inputted password
+            user_password, //the user's inputted password
             reader.rows[0].user_password //the password stored in the database
         )
         if (!validPassword) {
