@@ -53,7 +53,12 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Welcome {firstName}</h1>
-      {!inReadingChallenge ? <FindChallenge /> : <h2>show challenge</h2>}
+      {!inReadingChallenge ? (
+        <FindChallenge setAuth={setAuth} />
+      ) : (
+        <h2>show challenge</h2>
+      )}
+      <br></br>
       <button className="btn btn-primary" onClick={(e) => logout(e)}>
         Logout
       </button>
