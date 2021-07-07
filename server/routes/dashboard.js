@@ -27,15 +27,27 @@ router.get('/find-challenges', authorization, async (req, res) => {
     }
 })
 
-//add challenge to user's profile
+//add reader(id) to readers_reading_challenges
 router.post('/find-challenges', authorization, async (req, res) => {
     try {
-        const { challenge_name, id, organization, readers_id } = body
-        const addChallengeToReader = await pool.query()
-        if (addChallengeToReader.rows.length !== 0) {
+        const { reader_id, challenge_id } = body
+        const readerToAdd = await pool.query(
+            'SELECT * FROM readers_reading_challenges WHERE reader_id= $1',
+            [reader_id]
+        )
+        if (readerToAdd.rows.length !== 0) {
             // check if reader_id is already assigned to challenge
             return res.status(401).json('You are already in this Challenge.')
         }
+        await pool.query(
+            `INSERT INTO readers_reading_challenges (
+            readers_id,
+            challenge_id,
+            role
+        )
+        VALUES ($1, $2, 0)`,
+            [reader_id, challenge_id, 0]
+        )
     } catch (error) {}
 })
 
