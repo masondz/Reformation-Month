@@ -51,3 +51,14 @@ VALUES ('First Test Challenge', 'admin', 'chapters', 10000, 1)
 ALTER TABLE reading_challenges DROP COLUMN id;
 
 ALTER TABLE reading_challenges ADD COLUMN id uuid PRIMARY KEY DEFAULT uuid_generate_v4();
+
+UPDATE readers SET reading_challenges = challenge_name FROM reading_challenges WHERE 
+
+-- Create join/relational/many-to-many table
+
+CREATE TABLE readers_reading_challenges (
+    reader_id uuid REFERENCES readers(id) ON DELETE CASCADE,
+    challenge_id uuid  REFERENCES reading_challenges(id) ON DELETE CASCADE,
+    role INTEGER,
+    PRIMARY KEY (reader_id, challenge_id)
+)
