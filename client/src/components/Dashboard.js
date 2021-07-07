@@ -7,20 +7,21 @@ const Dashboard = ({ setAuth }) => {
   const [firstName, setFirstName] = useState("");
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
 
-  //   async function checkChallenge() {
-  //     try {
-  //       const response = await fetch("http://localhost:5000/dashboard/", {
-  //         method: "GET",
-  //         headers: { token: localStorage.token },
-  //       });
+  async function checkChallenge() {
+    try {
+      const response = await fetch("http://localhost:5000/dashboard/", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
-  //       const parseRes = await response.json();
-  //       console.log(parseRes)
-
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     }
-  //   }
+      const parseRes = await response.json();
+      if (parseRes.reading_challenges.length !== 0) {
+        setInReadingChallenge(true);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
 
   async function getName() {
     try {
@@ -32,7 +33,6 @@ const Dashboard = ({ setAuth }) => {
       const parseRes = await response.json();
 
       setFirstName(parseRes.first_name);
-      console.log(parseRes.first_name);
     } catch (err) {
       console.error(err.message);
     }
@@ -47,6 +47,7 @@ const Dashboard = ({ setAuth }) => {
 
   useEffect(() => {
     getName();
+    checkChallenge();
   }, []);
 
   return (
