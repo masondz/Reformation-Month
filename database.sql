@@ -7,11 +7,11 @@ CREATE TABLE readers (
     chapters_read INTEGER,
     books_read INTEGER,
     verses_memorized INTEGER,
-    reading_challanges VARCHAR(200)[]
+    reading_challenges VARCHAR(200)[]
 )
 
 ALTER TABLE readers
-ADD COLUMN reading_challanges VARCHAR(200)[]
+ADD COLUMN reading_challenges VARCHAR(200)[]
 
 INSERT INTO readers (
     first_name, 
@@ -21,13 +21,13 @@ INSERT INTO readers (
     chapters_read, 
     books_read, 
     verses_memorized, 
-    reading_challanges) 
+    reading_challenges) 
 
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 
-DROP TABLE if exists reading_challanges;
+DROP TABLE if exists reading_challenges;
 
-CREATE TABLE reading_challanges (
+CREATE TABLE reading_challenges (
     id SERIAL PRIMARY KEY,
     challenge_name VARCHAR(200),
     organization VARCHAR(200),
@@ -39,7 +39,7 @@ CREATE TABLE reading_challanges (
 	  REFERENCES readers(id)
 )
 
-INSERT INTO reading_challanges(
+INSERT INTO reading_challenges(
 challenge_name = 'Church at the Square',
 organization = 'C@TS',
 challenge = 'chapters',
