@@ -3,12 +3,12 @@ import React, { Fragment, useState, useEffect } from "react";
 const FindChallenge = () => {
   const [challengeList, setChallengeList] = useState([]);
   const [inputs, setInputs] = useState({
-    challenge_name: "find your challenge",
+    challenge_name: "",
     id: "",
     organization: "",
   });
 
-  const { challenge_name, id, organization } = inputs;
+  const { challenge_name, id, organization } = inputs; //reading-challenge info
 
   async function getChallenges() {
     try {
@@ -32,6 +32,28 @@ const FindChallenge = () => {
     getChallenges();
   }, []);
 
+  const [readerId, setReaderId] = useState("");
+
+  async function getReaderId() {
+    try {
+      const response = await fetch("http://localhost:5000/dashboard/", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+
+      const parseRes = await response.json();
+
+      setReaderId(parseRes.id);
+      console.log(readerId);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    getReaderId();
+  });
+
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(e.target);
@@ -45,7 +67,7 @@ const FindChallenge = () => {
   return (
     <Fragment>
       <form onSubmit={onSubmit}>
-        <label for="chal-list">Find a reading Challenge</label>
+        <label htmlFor="chal-list">Find a reading Challenge</label>
         <input
           value={challenge_name}
           onChange={(e) => onChange(e)}
@@ -53,11 +75,12 @@ const FindChallenge = () => {
           list="challenge-list"
           name="chal-list"
           id="chal-list"
+          placeholder="Search for reading challenge"
         />
         <datalist id="challenge-list">
           {challengeList.map((challenge) => {
             return (
-              <option value={challenge.challenge_name}>
+              <option value={challenge.challenge_name} key={challenge.id}>
                 Read {challenge.goal} Chapters
               </option>
             );

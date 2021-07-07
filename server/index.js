@@ -45,7 +45,6 @@ app.post('/readers', async (req, res) => {
             chapters_read,
             books_read,
             verses_memorized,
-            reading_challenges,
         } = req.body
 
         const newReader = await pool.query(
@@ -56,8 +55,7 @@ app.post('/readers', async (req, res) => {
                 user_password, 
                 chapters_read, 
                 books_read, 
-                verses_memorized, 
-                reading_challenges) 
+                verses_memorized) 
             
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *`,
@@ -69,7 +67,6 @@ app.post('/readers', async (req, res) => {
                 chapters_read,
                 books_read,
                 verses_memorized,
-                reading_challenges,
             ]
         )
         res.json(newReader)
@@ -103,7 +100,6 @@ app.put('/readers/:id', async (req, res) => {
         chapters_read = $5, 
         books_read = $6, 
         verses_memorized = $7, 
-        reading_challenges = $8
         WHERE id = $9
         RETURNING *`,
             [
@@ -114,7 +110,6 @@ app.put('/readers/:id', async (req, res) => {
                 req.body.chapters_read,
                 req.body.books_read,
                 req.body.verses_memorized,
-                req.body.reading_challenges,
                 id,
             ]
         )

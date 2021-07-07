@@ -3,25 +3,27 @@ import { toast } from "react-toastify";
 
 import FindChallenge from "./FindChallenge";
 
-const Dashboard = ({ setAuth }) => {
+const Dashboard = (props, { setAuth }) => {
+  console.log(props);
   const [firstName, setFirstName] = useState("");
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
+  const [readerId, setReaderId] = useState("");
 
-  async function checkChallenge() {
-    try {
-      const response = await fetch("http://localhost:5000/dashboard/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+  //   async function checkChallenge() {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/dashboard/", {
+  //         method: "GET",
+  //         headers: { token: localStorage.token },
+  //       });
 
-      const parseRes = await response.json();
-      if (parseRes.reading_challenges.length !== 0) {
-        setInReadingChallenge(true);
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
+  //       const parseRes = await response.json();
+  //       if (parseRes.reading_challenges.length !== 0) {
+  //         setInReadingChallenge(true);
+  //       }
+  //     } catch (err) {
+  //       console.error(err.message);
+  //     }
+  //   }
 
   async function getName() {
     try {
