@@ -11,11 +11,19 @@ router.get('/', authorization, async (req, res) => {
             'SELECT first_name, last_name, chapters_read, books_read, verses_memorized, reading_challenges FROM readers WHERE id = $1',
             [req.user]
         )
-        console.log(req.user)
         res.json(user.rows[0])
     } catch (err) {
         console.error(err.message)
         res.status(500).json('Server Error')
+    }
+})
+
+router.get('/find-challenges', authorization, async (req, res) => {
+    try {
+        const user = await pool.query('SELECT * FROM reading_challenges')
+        res.json(user.rows)
+    } catch (err) {
+        console.log(err.message)
     }
 })
 
