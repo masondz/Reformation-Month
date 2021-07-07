@@ -56,8 +56,13 @@ const Dashboard = ({ setAuth }) => {
       {!inReadingChallenge ? (
         <FindChallenge setAuth={setAuth} />
       ) : (
-        <h2>show challenge</h2>
+        <div>
+          <h2>show challenge</h2>
+          <h2>Join another challenge:</h2>
+        </div>
       )}
+      <br></br>
+
       <br></br>
       <button className="btn btn-primary" onClick={(e) => logout(e)}>
         Logout
