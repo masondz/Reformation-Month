@@ -40,8 +40,14 @@ CREATE TABLE reading_challenges (
 )
 
 INSERT INTO reading_challenges(
-challenge_name = 'Church at the Square',
-organization = 'C@TS',
-challenge = 'chapters',
-goal = 20000,
-challenge_admin = 1)
+challenge_name,
+organization,
+challenge,
+goal,
+challenge_admin)
+
+VALUES ('First Test Challenge', 'admin', 'chapters', 10000, 1)
+
+ALTER TABLE reading_challenges DROP COLUMN id;
+
+ALTER TABLE reading_challenges ADD COLUMN id uuid PRIMARY KEY DEFAULT uuid_generate_v4();
