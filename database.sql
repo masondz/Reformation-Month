@@ -62,3 +62,6 @@ CREATE TABLE readers_reading_challenges (
     role INTEGER,
     PRIMARY KEY (reader_id, challenge_id)
 )
+
+INSERT INTO readers_reading_challenges (reader_id, challenge_id, role)
+VALUES ('98df0f44-2d5e-43fd-b503-65b84e99638f', 'da7a357f-8acc-4482-94c2-5989d1a9e7fb', 0)
