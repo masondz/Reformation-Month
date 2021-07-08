@@ -18,15 +18,6 @@ router.get('/', authorization, async (req, res) => {
     }
 })
 
-router.get('/find-challenges', authorization, async (req, res) => {
-    try {
-        const user = await pool.query('SELECT * FROM reading_challenges')
-        res.json(user.rows)
-    } catch (err) {
-        console.log(err.message)
-    }
-})
-
 router.get(
     '/find-challenges/:challenge_name',
     authorization,

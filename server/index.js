@@ -15,6 +15,10 @@ app.use('/auth', require('./routes/jwtAuth'))
 
 app.use('/dashboard', require('../server/routes/dashboard'))
 
+//find-challenges route
+
+app.use('/find-challenges', require('../server/routes/findChallenge'))
+
 //CRUD FOR readers
 //create new reader with app.post
 

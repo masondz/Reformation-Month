@@ -15,17 +15,13 @@ const FindChallenge = (props, setAuth) => {
   const { challenge_name, id, organization } = inputs; //reading-challenge info
   async function getChallenges() {
     try {
-      const response = await fetch(
-        "http://localhost:5000/dashboard/find-challenges",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const response = await fetch("http://localhost:5000/find-challenges", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
       const parseRes = await response.json();
       setChallengeList(parseRes);
-      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
@@ -61,7 +57,17 @@ const FindChallenge = (props, setAuth) => {
   //
   //
   //
-
+  const updateInputs = () => {
+    for (let i = 0; i < challengeList.length; i++) {
+      if (challengeList[i].challenge_name === inputs.challenge_name) {
+        setInputs({
+          challenge_name: challengeList[i].challenge_name,
+          organization: challengeList[i].organization,
+          id: challengeList[i].id,
+        });
+      }
+    }
+  };
   //
   //
   //update inputs
