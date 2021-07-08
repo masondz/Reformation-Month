@@ -1,15 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-const FindChallenge = () => {
+const FindChallenge = (props, setAuth) => {
   const [challengeList, setChallengeList] = useState([]);
   const [inputs, setInputs] = useState({
     challenge_name: "",
     id: "",
     organization: "",
   });
-
+  //
+  //
+  //
+  //Get all of the Challenges //
   const { challenge_name, id, organization } = inputs; //reading-challenge info
-
   async function getChallenges() {
     try {
       const response = await fetch(
@@ -31,39 +34,90 @@ const FindChallenge = () => {
   useEffect(() => {
     getChallenges();
   }, []);
+  //
+  //
+  //
+  //Get the reader's ID
+  const [readerId, setReaderId] = useState("Blank id");
 
-  const [readerId, setReaderId] = useState("");
+  useEffect(() => {
+    async function getReaderId() {
+      try {
+        const response = await fetch("http://localhost:5000/dashboard/", {
+          method: "GET",
+          headers: { token: localStorage.token },
+        });
 
-  async function getReaderId() {
-    try {
-      const response = await fetch("http://localhost:5000/dashboard/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+        const parseRes = await response.json();
 
-      const parseRes = await response.json();
-
-      setReaderId(parseRes.id);
+        setReaderId(parseRes.id);
+      } catch (err) {
+        console.error(err.message);
+      }
       console.log(readerId);
+    }
+    getReaderId();
+  }, [readerId]);
+  //
+  //
+  //
+
+  //
+  //
+  //update inputs
+  useEffect(() => {
+    const updateInputs = () => {
+      for (let i = 0; i < challengeList.length; i++) {
+        if (challengeList[i].challenge_name === inputs.challenge_name) {
+          setInputs({
+            challenge_name: challengeList[i].challenge_name,
+            organization: challengeList[i].organization,
+            id: challengeList[i].id,
+          });
+        }
+      }
+    };
+    updateInputs();
+  }, [challenge_name, challengeList]);
+  //
+  //
+  //
+  //Submit challenge_id and reader_id to readers_reading_challenges table in database
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const reader_id = readerId;
+      const challenge_id = id;
+      const body = { reader_id, challenge_id };
+      const response = await fetch(
+        "http://localhost:5000/dashboard/find-challenges",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+
+          body: JSON.stringify(body),
+        }
+      )
+        .then(toast.success(`You have joined the ${challenge_name} challenge!`))
+        .then(setInputs({ challenge_name: "", id: "", organization: "" }));
+      const parseRes = await response.json();
+      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
-  }
-
-  useEffect(() => {
-    getReaderId();
-  });
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    console.log(e.target);
   };
-
+  //
+  //
+  //
+  //onChange function
   const onChange = (e) => {
     setInputs({ ...inputs, challenge_name: e.target.value });
   };
 
-  console.log(challenge_name);
+  //   return statement
   return (
     <Fragment>
       <form onSubmit={onSubmit}>
@@ -87,6 +141,9 @@ const FindChallenge = () => {
           })}
         </datalist>
       </form>
+      <p>
+        {challenge_name}, {id}, {organization}
+      </p>
     </Fragment>
   );
 };
