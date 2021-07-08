@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import FindChallenge from "./FindChallenge";
 
-const Dashboard = (props, setAuth) => {
+const Dashboard = ({ setAuth }) => {
   const [firstName, setFirstName] = useState("");
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
 
@@ -54,7 +54,7 @@ const Dashboard = (props, setAuth) => {
     <Fragment>
       <h1>Welcome {firstName}</h1>
       {!inReadingChallenge ? (
-        <FindChallenge {...props} setAuth={setAuth} />
+        <FindChallenge setAuth={setAuth} />
       ) : (
         <div>
           <h2>show challenge</h2>
