@@ -3,14 +3,25 @@ const pool = require('../db')
 const authorization = require('../middleware/Authorization')
 
 router.post('/', async (req, res) => {
-    const {
-        challenge_name,
-        organization,
-        challenge_type,
-        challenge_admin,
-        goal,
-    } = req.body
     try {
+        const {
+            challenge_name,
+            organization,
+            challenge_type,
+            challenge_admin,
+            goal,
+        } = req.body
+        //check if challenge already exists.
+        const challengeExist = await pool.query(
+            `SELECT challenge_name FROM reading_challenges WHERE challenge_name = $1`,
+            [challenge_name]
+        )
+        if (challengeExist.rowCount > 0) {
+            return res
+                .status(401)
+                .json(`Reading challenge ${challenge_name} already exists.`)
+        }
+
         const challengeToAdd = await pool.query(
             `INSERT INTO reading_challenges (
                 challenge_name, 
