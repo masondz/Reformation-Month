@@ -95,22 +95,26 @@ const FindChallenge = (props, setAuth) => {
       const reader_id = readerId;
       const challenge_id = id;
       const body = { reader_id, challenge_id };
-      const response = await fetch(
-        "http://localhost:5000/dashboard/find-challenges",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            token: localStorage.token,
-          },
+      const response = await fetch("http://localhost:5000/find-challenges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
 
-          body: JSON.stringify(body),
-        }
-      )
-        .then(toast.success(`You have joined the ${challenge_name} challenge!`))
+        body: JSON.stringify(body),
+      })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            toast.success(`You have joined the ${challenge_name} challenge!`);
+          } else if (response.status === 401) {
+            toast.error(`You have already joined challenge: ${challenge_name}`);
+          } else if (response.status === 400) {
+            toast.error(`${challenge_name} does not exists`);
+          }
+        })
         .then(setInputs({ challenge_name: "", id: "", organization: "" }));
-      const parseRes = await response.json();
-      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
