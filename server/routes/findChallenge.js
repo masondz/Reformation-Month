@@ -30,18 +30,23 @@ router.get('/:challenge_name', authorization, async (req, res) => {
 router.post('/', authorization, async (req, res) => {
     try {
         const { reader_id, challenge_id } = req.body
+        console.log(reader_id, challenge_id)
 
+        //check if reader is already in challenge
         const readerToAdd = await pool.query(
             'SELECT * FROM readers_reading_challenges WHERE reader_id= $1 AND challenge_id=$2',
             [reader_id, challenge_id]
         )
-        if (readerToAdd.rows.lentght !== 0) {
-            // check if reader_id is already assigned to challenge
-            return res
-                .status(401)
-                .json(`You are already in this Challenge ${challenge_id}`)
+        console.log(readerToAdd.rowCount)
+        if (readerToAdd.rowCount > 0) {
+            return res.status(401).json('User already exists.')
         }
-        await pool.query(
+
+        //AtM: Don't need to check if challenge exists.
+        //Express recieves an invalid input syntax for uuid syntax for reading_challenges.id
+
+        // add the user
+        const addedUser = await pool.query(
             `INSERT INTO readers_reading_challenges (
             reader_id,
             challenge_id,
@@ -50,8 +55,10 @@ router.post('/', authorization, async (req, res) => {
         VALUES ($1, $2, 0)`,
             [reader_id, challenge_id]
         )
+        return res.json(addedUser)
     } catch (err) {
         console.log(err.message)
+        res.status(400).json('Challenge does not exists')
     }
 })
 
