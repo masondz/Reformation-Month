@@ -129,9 +129,12 @@ router.delete('/', authorization, async (req, res) => {
                 )
         }
 
-        res.json(challengeExist)
-
         //delete challenge
+        const deleteChallenge = pool.query(
+            `DELETE FROM reading_challenges WHERE challenge_name = $1 AND challenge_admin = $2`,
+            [challenge_name, reader_id]
+        )
+        res.status(202).json(`Challenge Deleted`)
     } catch (err) {
         console.error(err.message)
     }
