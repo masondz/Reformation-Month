@@ -23,6 +23,10 @@ app.use('/find-challenges', require('../server/routes/findChallenge'))
 
 app.use('/challenge-dashboard', require('../server/routes/challengeDashboard'))
 
+//reader-dashboard routes
+
+app.use('/reader-dashboard', require('../server/routes/readerDashboard'))
+
 //CRUD FOR readers
 //create new reader with app.post
 
