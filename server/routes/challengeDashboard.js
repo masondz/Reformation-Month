@@ -89,7 +89,6 @@ router.put('/', authorization, async (req, res) => {
                 )
         }
 
-        //check if authorized to change challenge
         //udate challenge
         const updateChallenge = await pool.query(
             //cannont change admin
@@ -105,6 +104,9 @@ router.put('/', authorization, async (req, res) => {
     } catch (err) {
         console.error(err.message)
     }
+
+    //delete challenge
+    router.delete('/', authorization)
 })
 
 module.exports = router
