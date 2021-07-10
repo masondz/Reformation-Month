@@ -104,9 +104,36 @@ router.put('/', authorization, async (req, res) => {
     } catch (err) {
         console.error(err.message)
     }
-
-    //delete challenge
-    router.delete('/', authorization)
 })
 
+//delete challenge
+router.delete('/', authorization, async (req, res) => {
+    try {
+        const { reader_id, challenge_name } = req.body
+
+        //check if challenge exists
+        const challengeExist = await pool.query(
+            `SELECT challenge_name, challenge_admin FROM reading_challenges WHERE challenge_name = $1`,
+            [challenge_name]
+        )
+        console.log(challengeExist)
+        if (challengeExist.rowCount === 0) {
+            return res
+                .status(401)
+                .json(`Reading challenge ${challenge_name} does not exist.`)
+        } else if (challengeExist.rows[0].challenge_admin !== reader_id) {
+            return res
+                .status(403)
+                .json(
+                    `You are not authorized to delete challenge ${challenge_name}`
+                )
+        }
+
+        res.json(challengeExist)
+
+        //delete challenge
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 module.exports = router
