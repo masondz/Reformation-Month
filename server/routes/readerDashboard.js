@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
+const bcrypt = require('bcrypt')
 
 //Get reader
 router.get('/', authorization, async (req, res) => {
@@ -19,6 +20,21 @@ router.get('/', authorization, async (req, res) => {
 //Update reader
 router.put('/', authorization, async (req, res) => {
     try {
+        const {
+            first_name,
+            last_name,
+            email,
+            user_password,
+            chapters_read,
+            books_read,
+            verses_memorized,
+        } = req.body
+        //  bcrypt user password
+        const saltRound = 10
+        const salt = await bcrypt.genSalt(saltRound)
+        const bcryptPassword = await bcrypt.hash(user_password, salt) //it takes time to encrypt password, otherwise it returns and empty object( '{}' )?
+        //also, the password lenght ( VARCHAR(#) ) in the database schema must be long enough to accomodate encrypted password
+
         const updateReader = await pool.query(
             `UPDATE readers SET 
         first_name = $1, 
@@ -31,13 +47,13 @@ router.put('/', authorization, async (req, res) => {
         WHERE id = $8
         RETURNING *`,
             [
-                req.body.first_name,
-                req.body.last_name,
-                req.body.email,
-                req.body.user_password,
-                req.body.chapters_read,
-                req.body.books_read,
-                req.body.verses_memorized,
+                first_name,
+                last_name,
+                email,
+                bcryptPassword,
+                chapters_read,
+                books_read,
+                verses_memorized,
                 req.user,
             ]
         )
@@ -47,5 +63,18 @@ router.put('/', authorization, async (req, res) => {
     }
 })
 //Delete reader
-router
+
+router.delete('/', authorization, async (req, res) => {
+    try {
+        const deleteReader = await pool.query(
+            `DELETE FROM readeers
+        WHERE id = $1`,
+            [req.user]
+        )
+        res.status(202).json(`Reader Deleted`)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 module.exports = router
