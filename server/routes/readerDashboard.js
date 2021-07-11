@@ -67,11 +67,22 @@ router.put('/', authorization, async (req, res) => {
 router.delete('/', authorization, async (req, res) => {
     try {
         const deleteReader = await pool.query(
-            `DELETE FROM readeers
+            `DELETE FROM readers
         WHERE id = $1`,
             [req.user]
         )
         res.status(202).json(`Reader Deleted`)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+//Leave challenge
+router.delete('/:reader_challenge_id', authorization, async (req, res) => {
+    try {
+        const reader_reading_challenge = req.params.reader_challenge_id
+        console.log(
+            `This route is meant to delete reader_reading_challenge entry: ${reader_reading_challenge}`
+        )
     } catch (err) {
         console.error(err.message)
     }
