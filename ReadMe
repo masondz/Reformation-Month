@@ -1,0 +1,17 @@
+Readers:
+C - Create at server/jwtAuth => Registration Component
+R - Read at server/jwtAuth => Login compenent/Dashboard compenent
+U - Update at server/readerDashboard => ??
+D - Delete at server/readerDashboard => ??
+
+Challenges:
+C - Create at server/challengeDashboard => ??
+R - Read at (single and every) server/challengeDashboard AND server/findChallenge => FindChallenge Component
+U - Update at server/challengeDashboard => ??
+D - Delete at server/challengeDashboard => ??
+
+Readers_Challenges:
+C - Create at server/findChallenge => ??
+R - ?? ??
+U - none
+D - Delete at server/readerDashboard => ??
