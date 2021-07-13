@@ -76,6 +76,21 @@ router.delete('/', authorization, async (req, res) => {
         console.error(err.message)
     }
 })
+//Get reader's reading challenges
+router.get('/reader-challenge-id/', authorization, async (req, res) => {
+    try {
+        const { reader_id } = req.query
+        const getReadersChalleges = await pool.query(
+            `
+        SELECT challenge_name FROM reading_challenges ch, readers_reading_challenges rch
+        WHERE ch.id = rch.challenge_id AND rch.reader_id = $1;`,
+            [reader_id]
+        )
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 // Leave challenge
 router.delete('/reader-challenge-id/', authorization, async (req, res) => {
     try {

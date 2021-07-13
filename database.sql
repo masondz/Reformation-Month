@@ -68,3 +68,6 @@ VALUES ('98df0f44-2d5e-43fd-b503-65b84e99638f', 'da7a357f-8acc-4482-94c2-5989d1a
 
 INSERT INTO reading_challenges (challenge_name, organization, challenge, goal)
 VALUES ()
+
+SELECT challenge_name FROM reading_challenges ch, readers_reading_challenges rch
+WHERE ch.id = rch.challenge_id AND rch.reader_id = '60650ec4-71d4-4437-b564-57f930e84f27';
