@@ -66,15 +66,11 @@ router.put('/', authorization, async (req, res) => {
 
 router.delete('/', authorization, async (req, res) => {
     try {
-        // const deleteReader = await pool.query(
-        //     `DELETE FROM readers
-        // WHERE id = $1`,
-        //     [req.user]
-        // )
-        const testEndPoint = await pool.query(`
-        Select count(*) FROM readers_reading_challenges AS First_Query`)
-        res.json(testEndPoint)
-        console.log('Deleted wrong thing')
+        const deleteReader = await pool.query(
+            `DELETE FROM readers
+        WHERE id = $1`,
+            [req.user]
+        )
         res.status(202).json(`Reader Deleted`)
     } catch (err) {
         console.error(err.message)
