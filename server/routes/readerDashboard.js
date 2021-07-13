@@ -87,12 +87,25 @@ router.get('/reader-challenge-id/', authorization, async (req, res) => {
         WHERE ch.id = rch.challenge_id AND rch.reader_id = $1;`,
             [reader_id]
         )
+        if (getReadersChallenges.rows === 0) {
+            res.status(401).json('Reader has not joined any challenges yet!')
+        }
         res.json(getReadersChallenges.rows)
         console.log(getReadersChallenges)
     } catch (err) {
         console.error(err.message)
     }
 })
+
+//Get a single reader's reading challenge
+// try {
+//     const { reader_id, challenge_id } = req.query
+//     const getReadersSingleChallenge = await pool.query(`
+//     SELECT
+//     `)
+// } catch (err) {
+//     console.error(err.message)
+// }
 
 // Leave challenge
 router.delete('/reader-challenge-id/', authorization, async (req, res) => {
