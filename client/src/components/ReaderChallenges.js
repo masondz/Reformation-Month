@@ -1,7 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const ReaderChallenges = ({ setAuth, reader, readersChallenges }) => {
+const ReaderChallenges = ({
+  setAuth,
+  reader,
+  readersChallenges,
+  setReadersChallenges,
+}) => {
   console.log(readersChallenges);
   const {
     first_name,
@@ -12,8 +17,26 @@ const ReaderChallenges = ({ setAuth, reader, readersChallenges }) => {
     id,
   } = reader;
 
-  const onClick = (e) => {
-    console.log(e.value);
+  //Remove reader from reading challenge
+  const removeReader = async (reader_id, challenge_id) => {
+    try {
+      console.log(reader_id);
+      console.log(challenge_id);
+
+      const readerChallenge = await fetch(
+        `http://localhost:5000/reader-dashboard/reader-challenge-id/`,
+        {
+          method: "DELETE",
+          headers: { token: localStorage.token },
+          query: { reader_id: reader_id, challenge_id: challenge_id },
+        }
+      );
+      setReadersChallenges(
+        readersChallenges.filter((challenge) => challenge.id !== challenge_id)
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   return (
@@ -29,7 +52,10 @@ const ReaderChallenges = ({ setAuth, reader, readersChallenges }) => {
                 value={challenge.id}
               >
                 {challenge.challenge_name} - <i>{challenge.organization}</i>
-                <button value={challenge.id} onClick={onClick}>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => removeReader(reader.id, challenge.id)}
+                >
                   Leave Challenge
                 </button>
               </h3>
