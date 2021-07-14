@@ -6,6 +6,7 @@ const ReaderChallenges = ({
   reader,
   readersChallenges,
   setReadersChallenges,
+  setInReadingChallenge,
 }) => {
   console.log(readersChallenges);
   const {
@@ -22,23 +23,33 @@ const ReaderChallenges = ({
     try {
       console.log(reader_id);
       console.log(challenge_id);
-
       const readerChallenge = await fetch(
-        `http://localhost:5000/reader-dashboard/reader-challenge-id/`,
+        `http://localhost:5000/reader-dashboard/reader-challenge-id/?reader_id=${reader_id}&challenge_id=${challenge_id}`,
         {
           method: "DELETE",
-          headers: { token: localStorage.token },
-          query: { reader_id: reader_id, challenge_id: challenge_id },
+          headers: {
+            token: localStorage.token,
+          },
         }
       );
-      setReadersChallenges(
+      await setReadersChallenges(
         readersChallenges.filter((challenge) => challenge.id !== challenge_id)
       );
+      toast.warning("You have left the reading challenge.");
+      if (readersChallenges.length === 0) {
+        //if reader is no longer in any challenges, <FindChallenge /> is rendered
+        setInReadingChallenge(false);
+      }
     } catch (err) {
       console.error(err.message);
     }
   };
 
+  useEffect(() => {
+    if (readersChallenges.length === 0) {
+      setInReadingChallenge(false);
+    }
+  }, [readersChallenges]);
   return (
     <div>
       <h2>Here are your reading challenges:</h2>

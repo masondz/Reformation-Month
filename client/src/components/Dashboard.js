@@ -58,13 +58,16 @@ const Dashboard = ({ setAuth }) => {
   useEffect(() => {
     getReader();
     checkChallenge();
-  }, []);
+  }, [inReadingChallenge]);
 
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
       {!inReadingChallenge ? (
-        <FindChallenge setAuth={setAuth} />
+        <FindChallenge
+          setAuth={setAuth}
+          setInReadingChallenge={setInReadingChallenge}
+        />
       ) : (
         <div>
           <ReaderChallenges
@@ -73,8 +76,10 @@ const Dashboard = ({ setAuth }) => {
             setAuth={setAuth}
             readersChallenges={readersChallenges}
             setReadersChallenges={setReadersChallenges}
+            setInReadingChallenge={setInReadingChallenge}
           />
           <h2>Join another challenge:</h2>
+          {inReadingChallenge && <FindChallenge setAuth={setAuth} />}
         </div>
       )}
       <br></br>

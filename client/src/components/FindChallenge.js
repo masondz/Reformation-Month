@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const FindChallenge = (props, setAuth) => {
+const FindChallenge = ({ setAuth, setInReadingChallenge }) => {
   const [challengeList, setChallengeList] = useState([]);
   const [inputs, setInputs] = useState({
     challenge_name: "",
@@ -109,6 +109,7 @@ const FindChallenge = (props, setAuth) => {
           console.log(response);
           if (response.status === 200) {
             toast.success(`You have joined the ${challenge_name} challenge!`);
+            setInReadingChallenge(true);
           } else if (response.status === 401) {
             toast.error(`You have already joined challenge: ${challenge_name}`);
           } else if (response.status === 400) {
