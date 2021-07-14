@@ -8,11 +8,12 @@ const FindChallenge = (props, setAuth) => {
     id: "",
     organization: "",
   });
+
+  const { challenge_name, id, organization } = inputs; //destructure reading-challenge info
   //
   //
   //
   //Get all of the Challenges //
-  const { challenge_name, id, organization } = inputs; //reading-challenge info
   async function getChallenges() {
     try {
       const response = await fetch("http://localhost:5000/find-challenges", {

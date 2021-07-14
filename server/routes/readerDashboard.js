@@ -78,14 +78,13 @@ router.delete('/', authorization, async (req, res) => {
 })
 
 //Get reader's reading challenges
-router.get('/reader-challenge-id/', authorization, async (req, res) => {
+router.get('/reader-challenge-id', authorization, async (req, res) => {
     try {
-        const { reader_id } = req.query
         const getReadersChallenges = await pool.query(
             `
         SELECT challenge_name, organization, goal, id FROM reading_challenges ch, readers_reading_challenges rch
         WHERE ch.id = rch.challenge_id AND rch.reader_id = $1;`,
-            [reader_id]
+            [req.user]
         )
         if (getReadersChallenges.rows === 0) {
             res.status(401).json('Reader has not joined any challenges yet!')
@@ -116,7 +115,7 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
             `
             DELETE FROM readers_reading_challenges WHERE reader_id = $1 AND challenge_id = $2
         `,
-            [req.query.reader_id, req.query.challenge_id]
+            [reader_id, challenge_id]
         )
         res.json(leaveChallenge)
         console.log(

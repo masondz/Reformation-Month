@@ -12,6 +12,6 @@ D - Delete at server/challengeDashboard => ??
 
 Readers_Challenges:
 C - Create at server/findChallenge => ??
-R - ?? ??
+R - Read at (single/ ??) server/readerDashboard => ??
 U - none
 D - Delete at server/readerDashboard => ??

@@ -4,10 +4,11 @@ import { toast } from "react-toastify";
 import FindChallenge from "./FindChallenge";
 
 const Dashboard = ({ setAuth }) => {
-  const [firstName, setFirstName] = useState("");
+  const [reader, setReader] = useState("");
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
 
-  async function checkChallenge() {
+  //Get the Reader's info
+  async function getReader() {
     try {
       const response = await fetch("http://localhost:5000/dashboard/", {
         method: "GET",
@@ -15,24 +16,30 @@ const Dashboard = ({ setAuth }) => {
       });
 
       const parseRes = await response.json();
-      if (parseRes.reading_challenges.length !== 0) {
-        setInReadingChallenge(true);
-      }
+      console.log(parseRes);
+      setReader(parseRes);
+      console.log(reader);
     } catch (err) {
       console.error(err.message);
     }
   }
 
-  async function getName() {
+  //Check if reader is in challenge
+  async function checkChallenge() {
     try {
-      const response = await fetch("http://localhost:5000/dashboard/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const response = await fetch(
+        "http://localhost:5000/reader-dashboard/reader-challenge-id/",
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
 
       const parseRes = await response.json();
-
-      setFirstName(parseRes.first_name);
+      console.log(parseRes);
+      if (parseRes.length !== 0) {
+        setInReadingChallenge(true);
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -46,13 +53,13 @@ const Dashboard = ({ setAuth }) => {
   };
 
   useEffect(() => {
-    getName();
-    // checkChallenge();
+    getReader();
+    checkChallenge();
   }, []);
 
   return (
     <Fragment>
-      <h1>Welcome {firstName}</h1>
+      <h1>Welcome {reader.id}</h1>
       {!inReadingChallenge ? (
         <FindChallenge setAuth={setAuth} />
       ) : (
