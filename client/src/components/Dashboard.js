@@ -72,6 +72,7 @@ const Dashboard = ({ setAuth }) => {
             getReader={getReader}
             setAuth={setAuth}
             readersChallenges={readersChallenges}
+            setReadersChallenges={setReadersChallenges}
           />
           <h2>Join another challenge:</h2>
         </div>
