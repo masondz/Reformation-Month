@@ -86,7 +86,7 @@ function App() {
               path="/challenge-dashboard"
               render={(props) =>
                 isAuthenticated ? (
-                  <ChallengeDashboard {...props} />
+                  <ChallengeDashboard {...props} setAuth={setAuth} />
                 ) : (
                   <Redirect to="/login" />
                 )

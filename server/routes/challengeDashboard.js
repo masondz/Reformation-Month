@@ -32,13 +32,7 @@ router.post('/', authorization, async (req, res) => {
                 goal)
                 
                 VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [
-                challenge_name,
-                organization,
-                challenge_type,
-                challenge_admin,
-                goal,
-            ]
+            [challenge_name, organization, challenge_type, req.user, goal]
         )
         res.json(challengeToAdd.rows[0])
     } catch (err) {

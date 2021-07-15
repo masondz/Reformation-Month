@@ -1,20 +1,22 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-const ChallengeDashboard = () => {
+const ChallengeDashboard = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
     challenge_type: "none",
-    challenge_admin: "",
     goal: 0,
   });
-
+  //variables from state
   const { challenge_name, organization, challenge_type, goal } = inputs;
 
+  //input fields for from
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  //radio buttons for challenge-type
   const onRadioClick = (e) => {
     setInputs({ ...inputs, challenge_type: e.target.value });
   };
@@ -27,7 +29,10 @@ const ChallengeDashboard = () => {
         "http://localhost:5000/challenge-dashboard",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
           body: JSON.stringify(body),
         }
       );
@@ -60,7 +65,7 @@ const ChallengeDashboard = () => {
         />
         <h3>Select Challenge Type</h3>
         <div className="form-check-inline">
-          <label className="form-check-label" for="chapters">
+          <label className="form-check-label" htmlFor="chapters">
             <input
               id="chapters"
               className="form-check-input"
@@ -71,7 +76,7 @@ const ChallengeDashboard = () => {
             />
             Read Chapters
           </label>
-          <label className="form-check-label my-3 mx-3" for="chapters">
+          <label className="form-check-label my-3 mx-3" htmlFor="chapters">
             <input
               id="chapters"
               className="form-check-input"
@@ -82,7 +87,7 @@ const ChallengeDashboard = () => {
             />
             Read Books
           </label>
-          <label className="form-check-label" for="chapters">
+          <label className="form-check-label" htmlFor="chapters">
             <input
               id="chapters"
               className="form-check-input"
@@ -94,7 +99,15 @@ const ChallengeDashboard = () => {
             Memorize Versus
           </label>
         </div>
-        <p>{challenge_type}</p>
+        <input
+          className="form-control my-3"
+          type="number"
+          name="goal"
+          placeholder="Challenge Goal"
+          value={goal}
+          onChange={(e) => onChange(e)}
+        />
+        <button className="btn btn-success btn-block">Submit</button>
       </form>
     </Fragment>
   );
