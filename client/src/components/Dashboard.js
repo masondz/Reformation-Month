@@ -1,8 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import FindChallenge from "./FindChallenge";
 import ReaderChallenges from "./ReaderChallenges";
+import ChallengeDashboard from "./ChallengeDashboard";
 
 const Dashboard = ({ setAuth }) => {
   const [reader, setReader] = useState("");
@@ -79,7 +81,7 @@ const Dashboard = ({ setAuth }) => {
           checkChallenge={checkChallenge}
         />
       </div>
-
+      <Link to={"/challenge-dashboard"}>Create Challenge</Link>
       <br></br>
 
       <br></br>
