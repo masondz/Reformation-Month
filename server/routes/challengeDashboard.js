@@ -76,7 +76,6 @@ router.put('/', authorization, async (req, res) => {
             `SELECT challenge_name, challenge_admin FROM reading_challenges WHERE challenge_name = $1`,
             [challenge_name]
         )
-        console.log(challengeExist)
         if (challengeExist.rowCount === 0) {
             return res
                 .status(401)

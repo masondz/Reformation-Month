@@ -8,7 +8,6 @@ const ReaderChallenges = ({
   setReadersChallenges,
   setInReadingChallenge,
 }) => {
-  console.log(readersChallenges);
   const {
     //destructer reader that is passed down by props from Dashboard
     first_name,
@@ -22,8 +21,6 @@ const ReaderChallenges = ({
   //Remove reader from reading challenge
   const removeReader = async (reader_id, challenge_id) => {
     try {
-      console.log(reader_id);
-      console.log(challenge_id);
       const readerChallenge = await fetch(
         `http://localhost:5000/reader-dashboard/reader-challenge-id/?reader_id=${reader_id}&challenge_id=${challenge_id}`,
         {

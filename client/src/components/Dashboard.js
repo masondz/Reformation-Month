@@ -18,9 +18,7 @@ const Dashboard = ({ setAuth }) => {
       });
 
       const parseRes = await response.json();
-      console.log(parseRes);
       setReader(parseRes);
-      console.log(reader);
     } catch (err) {
       console.error(err.message);
     }
@@ -38,7 +36,6 @@ const Dashboard = ({ setAuth }) => {
       );
 
       const parseRes = await response.json();
-      console.log(parseRes);
       if (parseRes.length !== 0) {
         setInReadingChallenge(true);
         setReadersChallenges(parseRes);

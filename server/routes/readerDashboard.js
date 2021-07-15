@@ -90,21 +90,10 @@ router.get('/reader-challenge-id', authorization, async (req, res) => {
             res.status(401).json('Reader has not joined any challenges yet!')
         }
         res.json(getReadersChallenges.rows)
-        // console.log(getReadersChallenges)
     } catch (err) {
         console.error(err.message)
     }
 })
-
-//Get a single reader's reading challenge
-// try {
-//     const { reader_id, challenge_id } = req.query
-//     const getReadersSingleChallenge = await pool.query(`
-//     SELECT
-//     `)
-// } catch (err) {
-//     console.error(err.message)
-// }
 
 // Leave challenge
 router.delete('/reader-challenge-id/', authorization, async (req, res) => {
@@ -117,10 +106,6 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
             [reader_id, challenge_id]
         )
         res.json(leaveChallenge)
-        console.log('Reader id: ' + req.params.reader_id)
-        console.log(
-            `This route is meant to delete reader_reading_challenge entry: ${reader_id}`
-        )
     } catch (err) {
         console.error(err.message)
     }

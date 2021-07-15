@@ -30,7 +30,6 @@ router.get('/:challenge_name', authorization, async (req, res) => {
 router.post('/', authorization, async (req, res) => {
     try {
         const { reader_id, challenge_id } = req.body
-        console.log(reader_id, challenge_id)
 
         //check if reader is already in challenge
         const readerToAdd = await pool.query(

@@ -57,24 +57,10 @@ const FindChallenge = ({
       } catch (err) {
         console.error(err.message);
       }
-      console.log(readerId);
     }
     getReaderId();
   }, [readerId]);
   //
-  //
-  //
-  // const updateInputs = () => {
-  //   for (let i = 0; i < challengeList.length; i++) {
-  //     if (challengeList[i].challenge_name === inputs.challenge_name) {
-  //       setInputs({
-  //         challenge_name: challengeList[i].challenge_name,
-  //         organization: challengeList[i].organization,
-  //         id: challengeList[i].id,
-  //       });
-  //     }
-  //   }
-  // };
   //
   //
   //update inputs
