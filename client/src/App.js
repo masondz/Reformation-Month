@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import ChallengeDashboard from "./components/ChallengeDashboard";
 
 toast.configure();
 
@@ -75,6 +76,17 @@ function App() {
               render={(props) =>
                 isAuthenticated ? (
                   <Dashboard {...props} setAuth={setAuth} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/challenge-dashboard"
+              render={(props) =>
+                isAuthenticated ? (
+                  <ChallengeDashboard {...props} />
                 ) : (
                   <Redirect to="/login" />
                 )
