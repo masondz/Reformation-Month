@@ -11,7 +11,13 @@ U - Update at server/challengeDashboard => ??
 D - Delete at server/challengeDashboard => ??
 
 Readers_Challenges:
-C - Create at server/findChallenge => ??
-R - Read at (single/ ??) server/readerDashboard => ??
+C - Create at server/findChallenge => FindChallene component
+R - Read at (single/ ??) server/readerDashboard => ReaderChallenges component
 U - none
-D - Delete at server/readerDashboard => ??
+D - Delete at server/readerDashboard => ReaderChallenes component
+
+====Features====
+
+Show reader's stats dyncamically:
+ - if stats are above zero, display stats
+ -- else hide them
