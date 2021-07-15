@@ -10,6 +10,7 @@ const ReaderChallenges = ({
 }) => {
   console.log(readersChallenges);
   const {
+    //destructer reader that is passed down by props from Dashboard
     first_name,
     last_name,
     chapters_read,
@@ -37,7 +38,6 @@ const ReaderChallenges = ({
       );
       toast.warning("You have left the reading challenge.");
       if (readersChallenges.length === 0) {
-        //if reader is no longer in any challenges, <FindChallenge /> is rendered
         setInReadingChallenge(false);
       }
     } catch (err) {
@@ -49,19 +49,15 @@ const ReaderChallenges = ({
     if (readersChallenges.length === 0) {
       setInReadingChallenge(false);
     }
-  }, [readersChallenges]);
+  });
   return (
     <div>
       <h2>Here are your reading challenges:</h2>
       {readersChallenges.map((challenge, index) => {
         return (
-          <Fragment>
+          <Fragment key={index}>
             <ul>
-              <h3
-                key={index}
-                style={{ background: "tan" }}
-                value={challenge.id}
-              >
+              <h3 style={{ background: "tan" }} value={challenge.id}>
                 {challenge.challenge_name} - <i>{challenge.organization}</i>
                 <button
                   className="btn btn-danger"

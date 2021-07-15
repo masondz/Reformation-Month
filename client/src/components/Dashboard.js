@@ -63,13 +63,8 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
-      {!inReadingChallenge ? (
-        <FindChallenge
-          setAuth={setAuth}
-          setInReadingChallenge={setInReadingChallenge}
-        />
-      ) : (
-        <div>
+      <div>
+        {inReadingChallenge && (
           <ReaderChallenges
             reader={reader}
             getReader={getReader}
@@ -78,10 +73,16 @@ const Dashboard = ({ setAuth }) => {
             setReadersChallenges={setReadersChallenges}
             setInReadingChallenge={setInReadingChallenge}
           />
-          <h2>Join another challenge:</h2>
-          {inReadingChallenge && <FindChallenge setAuth={setAuth} />}
-        </div>
-      )}
+        )}
+        <FindChallenge
+          setAuth={setAuth}
+          readersChallenges={readersChallenges}
+          setReadersChallenges={setReadersChallenges}
+          setInReadingChallenge={setInReadingChallenge}
+          checkChallenge={checkChallenge}
+        />
+      </div>
+
       <br></br>
 
       <br></br>

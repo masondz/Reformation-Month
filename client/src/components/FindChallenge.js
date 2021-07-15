@@ -1,7 +1,13 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const FindChallenge = ({ setAuth, setInReadingChallenge }) => {
+const FindChallenge = ({
+  setAuth,
+  setInReadingChallenge,
+  setReadersChallenges,
+  readersChallenges,
+  checkChallenge,
+}) => {
   const [challengeList, setChallengeList] = useState([]);
   const [inputs, setInputs] = useState({
     challenge_name: "",
@@ -58,17 +64,17 @@ const FindChallenge = ({ setAuth, setInReadingChallenge }) => {
   //
   //
   //
-  const updateInputs = () => {
-    for (let i = 0; i < challengeList.length; i++) {
-      if (challengeList[i].challenge_name === inputs.challenge_name) {
-        setInputs({
-          challenge_name: challengeList[i].challenge_name,
-          organization: challengeList[i].organization,
-          id: challengeList[i].id,
-        });
-      }
-    }
-  };
+  // const updateInputs = () => {
+  //   for (let i = 0; i < challengeList.length; i++) {
+  //     if (challengeList[i].challenge_name === inputs.challenge_name) {
+  //       setInputs({
+  //         challenge_name: challengeList[i].challenge_name,
+  //         organization: challengeList[i].organization,
+  //         id: challengeList[i].id,
+  //       });
+  //     }
+  //   }
+  // };
   //
   //
   //update inputs
@@ -106,10 +112,11 @@ const FindChallenge = ({ setAuth, setInReadingChallenge }) => {
         body: JSON.stringify(body),
       })
         .then((response) => {
-          console.log(response);
+          response.json().then((results) => console.log(results));
           if (response.status === 200) {
             toast.success(`You have joined the ${challenge_name} challenge!`);
             setInReadingChallenge(true);
+            checkChallenge();
           } else if (response.status === 401) {
             toast.error(`You have already joined challenge: ${challenge_name}`);
           } else if (response.status === 400) {
