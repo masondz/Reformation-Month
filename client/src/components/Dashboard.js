@@ -71,7 +71,7 @@ const Dashboard = ({ setAuth }) => {
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
       <div>
-        {inReadingChallenge && !createChallenge && (
+        {!createChallenge && inReadingChallenge && (
           <ReaderChallenges
             reader={reader}
             getReader={getReader}
@@ -81,17 +81,21 @@ const Dashboard = ({ setAuth }) => {
             setInReadingChallenge={setInReadingChallenge}
           />
         )}
-        <FindChallenge
-          setAuth={setAuth}
-          readersChallenges={readersChallenges}
-          setReadersChallenges={setReadersChallenges}
-          setInReadingChallenge={setInReadingChallenge}
-          checkChallenge={checkChallenge}
-        />
+        {!createChallenge && (
+          <Fragment>
+            <FindChallenge
+              setAuth={setAuth}
+              readersChallenges={readersChallenges}
+              setReadersChallenges={setReadersChallenges}
+              setInReadingChallenge={setInReadingChallenge}
+              checkChallenge={checkChallenge}
+            />
+            <button className="btn" onClick={() => setCreateChallenge(true)}>
+              Create Challenge
+            </button>
+          </Fragment>
+        )}
       </div>
-      <button className="btn" onClick={() => setCreateChallenge(true)}>
-        Create Challenge
-      </button>
       {createChallenge && <ChallengeDashboard setAuth={setAuth} />}
       {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
       <br></br>
