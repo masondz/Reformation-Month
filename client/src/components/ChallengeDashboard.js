@@ -42,7 +42,7 @@ const ChallengeDashboard = ({ setAuth }) => {
         challenge_name: "",
         organization: "",
         challenge_type: "none",
-        goal: 0,
+        goal: "",
       });
     } catch (err) {
       console.error(err.message);
