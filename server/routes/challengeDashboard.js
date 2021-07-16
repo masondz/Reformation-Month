@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
+const validInputs = require('../middleware/validinputs')
 
 //create challenge
-router.post('/', authorization, async (req, res) => {
+router.post('/', authorization, validInputs, async (req, res) => {
     try {
         const {
             challenge_name,
