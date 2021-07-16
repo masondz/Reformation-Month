@@ -96,7 +96,12 @@ const Dashboard = ({ setAuth }) => {
           </Fragment>
         )}
       </div>
-      {createChallenge && <ChallengeDashboard setAuth={setAuth} />}
+      {createChallenge && (
+        <ChallengeDashboard
+          setAuth={setAuth}
+          setCreateChallenge={setCreateChallenge}
+        />
+      )}
       {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
       <br></br>
 

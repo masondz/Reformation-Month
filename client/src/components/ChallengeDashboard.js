@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const ChallengeDashboard = ({ setAuth }) => {
+const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
@@ -117,7 +117,13 @@ const ChallengeDashboard = ({ setAuth }) => {
           value={goal}
           onChange={(e) => onChange(e)}
         />
-        <button className="btn btn-success btn-block">Submit</button>
+        <button className="btn btn-outline-success btn-lg mx-2">Submit</button>
+        <button
+          className="btn btn-outline-danger btn-lg my-2"
+          onClick={() => setCreateChallenge(false)}
+        >
+          Cancel
+        </button>
       </form>
     </Fragment>
   );
