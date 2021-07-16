@@ -75,10 +75,10 @@ const ChallengeDashboard = ({ setAuth }) => {
         <div className="form-check-inline">
           <label className="form-check-label" htmlFor="chapters">
             <input
+              defaultChecked
               id="chapters"
               className="form-check-input"
               type="radio"
-              checked
               name="challenge-type"
               onClick={(e) => onRadioClick(e)}
               value="chapters"
