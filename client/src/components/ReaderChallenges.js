@@ -71,9 +71,6 @@ const ReaderChallenges = ({
                     <button className="btn btn-info btn-sm">
                       Update Challenge
                     </button>
-                    <button className="btn btn-danger btn-sm">
-                      Delete Challenge
-                    </button>
                   </Fragment>
                 )}
               </h3>
