@@ -5,9 +5,11 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
-    challenge_type: "none",
+    challenge_type: "chapters",
     goal: "Goal",
   });
+  const [newChallengeId, setNewChallengeId] = useState("");
+
   //variables from state
   const { challenge_name, organization, challenge_type, goal } = inputs;
 
@@ -36,8 +38,12 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
           body: JSON.stringify(body),
         }
       );
+      if (response.status === 401) {
+        return toast.error("Challenge Name already exists");
+      }
       const parseRes = await response.json();
       console.log(parseRes);
+      setCreateChallenge(parseRes.id);
       setInputs({
         challenge_name: "",
         organization: "",
@@ -46,6 +52,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
       });
     } catch (err) {
       console.error(err.message);
+      toast.error(err.message);
     }
   };
 
@@ -125,6 +132,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
           Cancel
         </button>
       </form>
+      <p>{newChallengeId}</p>
     </Fragment>
   );
 };
