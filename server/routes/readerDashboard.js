@@ -82,7 +82,7 @@ router.get('/reader-challenge-id', authorization, async (req, res) => {
     try {
         const getReadersChallenges = await pool.query(
             `
-        SELECT challenge_name, organization, goal, challenge, id FROM reading_challenges ch, readers_reading_challenges rch
+        SELECT challenge_name, organization, goal, challenge, id, challenge_admin FROM reading_challenges ch, readers_reading_challenges rch
         WHERE ch.id = rch.challenge_id AND rch.reader_id = $1;`,
             [req.user]
         )

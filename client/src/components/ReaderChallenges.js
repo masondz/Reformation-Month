@@ -8,6 +8,8 @@ const ReaderChallenges = ({
   setReadersChallenges,
   setInReadingChallenge,
 }) => {
+  console.log(readersChallenges);
+  console.log(reader);
   const {
     //destructer reader that is passed down by props from Dashboard
     first_name,
@@ -55,13 +57,25 @@ const ReaderChallenges = ({
           <Fragment key={index}>
             <ul>
               <h3 style={{ background: "tan" }} value={challenge.id}>
+                {console.log(reader.id, challenge.challenge_admin)}
                 {challenge.challenge_name} - <i>{challenge.organization}</i>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => removeReader(reader.id, challenge.id)}
-                >
-                  Leave Challenge
-                </button>
+                {reader.id !== challenge.challenge_admin ? (
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeReader(reader.id, challenge.id)}
+                  >
+                    Leave Challenge
+                  </button>
+                ) : (
+                  <Fragment>
+                    <button className="btn btn-info btn-sm">
+                      Update Challenge
+                    </button>
+                    <button className="btn btn-danger btn-sm">
+                      Delete Challenge
+                    </button>
+                  </Fragment>
+                )}
               </h3>
               <h3>
                 Goal: current count / {challenge.goal} {challenge.challenge}
