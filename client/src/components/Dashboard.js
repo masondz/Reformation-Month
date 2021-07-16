@@ -10,7 +10,7 @@ const Dashboard = ({ setAuth }) => {
   const [reader, setReader] = useState("");
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
   const [readersChallenges, setReadersChallenges] = useState([]);
-
+  const [createChallenge, setCreateChallenge] = useState(false);
   //Get the Reader's info
   async function getReader() {
     try {
@@ -59,11 +59,19 @@ const Dashboard = ({ setAuth }) => {
     checkChallenge();
   }, [inReadingChallenge]);
 
+  //   useEffect(() => {
+  //   const hideComponents = (e) => {
+  //     if (createChallenge) {
+  //       e.target.style={{display: hidden}}
+  //     }
+  //   }
+  // });
+
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
       <div>
-        {inReadingChallenge && (
+        {inReadingChallenge && !createChallenge && (
           <ReaderChallenges
             reader={reader}
             getReader={getReader}
@@ -81,7 +89,11 @@ const Dashboard = ({ setAuth }) => {
           checkChallenge={checkChallenge}
         />
       </div>
-      <Link to={"/challenge-dashboard"}>Create Challenge</Link>
+      <button className="btn" onClick={() => setCreateChallenge(true)}>
+        Create Challenge
+      </button>
+      {createChallenge && <ChallengeDashboard setAuth={setAuth} />}
+      {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
       <br></br>
 
       <br></br>
