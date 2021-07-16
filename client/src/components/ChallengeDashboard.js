@@ -6,7 +6,7 @@ const ChallengeDashboard = ({ setAuth }) => {
     challenge_name: "",
     organization: "",
     challenge_type: "none",
-    goal: 0,
+    goal: "Goal",
   });
   //variables from state
   const { challenge_name, organization, challenge_type, goal } = inputs;
@@ -38,6 +38,12 @@ const ChallengeDashboard = ({ setAuth }) => {
       );
       const parseRes = await response.json();
       console.log(parseRes);
+      setInputs({
+        challenge_name: "",
+        organization: "",
+        challenge_type: "none",
+        goal: 0,
+      });
     } catch (err) {
       console.error(err.message);
     }
@@ -48,6 +54,7 @@ const ChallengeDashboard = ({ setAuth }) => {
       <h3>Create or Change Challenge</h3>
       <form onSubmit={onSubmitForm}>
         <input
+          required
           className="form-control my-3"
           type="text"
           name="challenge_name"
@@ -56,6 +63,7 @@ const ChallengeDashboard = ({ setAuth }) => {
           onChange={(e) => onChange(e)}
         />
         <input
+          required
           className="form-control my-3"
           type="text"
           name="organization"
@@ -70,6 +78,7 @@ const ChallengeDashboard = ({ setAuth }) => {
               id="chapters"
               className="form-check-input"
               type="radio"
+              checked
               name="challenge-type"
               onClick={(e) => onRadioClick(e)}
               value="chapters"
@@ -100,6 +109,7 @@ const ChallengeDashboard = ({ setAuth }) => {
           </label>
         </div>
         <input
+          required
           className="form-control my-3"
           type="number"
           name="goal"
