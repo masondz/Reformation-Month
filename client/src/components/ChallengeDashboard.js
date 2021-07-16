@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
+const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
@@ -23,6 +23,30 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
     setInputs({ ...inputs, challenge_type: e.target.value });
   };
 
+  const addReader = async () => {
+    const reader_id = reader.id;
+    const challenge_id = newChallengeId;
+    const body = { reader_id, challenge_id };
+    const response = await fetch("http://localhost:5000/find-challenges", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.token,
+      },
+
+      body: JSON.stringify(body),
+    });
+    console.log(`reader_id: ${reader_id} challenge_id: ${challenge_id}`);
+    return response.json();
+  };
+
+  useEffect(() => {
+    if (newChallengeId) {
+      console.log("newChallengeId state is not falsey");
+      addReader();
+    }
+  }, [newChallengeId]);
+
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
@@ -41,13 +65,18 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge }) => {
       if (response.status === 401) {
         return toast.error("Challenge Name already exists");
       }
-      const parseRes = await response.json();
-      console.log(parseRes);
-      setCreateChallenge(parseRes.id);
+      await response
+        .json()
+        .then((response) => setNewChallengeId(response.id))
+        .then(() => console.log(newChallengeId))
+        .then(() => addReader());
+
+      //   const parseSecond = await addReadertoChallenge.json();
+      console.log(newChallengeId);
       setInputs({
         challenge_name: "",
         organization: "",
-        challenge_type: "none",
+        challenge_type: "chapters",
         goal: "",
       });
     } catch (err) {

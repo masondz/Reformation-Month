@@ -12,6 +12,7 @@ const Dashboard = ({ setAuth }) => {
   const [readersChallenges, setReadersChallenges] = useState([]);
   const [createChallenge, setCreateChallenge] = useState(false);
   //Get the Reader's info
+  console.log(readersChallenges);
   async function getReader() {
     try {
       const response = await fetch("http://localhost:5000/dashboard/", {
@@ -100,6 +101,7 @@ const Dashboard = ({ setAuth }) => {
         <ChallengeDashboard
           setAuth={setAuth}
           setCreateChallenge={setCreateChallenge}
+          reader={reader}
         />
       )}
       {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
