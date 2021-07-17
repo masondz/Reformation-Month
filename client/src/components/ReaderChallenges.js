@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
+import EditChallenge from "./EditChallenge";
+
 const ReaderChallenges = ({
   setAuth,
   reader,
@@ -49,6 +51,7 @@ const ReaderChallenges = ({
       setInReadingChallenge(false);
     }
   });
+
   return (
     <div>
       <h2>Here are your reading challenges:</h2>
@@ -68,9 +71,7 @@ const ReaderChallenges = ({
                   </button>
                 ) : (
                   <Fragment>
-                    <button className="btn btn-info btn-sm">
-                      Update Challenge
-                    </button>
+                    <EditChallenge challenge={challenge} reader={reader} />
                   </Fragment>
                 )}
               </h3>
