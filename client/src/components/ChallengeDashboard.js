@@ -121,9 +121,9 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
             />
             Read Chapters
           </label>
-          <label className="form-check-label my-3 mx-3" htmlFor="chapters">
+          <label className="form-check-label my-3 mx-3" htmlFor="books">
             <input
-              id="chapters"
+              id="books"
               className="form-check-input"
               type="radio"
               name="challenge-type"
@@ -132,9 +132,9 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
             />
             Read Books
           </label>
-          <label className="form-check-label" htmlFor="chapters">
+          <label className="form-check-label" htmlFor="versus">
             <input
-              id="chapters"
+              id="versus"
               className="form-check-input"
               type="radio"
               name="challenge-type"
