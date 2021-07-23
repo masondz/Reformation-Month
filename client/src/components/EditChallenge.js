@@ -4,6 +4,7 @@ import React, { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 // import { inputs } from "../../../server/routes/readerDashboard";
 //testing switching things
+//testing pushing things to master
 const EditChallenge = ({ challenge, reader }) => {
   // console.log(reader);
   console.log(challenge);
