@@ -1,3 +1,5 @@
+// inputs may need to be defined by the recieved data in the parent state, then passed as props to EditChallenge.js
+
 import React, { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 // import { inputs } from "../../../server/routes/readerDashboard";
