@@ -22,12 +22,40 @@ const EditChallenge = ({ challenge, reader }) => {
     id: challenge.id,
   };
 
-  const onDelete = () => {
+  const onDelete = async () => {
     const choice = window.confirm("Are you sure you want to delete challenge?");
-    if (choice === true) {
-      console.log("going to delete the challenge");
-    } else {
-      console.log("challenge not deleted");
+    try {
+      if (choice === true) {
+        console.log("going to delete the challenge");
+        const reader_id = reader.id;
+        const challenge_name = inputs.challenge_name;
+        console.log(challenge_name);
+        const body = { reader_id, challenge_name };
+        const deleteChallenge = await fetch(
+          "http://localhost:5000/challenge-dashboard/",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              token: localStorage.token,
+            },
+            body: JSON.stringify(body),
+          }
+        );
+        const response = await deleteChallenge.json();
+        console.log(response);
+        if (deleteChallenge.status === 202) {
+          toast.success("Challenge deleted successfully.");
+        } else if (deleteChallenge.status === 401) {
+          toast.error("Challenge already doesn't exist.");
+        } else if (deleteChallenge.status === 403) {
+          toast.error("You are not authorized to delete this challenge.");
+        }
+      } else {
+        toast.warning("Challenge not deleted.");
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   };
 
@@ -198,22 +226,22 @@ const EditChallenge = ({ challenge, reader }) => {
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-                data-dismiss="modal"
-                onClick={() => {
-                  onDelete();
-                  setInputs(originalInputs);
-                }}
-              >
-                Close
-              </button>
-              <button
-                type="button"
                 class="btn btn-primary"
                 onClick={(e) => updateChallenge(e)}
               >
                 Save changes
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+                data-dismiss="modal"
+                onClick={() => {
+                  onDelete();
+                  window.location = "/dashboard";
+                }}
+              >
+                Delete
               </button>
             </div>
           </div>
