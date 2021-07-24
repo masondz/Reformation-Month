@@ -36,7 +36,7 @@ const EditChallenge = ({ challenge, reader }) => {
           {
             method: "DELETE",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json", //this is needed since we're sending over body content
               token: localStorage.token,
             },
             body: JSON.stringify(body),
@@ -120,7 +120,7 @@ const EditChallenge = ({ challenge, reader }) => {
         Edit
       </button>
       <div
-        class="modal fade"
+        className="modal fade"
         id={`id${challenge.id}`}
         tabindex="-1"
         aria-labelledby="edit-challenge"
