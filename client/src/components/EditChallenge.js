@@ -22,13 +22,22 @@ const EditChallenge = ({ challenge, reader }) => {
     id: challenge.id,
   };
 
+  const onDelete = () => {
+    const choice = window.confirm("Are you sure you want to delete challenge?");
+    if (choice === true) {
+      console.log("going to delete the challenge");
+    } else {
+      console.log("challenge not deleted");
+    }
+  };
+
   const onChange = (e) => {
     e.preventDefault();
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   //work on submitting changes
-  console.log(inputs);
+  // console.log(inputs);
   const updateChallenge = async (e) => {
     e.preventDefault();
     try {
@@ -192,7 +201,10 @@ const EditChallenge = ({ challenge, reader }) => {
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
                 data-dismiss="modal"
-                onClick={() => setInputs(originalInputs)}
+                onClick={() => {
+                  onDelete();
+                  setInputs(originalInputs);
+                }}
               >
                 Close
               </button>
