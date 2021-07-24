@@ -71,10 +71,12 @@ router.put('/', authorization, async (req, res) => {
             `SELECT challenge_name, challenge_admin FROM reading_challenges WHERE challenge_name = $1`,
             [challenge_name]
         )
-        if (challengeExist.rowCount === 0) {
-            return res
-                .status(401)
-                .json(`Reading challenge ${challenge_name} does not exist.`)
+        if (challengeExist.rowCount !== 0) {
+            // return res
+            console.log('same name')
+            // pass
+            // .status(401)
+            // .json(`Reading challenge ${challenge_name} already exists.`)
         } else if (challengeExist.rows[0].challenge_admin !== reader_id) {
             return res
                 .status(403)

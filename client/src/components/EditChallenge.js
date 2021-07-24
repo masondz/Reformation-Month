@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 //third test
 const EditChallenge = ({ challenge, reader }) => {
   // console.log(reader);
-  console.log(challenge);
+  // console.log(challenge);
   const [inputs, setInputs] = useState({
     challenge_name: challenge.challenge_name,
     organization: challenge.organization,
@@ -22,44 +22,39 @@ const EditChallenge = ({ challenge, reader }) => {
     id: challenge.id,
   };
 
-  const onClick = () => {
-    console.log("clicked");
-  };
-
   const onChange = (e) => {
     e.preventDefault();
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   //work on submitting changes
-
-  const onSubmit = async (e) => {
+  console.log(inputs);
+  const updateChallenge = async (e) => {
     e.preventDefault();
     try {
       const reader_id = reader.id;
-      const { challenge_name, organization, challenge_type, goal, id } = inputs;
+      const { challenge_name, organization, challenge, goal, id } = inputs;
       const body = {
         reader_id,
         challenge_name,
         organization,
-        challenge_type,
+        challenge,
         goal,
         id,
       };
+      console.log(body);
       const response = await fetch(
         "http://localhost:5000/challenge-dashboard/",
         {
           method: "PUT",
           headers: {
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
             token: localStorage.token,
           },
           body: JSON.stringify(body),
         }
       );
-      if (response.status === 401) {
-        return toast.error("Challenge name already exists");
-      } else if (response.status === 403) {
+      if (response.status === 403) {
         return toast.error("You are not authorized to change this challenge");
       }
       await response.json().then((response) =>
@@ -71,6 +66,7 @@ const EditChallenge = ({ challenge, reader }) => {
           goal: response.goal,
         })
       );
+      window.location = "/dashboard";
     } catch (err) {
       console.error(err.messages);
     }
@@ -110,21 +106,27 @@ const EditChallenge = ({ challenge, reader }) => {
             </div>
             <div class="modal-body">
               <form className="form-control">
-                <lable htmlFor="challenge_name">
-                  Challenge Name:
+                <div className="form-control bg-warning text-white">
+                  <lable htmlFor="goal" className="mr-2">
+                    Goal:
+                    <br></br>
+                  </lable>
                   <input
-                    className="form-control mt-2"
-                    type="text"
-                    name="challenge_name"
-                    value={inputs.challenge_name}
+                    className="ms-3 mt-1"
+                    type="number"
+                    name="goal"
                     onChange={(e) => onChange(e)}
+                    value={inputs.goal}
                   />
-                </lable>
+                </div>
                 <br></br>
-                <lable htmlFor="organization">
+                <lable
+                  htmlFor="organization"
+                  className="bg-warning text-white form-control"
+                >
                   Organization:
                   <input
-                    className="form-control mt-2"
+                    className=" form-control mt-1"
                     type="text"
                     name="organization"
                     value={inputs.organization}
@@ -182,15 +184,6 @@ const EditChallenge = ({ challenge, reader }) => {
                   </label>
                 </div>
                 <br></br>
-                <lable htmlFor="goal">Goal:</lable>
-                <br></br>
-                <input
-                  className="mt-2"
-                  type="number"
-                  name="goal"
-                  onChange={(e) => onChange(e)}
-                  value={inputs.goal}
-                />
               </form>
             </div>
             <div class="modal-footer">
@@ -206,7 +199,7 @@ const EditChallenge = ({ challenge, reader }) => {
               <button
                 type="button"
                 class="btn btn-primary"
-                onSubmit={() => onSubmit()}
+                onClick={(e) => updateChallenge(e)}
               >
                 Save changes
               </button>
