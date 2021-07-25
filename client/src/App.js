@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ChallengeDashboard from "./components/ChallengeDashboard";
+import ReaderInfo from "./components/ReaderInfo";
 
 toast.configure();
 
@@ -87,6 +88,17 @@ function App() {
               render={(props) =>
                 isAuthenticated ? (
                   <ChallengeDashboard {...props} setAuth={setAuth} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/reader-profile"
+              render={(props) =>
+                isAuthenticated ? (
+                  <ReaderInfo {...props} setAuth={setAuth} />
                 ) : (
                   <Redirect to="/login" />
                 )

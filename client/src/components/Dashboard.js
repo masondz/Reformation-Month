@@ -71,6 +71,9 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
+      <button className="btn btn-info">
+        <Link to="/reader-profile">Profile</Link>
+      </button>
       <div>
         {!createChallenge && inReadingChallenge && (
           <ReaderChallenges
