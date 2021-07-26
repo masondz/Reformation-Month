@@ -146,9 +146,6 @@ const FindChallenge = ({
           })}
         </datalist>
       </form>
-      <p>
-        {challenge_name}, {id}, {organization}
-      </p>
     </Fragment>
   );
 };

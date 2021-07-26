@@ -95,7 +95,7 @@ function App() {
             />
             <Route
               exact
-              path="/reader-profile"
+              path="/readers/:id"
               render={(props) =>
                 isAuthenticated ? (
                   <ReaderInfo {...props} setAuth={setAuth} />

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import FindChallenge from "./FindChallenge";
 import ReaderChallenges from "./ReaderChallenges";
 import ChallengeDashboard from "./ChallengeDashboard";
+import ReaderInfo from "./ReaderInfo";
 
 const Dashboard = ({ setAuth }) => {
   const [reader, setReader] = useState("");
@@ -71,10 +72,10 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
-      <button className="btn btn-info">
-        <Link to="/reader-profile">Profile</Link>
-      </button>
       <div>
+        <ReaderInfo reader={reader} />
+        <br></br>
+        <br></br>
         {!createChallenge && inReadingChallenge && (
           <ReaderChallenges
             reader={reader}
@@ -85,33 +86,43 @@ const Dashboard = ({ setAuth }) => {
             setInReadingChallenge={setInReadingChallenge}
           />
         )}
+        <br></br>
         {!createChallenge && (
           <Fragment>
-            <FindChallenge
-              setAuth={setAuth}
-              readersChallenges={readersChallenges}
-              setReadersChallenges={setReadersChallenges}
-              setInReadingChallenge={setInReadingChallenge}
-              checkChallenge={checkChallenge}
-            />
-            <button className="btn" onClick={() => setCreateChallenge(true)}>
+            <div className="form-control mb-5">
+              <FindChallenge
+                setAuth={setAuth}
+                readersChallenges={readersChallenges}
+                setReadersChallenges={setReadersChallenges}
+                setInReadingChallenge={setInReadingChallenge}
+                checkChallenge={checkChallenge}
+              />
+            </div>
+            <button
+              className="btn btn-outline-info"
+              onClick={() => setCreateChallenge(true)}
+            >
               Create Challenge
             </button>
           </Fragment>
         )}
       </div>
-      {createChallenge && (
-        <ChallengeDashboard
-          setAuth={setAuth}
-          setCreateChallenge={setCreateChallenge}
-          reader={reader}
-        />
-      )}
+      <div className="mt-5">
+        {createChallenge && (
+          <ChallengeDashboard
+            setAuth={setAuth}
+            setCreateChallenge={setCreateChallenge}
+            reader={reader}
+          />
+        )}
+      </div>
       {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
       <br></br>
 
-      <br></br>
-      <button className="btn btn-primary" onClick={(e) => logout(e)}>
+      <button
+        className="btn btn-warning text-white btn-sm mb-5"
+        onClick={(e) => logout(e)}
+      >
         Logout
       </button>
     </Fragment>

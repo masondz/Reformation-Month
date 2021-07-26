@@ -5,13 +5,13 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
-    challenge_type: "chapters",
-    goal: "Goal",
+    challenge: "chapters",
+    goal: "",
   });
   const [newChallengeId, setNewChallengeId] = useState("");
 
   //variables from state
-  const { challenge_name, organization, challenge_type, goal } = inputs;
+  const { challenge_name, organization, challenge, goal } = inputs;
 
   //input fields for from
   const onChange = (e) => {
@@ -20,7 +20,8 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
 
   //radio buttons for challenge-type
   const onRadioClick = (e) => {
-    setInputs({ ...inputs, challenge_type: e.target.value });
+    console.log("radio clicked");
+    setInputs({ ...inputs, challenge: e.target.value });
   };
 
   const addReader = async () => {
@@ -50,7 +51,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { challenge_name, organization, challenge_type, goal };
+      const body = { challenge_name, organization, challenge, goal };
       const response = await fetch(
         "http://localhost:5000/challenge-dashboard",
         {
@@ -76,9 +77,10 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
       setInputs({
         challenge_name: "",
         organization: "",
-        challenge_type: "chapters",
+        challenge: "chapters",
         goal: "",
       });
+      window.location = "/dashboard";
     } catch (err) {
       console.error(err.message);
       toast.error(err.message);

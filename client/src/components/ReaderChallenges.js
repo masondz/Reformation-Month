@@ -54,7 +54,7 @@ const ReaderChallenges = ({
 
   return (
     <div>
-      <h2>Here are your reading challenges:</h2>
+      <h2>Reading challenges:</h2>
       {readersChallenges.map((challenge, index) => {
         return (
           <Fragment key={index}>

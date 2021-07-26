@@ -1,10 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
-const ReaderInfo = ({ setAuth }) => {
+const ReaderInfo = ({ setAuth, reader }) => {
+  console.log(reader);
+
   return (
-    <Fragment>
-      <h1>Reader Info Goes Here</h1>
-      <h2>some info</h2>
+    <Fragment className="form-control">
+      <h2>{reader.first_name}'s Info Goes Here</h2>
+      <div>
+        <h3>
+          Chapters: {reader.chapters_read} Books: {reader.books_read} Verses:{" "}
+          {reader.verses_memorized}
+        </h3>
+      </div>
+      <button className="btn btn-outline-primary">Report Reading</button>
     </Fragment>
   );
 };

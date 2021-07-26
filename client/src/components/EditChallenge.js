@@ -146,10 +146,9 @@ const EditChallenge = ({ challenge, reader }) => {
                 <div className="form-control bg-warning text-white">
                   <lable htmlFor="goal" className="mr-2">
                     Goal:
-                    <br></br>
                   </lable>
                   <input
-                    className="ms-3 mt-1"
+                    className="form-control mt-1"
                     type="number"
                     name="goal"
                     onChange={(e) => onChange(e)}
