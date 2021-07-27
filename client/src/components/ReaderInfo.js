@@ -4,7 +4,7 @@ const ReaderInfo = ({ setAuth, reader }) => {
   console.log(reader);
 
   return (
-    <Fragment className="form-control">
+    <Fragment>
       <h2>{reader.first_name}'s Info Goes Here</h2>
       <div>
         <h3>

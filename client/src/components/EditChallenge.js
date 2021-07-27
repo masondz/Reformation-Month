@@ -10,15 +10,15 @@ const EditChallenge = ({ challenge, reader }) => {
     challenge_name: challenge.challenge_name,
     organization: challenge.organization,
     goal: challenge.goal,
-    challenge: challenge.challenge,
+    challenge_type: challenge.challenge,
     id: challenge.id,
   });
-
+  console.log(inputs.challenge_type);
   const originalInputs = {
     challenge_name: challenge.challenge_name,
     organization: challenge.organization,
     goal: challenge.goal,
-    challenge: challenge.challenge,
+    challenge_type: challenge.challenge,
     id: challenge.id,
   };
 
@@ -64,18 +64,23 @@ const EditChallenge = ({ challenge, reader }) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const onRadioClick = (e) => {
+    console.log("radio clicked");
+    setInputs({ ...inputs, challenge_type: e.target.value });
+  };
+
   //work on submitting changes
   // console.log(inputs);
   const updateChallenge = async (e) => {
     e.preventDefault();
     try {
       const reader_id = reader.id;
-      const { challenge_name, organization, challenge, goal, id } = inputs;
+      const { challenge_name, organization, challenge_type, goal, id } = inputs;
       const body = {
         reader_id,
         challenge_name,
         organization,
-        challenge,
+        challenge_type,
         goal,
         id,
       };
@@ -94,16 +99,8 @@ const EditChallenge = ({ challenge, reader }) => {
       if (response.status === 403) {
         return toast.error("You are not authorized to change this challenge");
       }
-      await response.json().then((response) =>
-        setInputs({
-          ...inputs,
-          challenge_name: response.challenge_name,
-          organization: response.organization,
-          challenge: response.challenge,
-          goal: response.goal,
-        })
-      );
       window.location = "/dashboard";
+      toast.success("Reading Challenge updated!");
     } catch (err) {
       console.error(err.messages);
     }
@@ -174,51 +171,50 @@ const EditChallenge = ({ challenge, reader }) => {
                   Challenge Type:{" "}
                 </lable>
                 <br></br>
-                <div
-                  className="btn-group mt-2"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <label htmlFor="chapters" className="btn btn-outline-primary">
-                    {" "}
-                    Chapters
-                    <input
-                      autocomplete="off"
-                      className="btn-check "
-                      type="radio"
-                      id="chapters"
-                      name="challenge"
-                      value="chapters"
-                      onChange={(e) => onChange(e)}
-                    ></input>
+                <div className="form-check">
+                  <input
+                    defaultChecked
+                    autoComplete="off"
+                    id="chapters"
+                    className="btn-check"
+                    type="radio"
+                    name="challenge-type"
+                    onClick={(e) => onRadioClick(e)}
+                    value="chapters"
+                  />
+                  <label className="btn btn-outline-primary" htmlFor="chapters">
+                    Read Chapters
                   </label>
-                  <label htmlFor="books" className="btn btn-outline-primary">
-                    {" "}
-                    Books
-                    <input
-                      autocomplete="off"
-                      className="btn-check"
-                      onChange={(e) => onChange(e)}
-                      type="radio"
-                      id="books"
-                      name="challenge"
-                      value="books"
-                    ></input>
+                  <input
+                    autoComplete="off"
+                    id="books"
+                    className="btn-check"
+                    autoComplete="off"
+                    type="radio"
+                    name="challenge-type"
+                    value="books"
+                    onClick={(e) => onRadioClick(e)}
+                  />
+                  <label
+                    className="btn btn-outline-primary my-3 mx-3"
+                    htmlFor="books"
+                  >
+                    Read Books
                   </label>
-                  <label htmlFor="verses" className="btn btn-outline-primary">
-                    {" "}
-                    Verses
-                    <input
-                      autocomplete="off"
-                      className="btn-check m-3"
-                      type="radio"
-                      id="verses"
-                      name="challenge"
-                      value="verses"
-                      onChange={(e) => onChange(e)}
-                    ></input>
+                  <input
+                    autoComplete="off"
+                    id="versus"
+                    className="btn-check"
+                    type="radio"
+                    name="challenge-type"
+                    value="versus"
+                    onClick={(e) => onRadioClick(e)}
+                  />
+                  <label className="btn btn-outline-primary" htmlFor="versus">
+                    Memorize Versus
                   </label>
                 </div>
+                <p>{inputs.challenge_type}</p>
                 <br></br>
               </form>
             </div>

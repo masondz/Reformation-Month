@@ -111,38 +111,40 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
         />
         <h3>Select Challenge Type</h3>
         <div className="form-check-inline">
-          <label className="form-check-label" htmlFor="chapters">
-            <input
-              defaultChecked
-              id="chapters"
-              className="form-check-input"
-              type="radio"
-              name="challenge-type"
-              onClick={(e) => onRadioClick(e)}
-              value="chapters"
-            />
+          <input
+            defaultChecked
+            autoComplete="off"
+            id="chapters"
+            className="btn-check"
+            type="radio"
+            name="challenge-type"
+            onClick={(e) => onRadioClick(e)}
+            value="chapters"
+          />
+          <label className="btn btn-outline-primary" htmlFor="chapters">
             Read Chapters
           </label>
-          <label className="form-check-label my-3 mx-3" htmlFor="books">
-            <input
-              id="books"
-              className="form-check-input"
-              type="radio"
-              name="challenge-type"
-              value="books"
-              onClick={(e) => onRadioClick(e)}
-            />
+          <input
+            id="books"
+            className="btn-check"
+            autoComplete="off"
+            type="radio"
+            name="challenge-type"
+            value="books"
+            onClick={(e) => onRadioClick(e)}
+          />
+          <label className="btn btn-outline-primary my-3 mx-3" htmlFor="books">
             Read Books
           </label>
-          <label className="form-check-label" htmlFor="versus">
-            <input
-              id="versus"
-              className="form-check-input"
-              type="radio"
-              name="challenge-type"
-              value="versus"
-              onClick={(e) => onRadioClick(e)}
-            />
+          <input
+            id="versus"
+            className="btn-check"
+            type="radio"
+            name="challenge-type"
+            value="versus"
+            onClick={(e) => onRadioClick(e)}
+          />
+          <label className="btn btn-outline-primary" htmlFor="versus">
             Memorize Versus
           </label>
         </div>
