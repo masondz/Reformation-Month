@@ -71,3 +71,6 @@ VALUES ()
 
 SELECT challenge_name FROM reading_challenges ch, readers_reading_challenges rch
 WHERE ch.id = rch.challenge_id AND rch.reader_id = '60650ec4-71d4-4437-b564-57f930e84f27';
+
+
+UPDATE readers SET chapters_read WHERE reader_id = '98df0f44-2d5e-43fd-b503-65b84e99638f';
