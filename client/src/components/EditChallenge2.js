@@ -178,7 +178,7 @@ const EditChallenge = ({ challenge, reader }) => {
                   <div class="btn-group ChallengeType bg-white">
                     <button
                       type="button"
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-secondary"
                       name="challenge_type"
                       onClick={(e) => onRadioClick(e)}
                       value="chapters"
@@ -187,7 +187,7 @@ const EditChallenge = ({ challenge, reader }) => {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-secondary"
                       value="books"
                       name="challenge_type"
                       onClick={(e) => onRadioClick(e)}
@@ -196,7 +196,7 @@ const EditChallenge = ({ challenge, reader }) => {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-secondary"
                       value="versus"
                       name="challenge_type"
                       onClick={(e) => onRadioClick(e)}
