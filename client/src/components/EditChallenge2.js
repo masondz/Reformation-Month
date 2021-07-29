@@ -172,9 +172,11 @@ const EditChallenge = ({ challenge, reader }) => {
                 </lable>
                 <br></br>
                 <div className="form-control bg-light">
-                  <h3 className="OptionSign bg-white">
+                  Challenge Type:
+                  <br></br>
+                  <h4 className="OptionSign border border-secondary">
                     {inputs.challenge_type}
-                  </h3>
+                  </h4>
                   <div class="btn-group ChallengeType bg-white">
                     <button
                       type="button"
