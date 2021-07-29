@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import EditChallenge from "./EditChallenge";
+import EditChallenge2 from "./EditChallenge2";
 
 const ReaderChallenges = ({
   setAuth,
@@ -10,8 +11,8 @@ const ReaderChallenges = ({
   setReadersChallenges,
   setInReadingChallenge,
 }) => {
-  console.log(readersChallenges);
-  console.log(reader);
+  // console.log(readersChallenges);
+  // console.log(reader);
   const {
     //destructer reader that is passed down by props from Dashboard
     first_name,
@@ -55,9 +56,9 @@ const ReaderChallenges = ({
   return (
     <div>
       <h2>Reading challenges:</h2>
-      {readersChallenges.map((challenge, index) => {
+      {readersChallenges.map((challenge) => {
         return (
-          <Fragment key={index}>
+          <Fragment key={challenge.challenge_id}>
             <ul>
               <h3 style={{ background: "tan" }} value={challenge.id}>
                 {console.log(reader.id, challenge.challenge_admin)}
@@ -71,7 +72,7 @@ const ReaderChallenges = ({
                   </button>
                 ) : (
                   <Fragment>
-                    <EditChallenge challenge={challenge} reader={reader} />
+                    <EditChallenge2 challenge={challenge} reader={reader} />
                   </Fragment>
                 )}
               </h3>

@@ -117,7 +117,7 @@ router.delete('/', authorization, async (req, res) => {
             return res
                 .status(401)
                 .json(`Reading challenge ${challenge_name} does not exist.`)
-        } else if (challengeExist.rows[0].challenge_admin !== reader_id) {
+        } else if (challengeExist.rowCount[0].challenge_admin !== reader_id) {
             return res
                 .status(403)
                 .json(

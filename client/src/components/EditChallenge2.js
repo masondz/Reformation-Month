@@ -66,6 +66,7 @@ const EditChallenge = ({ challenge, reader }) => {
 
   const onRadioClick = (e) => {
     console.log("radio clicked");
+    e.preventDefault();
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
@@ -117,7 +118,7 @@ const EditChallenge = ({ challenge, reader }) => {
         data-toggle="modal"
         data-target={targetId}
       >
-        {inputs.organization} {inputs.challenge_type}
+        Edit
       </button>
       <div
         className="modal fade"
@@ -129,9 +130,9 @@ const EditChallenge = ({ challenge, reader }) => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id={jsxId}>
-                Edit Challenge Details
-              </h5>
+              <h3 class="modal-title" id={jsxId}>
+                Edit Challenge {inputs.challenge_name}
+              </h3>
               <button
                 type="button"
                 className="btn-close close"
@@ -143,7 +144,7 @@ const EditChallenge = ({ challenge, reader }) => {
             </div>
             <div class="modal-body">
               <form className="form-control">
-                <div className="form-control bg-warning text-white">
+                <div className="form-control bg-light text-black">
                   <lable htmlFor="goal" className="mr-2">
                     Goal:
                   </lable>
@@ -158,7 +159,7 @@ const EditChallenge = ({ challenge, reader }) => {
                 <br></br>
                 <lable
                   htmlFor="organization"
-                  className="bg-warning text-white form-control"
+                  className="bg-light text-black form-control"
                 >
                   Organization:
                   <input
@@ -170,57 +171,40 @@ const EditChallenge = ({ challenge, reader }) => {
                   />
                 </lable>
                 <br></br>
-                <lable className="my-4" htmlFor="challenge">
-                  Challenge Type:{" "}
-                </lable>
-                <br></br>
-                <form
-                  className="form-check"
-                  onChange={(e) => onRadioClick(e)}
-                  id={jsxId}
-                >
-                  <input
-                    defaultChecked
-                    autoComplete="off"
-                    id="chapters"
-                    className="btn-check"
-                    type="radio"
-                    name="challenge_type"
-                    onClick={(e) => onRadioClick(e)}
-                    value="chapters"
-                  />
-                  <label className="btn btn-outline-primary" htmlFor="chapters">
-                    Read Chapters
-                  </label>
-                  <input
-                    autoComplete="off"
-                    id="books"
-                    className="btn-check"
-                    type="radio"
-                    name="challenge_type"
-                    value="books"
-                    onClick={(e) => onRadioClick(e)}
-                  />
-                  <label
-                    className="btn btn-outline-primary my-3 mx-3"
-                    htmlFor="books"
-                  >
-                    Read Books
-                  </label>
-                  <input
-                    autoComplete="off"
-                    id="versus"
-                    className="btn-check"
-                    type="radio"
-                    name="challenge_type"
-                    value="versus"
-                    onClick={(e) => onRadioClick(e)}
-                  />
-                  <label className="btn btn-outline-primary" htmlFor="versus">
-                    Memorize Versus
-                  </label>
-                </form>
-                <p>{inputs.challenge_type}</p>
+                <div className="form-control bg-light">
+                  <h3 className="OptionSign bg-white">
+                    {inputs.challenge_type}
+                  </h3>
+                  <div class="btn-group ChallengeType bg-white">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      name="challenge_type"
+                      onClick={(e) => onRadioClick(e)}
+                      value="chapters"
+                    >
+                      Chapters
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      value="books"
+                      name="challenge_type"
+                      onClick={(e) => onRadioClick(e)}
+                    >
+                      Books
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      value="versus"
+                      name="challenge_type"
+                      onClick={(e) => onRadioClick(e)}
+                    >
+                      Verses
+                    </button>
+                  </div>
+                </div>
                 <br></br>
               </form>
             </div>
