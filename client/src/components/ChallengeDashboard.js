@@ -5,13 +5,13 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   const [inputs, setInputs] = useState({
     challenge_name: "",
     organization: "",
-    challenge: "chapters",
+    challenge_type: "chapters",
     goal: "",
   });
   const [newChallengeId, setNewChallengeId] = useState("");
 
   //variables from state
-  const { challenge_name, organization, challenge, goal } = inputs;
+  const { challenge_name, organization, challenge_type, goal } = inputs;
 
   //input fields for from
   const onChange = (e) => {
@@ -21,7 +21,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   //radio buttons for challenge-type
   const onRadioClick = (e) => {
     console.log("radio clicked");
-    setInputs({ ...inputs, challenge: e.target.value });
+    setInputs({ ...inputs, challenge_type: e.target.value });
   };
 
   const addReader = async () => {
@@ -51,7 +51,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { challenge_name, organization, challenge, goal };
+      const body = { challenge_name, organization, challenge_type, goal };
       const response = await fetch(
         "http://localhost:5000/challenge-dashboard",
         {
@@ -77,7 +77,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
       setInputs({
         challenge_name: "",
         organization: "",
-        challenge: "chapters",
+        challenge_type: "chapters",
         goal: "",
       });
       window.location = "/dashboard";
@@ -165,6 +165,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
         </button>
       </form>
       <p>{newChallengeId}</p>
+      <p>{inputs.challenge_type}</p>
     </Fragment>
   );
 };
