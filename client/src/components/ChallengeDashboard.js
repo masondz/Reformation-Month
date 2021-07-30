@@ -112,7 +112,6 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
         <h3>Select Challenge Type</h3>
         <div className="form-check-inline">
           <input
-            defaultChecked
             autoComplete="off"
             id="chapters"
             className="btn-check"

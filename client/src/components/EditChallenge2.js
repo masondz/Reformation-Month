@@ -1,10 +1,15 @@
 // inputs may need to be defined by the recieved data in the parent state, then passed as props to EditChallenge.js
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 //third test
-const EditChallenge = ({ challenge, reader }) => {
-  // console.log(reader);
+const EditChallenge = ({
+  challenge,
+  reader,
+  setReadersChallenges,
+  readersChallenges,
+}) => {
+  console.log(readersChallenges);
   // console.log(challenge);
   const [inputs, setInputs] = useState({
     challenge_name: challenge.challenge_name,
@@ -22,15 +27,17 @@ const EditChallenge = ({ challenge, reader }) => {
     id: challenge.id,
   };
 
-  const onDelete = async () => {
+  const onDelete = async (challenge_id) => {
     const choice = window.confirm("Are you sure you want to delete challenge?");
     try {
       if (choice === true) {
         console.log("going to delete the challenge");
         const reader_id = reader.id;
         const challenge_name = inputs.challenge_name;
-        console.log(challenge_name);
+        console.log(challenge_name, reader_id);
         const body = { reader_id, challenge_name };
+
+        console.log(readersChallenges);
         const deleteChallenge = await fetch(
           "http://localhost:5000/challenge-dashboard/",
           {
@@ -45,7 +52,7 @@ const EditChallenge = ({ challenge, reader }) => {
         const response = await deleteChallenge.json();
         console.log(response);
         if (deleteChallenge.status === 202) {
-          toast.success("Challenge deleted successfully.");
+          window.location = "/dashboard";
         } else if (deleteChallenge.status === 401) {
           toast.error("Challenge already doesn't exist.");
         } else if (deleteChallenge.status === 403) {
@@ -225,7 +232,6 @@ const EditChallenge = ({ challenge, reader }) => {
                 data-dismiss="modal"
                 onClick={() => {
                   onDelete();
-                  window.location = "/dashboard";
                 }}
               >
                 Delete

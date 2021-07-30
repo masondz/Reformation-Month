@@ -72,7 +72,12 @@ const ReaderChallenges = ({
                   </button>
                 ) : (
                   <Fragment>
-                    <EditChallenge2 challenge={challenge} reader={reader} />
+                    <EditChallenge2
+                      challenge={challenge}
+                      reader={reader}
+                      setReadersChallenges={setReadersChallenges}
+                      readersChallenges={readersChallenges}
+                    />
                   </Fragment>
                 )}
               </h3>
