@@ -74,3 +74,17 @@ WHERE ch.id = rch.challenge_id AND rch.reader_id = '60650ec4-71d4-4437-b564-57f9
 
 
 UPDATE readers SET chapters_read WHERE reader_id = '98df0f44-2d5e-43fd-b503-65b84e99638f';
+
+CREATE TABLE additional_readers (
+    ad_reader_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(100),
+    chapters_read INTEGER,
+    books_read INTEGER,
+    verses_memorized INTEGER
+)
+
+CREATE TABLE readers_additional_readers (
+    ad_reader_id uuid REFERENCES additional_readers(ad_reader_id) ON DELETE CASCADE,
+    reader_id uuid REFERENCES readers(id) ON DELETE CASCADE,
+    PRIMARY KEY (ad_reader_id, reader_id)
+)
