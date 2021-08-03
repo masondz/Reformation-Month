@@ -27,6 +27,10 @@ app.use('/challenge-dashboard', require('../server/routes/challengeDashboard'))
 
 app.use('/reader-dashboard', require('../server/routes/readerDashboard'))
 
+//increment or decrement challenge totals per reader
+
+app.use('/submit-report', require('../server/routes/submitReading'))
+
 //CRUD FOR readers
 //create new reader with app.post
 
