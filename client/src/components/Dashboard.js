@@ -6,6 +6,7 @@ import FindChallenge from "./FindChallenge";
 import ReaderChallenges from "./ReaderChallenges";
 import ChallengeDashboard from "./ChallengeDashboard";
 import ReaderInfo from "./ReaderInfo";
+import ReportReading from "./ReportReading";
 
 const Dashboard = ({ setAuth }) => {
   const [reader, setReader] = useState("");
@@ -74,17 +75,24 @@ const Dashboard = ({ setAuth }) => {
       <h1>Welcome {reader.first_name}</h1>
       <div>
         <ReaderInfo reader={reader} />
+        <ReportReading
+          setAuth={setAuth}
+          reader={reader}
+          setReader={setReader}
+        />
         <br></br>
         <br></br>
         {!createChallenge && inReadingChallenge && (
-          <ReaderChallenges
-            reader={reader}
-            getReader={getReader}
-            setAuth={setAuth}
-            readersChallenges={readersChallenges}
-            setReadersChallenges={setReadersChallenges}
-            setInReadingChallenge={setInReadingChallenge}
-          />
+          <>
+            <ReaderChallenges
+              reader={reader}
+              getReader={getReader}
+              setAuth={setAuth}
+              readersChallenges={readersChallenges}
+              setReadersChallenges={setReadersChallenges}
+              setInReadingChallenge={setInReadingChallenge}
+            />
+          </>
         )}
         <br></br>
         {!createChallenge && (
