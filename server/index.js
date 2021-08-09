@@ -33,7 +33,7 @@ app.use('/submit-report', require('../server/routes/submitReading'))
 
 //add or remove additional readers
 
-app.use('/additional-readers', require('../server/routes/AdditionalReader'))
+app.use('/additional-readers', require('../server/routes/additionalReaders'))
 
 //CRUD FOR readers
 //create new reader with app.post
