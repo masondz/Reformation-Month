@@ -38,10 +38,25 @@ router.put('/', authorization, async (req, res) => {
     try {
         const { chapters_read, books_read, verses_memorized, ad_reader_id } =
             req.body
-        const updateAdReader = await fetch(
-            `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3, WHERE ad_reader_id=$4;`,
+        const updateAdReader = await pool.query(
+            `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3 WHERE ad_reader_id=$4 RETURNING *;`,
             [chapters_read, books_read, verses_memorized, ad_reader_id]
         )
+        const parseRes = await res.json(updateAdReader.rows[0])
+        console.log(parseRes)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+router.delete('/', authorization, async (req, res) => {
+    try {
+        const { reader_id, ad_reader_id } = req.query
+        const deleteAdReader = await pool.query(
+            `DELETE FROM additional_readers WHERE ad_reader_id = $1;`,
+            [ad_reader_id]
+        )
+        res.json(deleteAdReader)
     } catch (err) {
         console.error(err.message)
     }
