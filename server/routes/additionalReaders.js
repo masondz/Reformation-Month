@@ -2,6 +2,8 @@ const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
 
+
+
 router.get('/', authorization, async (req, res) => {
     try {
         const { reader_id } = req.body
@@ -19,14 +21,16 @@ router.get('/', authorization, async (req, res) => {
     }
 })
 
+//create additional reader. Must go into additional_reader, 
+
 router.post('/', authorization, async (req, res) => {
     try {
         //check if reader has additional_reader with named that already
         const { name } = req.body
         const makeAdReader = await pool.query(
             `INSERT INTO additional_readers (
-      name, chapters_read, books_read, verses_memorized, reader_id) VALUES($1, 0, 0, 0, $2) RETURNING *;`,
-            [name, req.user]
+      name, chapters_read, books_read, verses_memorized) VALUES($1, 0, 0, 0) RETURNING ad_reader_id;`,
+            [name]
         )
         const parseRes = await res.json(makeAdReader.rows[0])
     } catch (err) {

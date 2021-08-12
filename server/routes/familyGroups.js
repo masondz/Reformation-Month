@@ -35,3 +35,20 @@ RETURNING *`,
     [family_name, reader_id, bcryptPassword] //rest of columns have default values
 )
 })
+
+//insert additional_reader into family_group. ad_reader_id should be a single id value
+router.put('/add-additional-reader', authorization, async (req, res) => {  //let's try adding a parameter
+   try {
+    const = {ad_reader_id, fg_id} = req.body;
+
+    const adReaderFG = await pool.query(
+        `INSERT INTO family_group (additional_readers_ids) 
+        VALUES (ARRAY [$1]) WHERE id = $2`, 
+        [ad_reader_id, fg_id])   
+   } catch (err) {
+       console.error(err.message)
+   }
+   
+    
+})
+
