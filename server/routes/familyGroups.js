@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt') // encrypts password
 
 //create family group
 router.post('/', authorization, async (req, res) => {
-   const {family_name, reader_id, password} = req.body;
+   const {family_name, reader_id, fg_password} = req.body;
  
  //check if family name already exists.
    const familyGroup = await pool.query(
@@ -21,14 +21,14 @@ if (familyGroup.rows.length !== 0) {
 //3. bcrypt password
 const saltRound = 10
 const salt = await bcrypt.genSalt(saltRound)
-const bcryptPassword = await bcrypt.hash(password, salt) //it takes time to encrypt password, otherwise it returns and empty object( '{}' )?
+const bcryptPassword = await bcrypt.hash(fg_password, salt) //it takes time to encrypt password, otherwise it returns and empty object( '{}' )?
 //also, the password lenght ( VARCHAR(#) ) in the database schema must be long enough to accomodate encrypted password
 
 const newFamilyGroup = await pool.query(
     `INSERT INTO family_group (
     family_name, 
     reader_ids, 
-    password) 
+    fg_password) 
 
 VALUES ($1, ARRAY [$2], $3)
 RETURNING *`,
