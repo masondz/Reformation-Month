@@ -89,16 +89,16 @@ CREATE TABLE readers_additional_readers (
     PRIMARY KEY (ad_reader_id, reader_id)
 )
 
+/*add and subtracting from integer */
+
+UPDATE readers
+SET chapters_read = chapters_read + $1
+WHERE id = $2;
+
 CREATE TABLE family_group (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     family_name VARCHAR(200) UNIQUE,
-    reader_ids [],
-    ad_reader_ids [],
-    password VARCHAR(100)
-)
-
-CREATE TABLE adreader_reading_challenge (
-    ad_reader_id uuid REFERENCES additional_readers(ad_reader_id) ON DELETE CASCADE,
-    challenge_id uuid  REFERENCES reading_challenges(id) ON DELETE CASCADE,
-    PRIMARY KEY (ad_reader_id, challenge_id)
+    reader_ids uuid[],
+    additional_reader_ids uuid[],
+    fg_password VARCHAR(100)
 )
