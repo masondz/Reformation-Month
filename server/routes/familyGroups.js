@@ -29,24 +29,27 @@ router.post('/', authorization, async (req, res) => {
     reader_ids, 
     fg_password) 
 
-VALUES ($1, ARRAY [$2], $3)
+VALUES ($1, ARRAY [$2::uuid], $3)
 RETURNING *`,
         [family_name, reader_id, bcryptPassword] //rest of columns have default values
     )
 })
 
-//insert additional_reader into family_group. ad_reader_id should be a single id value
+//insert additional_reader with family_group. ad_reader_id should be a single id value
 router.put('/add-additional-reader', authorization, async (req, res) => {
     //let's try adding a parameter
     try {
         const { ad_reader_id, fg_id } = req.body
 
         const adReaderFG = await pool.query(
-            `INSERT INTO family_group (additional_readers_ids) 
-        VALUES (ARRAY [$1]) WHERE id = $2`,
+            `UPDATE family_group SET additional_reader_ids = array_append(additional_reader_ids, $1::uuid) WHERE id = $2 RETURNING additional_reader_ids`,
             [ad_reader_id, fg_id]
         )
+        const parsRes = res.json(adReaderFG)
+        console.log(parsRes)
     } catch (err) {
         console.error(err.message)
     }
 })
+
+module.exports = router

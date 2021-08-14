@@ -35,6 +35,10 @@ app.use('/submit-report', require('../server/routes/submitReading'))
 
 app.use('/additional-readers', require('../server/routes/additionalReaders'))
 
+//family-group routes
+
+app.use('/family-group', require('../server/routes/familyGroups'))
+
 //CRUD FOR readers
 //create new reader with app.post
 
