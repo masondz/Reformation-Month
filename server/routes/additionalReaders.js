@@ -51,6 +51,22 @@ router.put('/', authorization, async (req, res) => {
     }
 })
 
+// change additional reader's name
+router.put('/change-add-reader-name', authorization, async (req, res) => {
+    try {
+        const { name, ad_reader_id } = req.body
+        req.body
+        const updateAdReaderName = await pool.query(
+            `UPDATE additional_readers SET name = $1 WHERE ad_reader_id = $2 AND reader_id = $3 RETURNING name;`,
+            [name, ad_reader_id, req.user]
+        )
+        const parseRes = res.json(updateAdReaderName.rows[0])
+        console.log(parseRes)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 router.delete('/', authorization, async (req, res) => {
     try {
         const { reader_id, ad_reader_id } = req.body
