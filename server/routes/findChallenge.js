@@ -61,4 +61,32 @@ router.post('/', authorization, async (req, res) => {
     }
 })
 
+//add additional_readers to reading challenges
+
+router.post('/add-additional-reader', authorization, (req, res) => {
+    try {
+        const { reader_id, ad_reader_id, challenge_id } = req.body
+        //check if additional_reader is already in challenge
+        const checkAdReader = pool.query(
+            `SELECT * FROM adreaders_reading_challenges WHERE ad_reader_id = $1 AND challenge_id = $2`,
+            [ad_reader_id, challenge_id]
+        )
+        const parsRes = res.json(checkAdReader)
+        console.log(parsRes)
+        if (checkAdReader.rowCount > 0) {
+            return console.log('addtional reader is already in challenge')
+        } else {
+            console.log('adding additional_reader')
+        }
+
+        const addAdReader = pool.query(
+            'INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id) VALUES ($1, $2)',
+            [ad_reader_id, challenge_id]
+        )
+        return res.json(addAdReader)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 module.exports = router
