@@ -2,6 +2,7 @@ const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
 
+//get additional readers
 router.get('/', authorization, async (req, res) => {
     try {
         const { reader_id } = req.body

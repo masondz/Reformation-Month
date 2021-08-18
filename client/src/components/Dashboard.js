@@ -7,6 +7,7 @@ import ReaderChallenges from "./ReaderChallenges";
 import ChallengeDashboard from "./ChallengeDashboard";
 import ReaderInfo from "./ReaderInfo";
 import ReportReading from "./ReportReading";
+import FamilyGroup from "./FamilyGroup";
 
 const Dashboard = ({ setAuth }) => {
   const [reader, setReader] = useState("");
@@ -75,11 +76,14 @@ const Dashboard = ({ setAuth }) => {
       <h1>Welcome {reader.first_name}</h1>
       <div>
         <ReaderInfo reader={reader} />
-        <ReportReading
-          setAuth={setAuth}
-          reader={reader}
-          setReader={setReader}
-        />
+        <div>
+          <ReportReading
+            setAuth={setAuth}
+            reader={reader}
+            setReader={setReader}
+          />
+          <FamilyGroup setAuth={setAuth} />
+        </div>
         <br></br>
         <br></br>
         {!createChallenge && inReadingChallenge && (

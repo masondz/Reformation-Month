@@ -73,7 +73,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
     <Fragment>
       <button
         type="button"
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary"
         data-toggle="modal"
         data-target="#thing"
       >
