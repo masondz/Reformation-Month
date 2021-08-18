@@ -36,6 +36,30 @@ RETURNING *`,
     )
 })
 
+//update family group
+router.put('/', authorization, async (req, res) => {
+    try {
+        const { family_name, fg_id } = req.body
+        //check if family name already exists.
+        const familyGroup = await pool.query(
+            'SELECT family_name FROM family_group WHERE family_name = $1',
+            [family_name]
+        )
+        if (familyGroup.rows.length !== 0) {
+            // check if user already exists
+            return res.status(401).json('Family Name already taken.')
+        }
+
+        const updateFamilyGroup = pool.query(
+            'UPDATE family_group SET family_name = $1 WHERE id =$2 RETURNING family_name',
+            [family_name, fg_id]
+        )
+        console.log(res.json(updateFamilyGroup))
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 //insert additional_reader with family_group. ad_reader_id should be a single id value
 router.put('/add-additional-reader', authorization, async (req, res) => {
     //let's try adding a parameter
@@ -53,7 +77,7 @@ router.put('/add-additional-reader', authorization, async (req, res) => {
     }
 })
 
-//add second reader.id to reader_ids
+//add another reader.id to reader_ids
 router.put('/add-reader', authorization, validinfo, async (req, res) => {
     try {
         //check if password is correct
