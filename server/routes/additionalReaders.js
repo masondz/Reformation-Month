@@ -2,8 +2,6 @@ const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
 
-
-
 router.get('/', authorization, async (req, res) => {
     try {
         const { reader_id } = req.body
@@ -21,7 +19,7 @@ router.get('/', authorization, async (req, res) => {
     }
 })
 
-//create additional reader. Must go into additional_reader, 
+//create additional reader. Must go into additional_reader,
 
 router.post('/', authorization, async (req, res) => {
     try {
@@ -55,10 +53,10 @@ router.put('/', authorization, async (req, res) => {
 
 router.delete('/', authorization, async (req, res) => {
     try {
-        const { reader_id, ad_reader_id } = req.query
+        const { reader_id, ad_reader_id } = req.body
         const deleteAdReader = await pool.query(
-            `DELETE FROM additional_readers WHERE ad_reader_id = $1;`,
-            [ad_reader_id]
+            `DELETE FROM additional_readers WHERE ad_reader_id = $1 AND reader_id = $2`,
+            [ad_reader_id, reader_id]
         )
         res.json(deleteAdReader)
     } catch (err) {
