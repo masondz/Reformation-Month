@@ -4,6 +4,15 @@ const authorization = require('../middleware/Authorization')
 const bcrypt = require('bcrypt') // encrypts password
 const validinfo = require('../middleware/validinfo')
 
+//get family group
+router.get('/', authorization, async (req, res) => {
+    const familyGroup = await pool.query(
+        'SELECT family_name, additional_reader_ids FROM family_group WHERE $1 = ANY(reader_ids)',
+        [req.user]
+    )
+    console.log(res.json(familyGroup.rows[0]))
+})
+
 //create family group
 router.post('/', authorization, async (req, res) => {
     const { family_name, reader_id, fg_password } = req.body
