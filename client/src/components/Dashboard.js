@@ -14,6 +14,7 @@ const Dashboard = ({ setAuth }) => {
   const [inReadingChallenge, setInReadingChallenge] = useState(false);
   const [readersChallenges, setReadersChallenges] = useState([]);
   const [createChallenge, setCreateChallenge] = useState(false);
+  const [familyGroupState, setFamilyGroupState] = useState(false);
   //Get the Reader's info
   console.log(readersChallenges);
   async function getReader() {
@@ -63,6 +64,12 @@ const Dashboard = ({ setAuth }) => {
     checkChallenge();
   }, [inReadingChallenge]);
 
+  const toggleFG = () => {
+    familyGroupState === false
+      ? setFamilyGroupState(true)
+      : setFamilyGroupState(false);
+  };
+
   //   useEffect(() => {
   //   const hideComponents = (e) => {
   //     if (createChallenge) {
@@ -82,9 +89,16 @@ const Dashboard = ({ setAuth }) => {
             reader={reader}
             setReader={setReader}
           />
-          <FamilyGroup setAuth={setAuth} />
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            onClick={() => toggleFG()}
+          >
+            Family Group
+          </button>
         </div>
         <br></br>
+        {familyGroupState && <FamilyGroup setAuth={setAuth} reader={reader} />}
         <br></br>
         {!createChallenge && inReadingChallenge && (
           <>
@@ -98,6 +112,7 @@ const Dashboard = ({ setAuth }) => {
             />
           </>
         )}
+        <br></br>
         <br></br>
         {!createChallenge && (
           <Fragment>
