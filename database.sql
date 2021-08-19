@@ -102,3 +102,9 @@ CREATE TABLE family_group (
     additional_reader_ids uuid[],
     fg_password VARCHAR(100)
 )
+
+CREATE TABLE adReaders_reading_challenges (
+    ad_reader_id uuid REFERENCES additional_readers(ad_reader_id) ON DELETE CASCADE,
+    challenge_id uuid REFERENCES reading_challenges(id) ON DELETE CASCADE,
+    PRIMARY KEY (ad_reader_id, challenge_id)
+)
