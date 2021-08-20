@@ -4,9 +4,6 @@ const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
   const [famGroup, setFamGroup] = useState({});
 
-  const fgAddReaderIds = famGroup.additional_reader_ids;
-  console.log(fgAddReaderIds);
-
   //get reader's family group
   const getFamilyGroup = async () => {
     try {
@@ -18,15 +15,16 @@ const FamilyGroup = ({ setAuth, reader }) => {
         console.log("You are not in a family group");
         return;
       }
-      setInFamGroup(true);
       const parseRes = await familyGroup.json();
       setFamGroup(parseRes);
+      setInFamGroup(true);
+      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  //Get Additional Readers: ....
+  //Get Additional Readers: ...
 
   useEffect(() => {
     getFamilyGroup();
@@ -47,7 +45,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
       ) : (
         <div>
           <h3>{famGroup.family_name}</h3>
-          {fgAddReaderIds.map((id) => (
+          {famGroup.additional_reader_ids.map((id) => (
             <h4>{id}</h4>
           ))}
           <button onClick={() => toggleFG()}>Exit</button>
