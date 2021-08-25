@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
   const [famGroup, setFamGroup] = useState({});
+  const [adReaders, setAdReaders] = useState([]);
 
   //get reader's family group
   const getFamilyGroup = async () => {
@@ -25,9 +26,25 @@ const FamilyGroup = ({ setAuth, reader }) => {
   };
 
   //Get Additional Readers: ...
+  const getAdditionalReader = async (id) => {
+    try {
+      const getAdditionalReader = await fetch(
+        `http:localhost:5000/additional-readers`,
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
+      const parseRes = await getAdditionalReader.json();
+      console.log(parseRes);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   useEffect(() => {
     getFamilyGroup();
+    // famGroup.additional_reader_ids.map((id) => getAdditionalReader(id));
   }, []);
 
   const toggleFG = () => {
@@ -45,8 +62,8 @@ const FamilyGroup = ({ setAuth, reader }) => {
       ) : (
         <div>
           <h3>{famGroup.family_name}</h3>
-          {famGroup.additional_reader_ids.map((id) => (
-            <h4>{id}</h4>
+          {famGroup.additional_reader_ids.map((id, index) => (
+            <h4 key={index}>{id}</h4>
           ))}
           <button onClick={() => toggleFG()}>Exit</button>
         </div>
