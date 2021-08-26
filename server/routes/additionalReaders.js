@@ -5,16 +5,24 @@ const authorization = require('../middleware/Authorization')
 //get additional readers
 router.get('/', authorization, async (req, res) => {
     try {
-        const { ad_reader_id } = req.body
+        // const { reader_id } = req.body
         const getAdReaders = await pool.query(
             `
-      SELECT name, chapters_read, books_read, verses_memorized, FROM additional_readers WHERE ad_reader_id = $1 ORDER BY name;`,
-            [ad_reader_id]
+            SELECT additional_readers.*
+            FROM additional_readers
+            INNER JOIN family_group
+              ON (additional_readers.ad_reader_id = ANY(family_group.additional_reader_ids))
+            JOIN readers
+              ON (readers.id = ANY(family_group.reader_ids))
+                WHERE readers.id = $1
+                ORDER BY additional_readers.name;`,
+            [req.user]
         )
         if (getAdReaders.rows === 0) {
             res.status(401).json('You do not have any additional readers!')
         }
         res.json(getAdReaders.rows)
+        console.log(getAdReaders.rows)
     } catch (err) {
         console.error(err.message)
     }
