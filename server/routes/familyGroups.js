@@ -8,13 +8,20 @@ const validinfo = require('../middleware/validinfo')
 router.get('/', authorization, async (req, res) => {
     try {
         const getFamilyGroup = await pool.query(
-            'SELECT family_name, additional_reader_ids FROM family_group WHERE $1 = ANY(reader_ids)',
+            `SELECT additional_readers.*
+            FROM additional_readers
+            INNER JOIN family_group
+              ON (additional_readers.ad_reader_id = ANY(family_group.additional_reader_ids))
+            JOIN readers
+              ON (readers.id = ANY(family_group.reader_ids))
+                WHERE readers.id = $1
+                ORDER BY additional_readers.name;`,
             [req.user]
         )
         if (getFamilyGroup.rowCount === 0) {
             res.status(401).json('You are not in family group')
         }
-        res.json(getFamilyGroup.rows[0])
+        res.json(getFamilyGroup.rows)
         console.log(getFamilyGroup.rows)
     } catch (err) {
         console.error(err.message)

@@ -44,7 +44,6 @@ const FamilyGroup = ({ setAuth, reader }) => {
 
   useEffect(() => {
     getFamilyGroup();
-    // famGroup.additional_reader_ids.map((id) => getAdditionalReader(id));
   }, []);
 
   const toggleFG = () => {
@@ -62,8 +61,8 @@ const FamilyGroup = ({ setAuth, reader }) => {
       ) : (
         <div>
           <h3>{famGroup.family_name}</h3>
-          {famGroup.additional_reader_ids.map((id, index) => (
-            <h4 key={index}>{id}</h4>
+          {famGroup.map((family, index) => (
+            <h4 key={index}>{family.name}</h4>
           ))}
           <button onClick={() => toggleFG()}>Exit</button>
         </div>

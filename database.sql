@@ -108,3 +108,14 @@ CREATE TABLE adReaders_reading_challenges (
     challenge_id uuid REFERENCES reading_challenges(id) ON DELETE CASCADE,
     PRIMARY KEY (ad_reader_id, challenge_id)
 )
+
+/*test route for Bill */
+
+SELECT additional_readers.*
+FROM additional_readers
+INNER JOIN family_group
+  ON (additional_readers.ad_reader_id = ANY(family_group.additional_reader_ids))
+JOIN readers
+  ON (readers.id = ANY(family_group.reader_ids))
+	WHERE readers.id = '446c6ded-1f7b-4962-a213-f42f06985a6e'
+    ORDER BY additional_readers.name;
