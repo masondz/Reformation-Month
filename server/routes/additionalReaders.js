@@ -50,8 +50,10 @@ router.post('/', authorization, async (req, res) => {
 //update additional reader's stats
 router.put('/', authorization, async (req, res) => {
     try {
-        const { chapters_read, books_read, verses_memorized, ad_reader_id } =
+        //let ad_read_id;
+        const { chapters_read, books_read, verses_memorized, ad_reader_id } = //change ad_reader_id to reader_id
             req.body
+        //ad_reader_id = reader_id;
         const updateAdReader = await pool.query(
             `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3 WHERE ad_reader_id=$4 RETURNING *;`,
             [chapters_read, books_read, verses_memorized, ad_reader_id]
@@ -67,7 +69,7 @@ router.put('/', authorization, async (req, res) => {
 router.put('/change-add-reader-name', authorization, async (req, res) => {
     try {
         const { name, ad_reader_id } = req.body
-        req.body
+        req.body // does this need to be deleted?
         const updateAdReaderName = await pool.query(
             `UPDATE additional_readers SET name = $1 WHERE ad_reader_id = $2 AND reader_id = $3 RETURNING name`,
             [name, ad_reader_id, req.user]
