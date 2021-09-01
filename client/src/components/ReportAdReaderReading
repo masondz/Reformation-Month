@@ -44,7 +44,7 @@ const ReportAdReaderReading = ({ setAuth, adReader, setAdReader }) => {
         total = versesTotal;
         updateTotals(total, challengeType);
       }
-      const body = { challenge_type, total, reader_id };
+      const body = { challenge_type, total, ad_reader_id };
       const response = await fetch(`http://localhost:5000/submit-report/`, {
         method: "PUT",
         headers: {
@@ -192,4 +192,4 @@ const ReportAdReaderReading = ({ setAuth, adReader, setAdReader }) => {
   );
 };
 
-export default ReportReading;
+export default ReportAdReaderReading;
