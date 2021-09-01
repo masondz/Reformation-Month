@@ -1,7 +1,7 @@
 //add adReader to ReportReading parameters.
-//if adReader is undefined, do nothing
+//if adReader is undefined, leave reader to reader and set endPoint to '/submit-report'
 //else, set reader to adReader
-//set endPoint to related endpoints
+//set endPoint to '/additional-readers'
 
 import React, { Fragment, useEffect, useState } from "react";
 
@@ -11,7 +11,19 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
   const [booksTotal, setBooksTotal] = useState("");
   const [versesTotal, setVersesTotal] = useState("");
   const [challengeType, setChallengeType] = useState("");
-
+  
+  //const [endPoint, setEndPoint] = useState("");
+  /*const checkIfAdReader = () => {
+      if (adReader !== undefined) {
+        setReader(adReader);
+        setEndPoint('/additional-readers');
+      }
+      else {
+        setEndPoint('/submit-report');
+      }
+  }
+*/
+  
   const resetAll = () => {
     setChaptersTotal(0);
     setBooksTotal(0);
@@ -46,7 +58,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
         updateTotals(total, challengeType);
       }
       const body = { challenge_type, total, reader_id };
-      const response = await fetch(`http://localhost:5000/submit-report/`, {
+      const response = await fetch(`http://localhost:5000/submit-report/`, { //change end point to variable endPoint
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
