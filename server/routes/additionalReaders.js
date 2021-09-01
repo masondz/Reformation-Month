@@ -1,3 +1,5 @@
+//the ad_reader_id will be sent via req.body as reader_id; must set it to ad_reader_id:
+
 const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
