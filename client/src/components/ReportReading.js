@@ -1,3 +1,8 @@
+//add adReader to ReportReading parameters.
+//if adReader is undefined, do nothing
+//else, set reader to adReader
+//set endPoint to related endpoints
+
 import React, { Fragment, useEffect, useState } from "react";
 
 const ReportReading = ({ setAuth, reader, setReader }) => {
