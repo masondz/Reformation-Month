@@ -31,7 +31,7 @@ app.use('/reader-dashboard', require('../server/routes/readerDashboard'))
 
 app.use('/submit-report', require('../server/routes/submitReading'))
 
-//add or remove additional readers
+//add, update, or remove additional readers
 
 app.use('/additional-readers', require('../server/routes/additionalReaders'))
 

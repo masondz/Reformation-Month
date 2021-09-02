@@ -50,10 +50,14 @@ router.post('/', authorization, async (req, res) => {
 //update additional reader's stats
 router.put('/', authorization, async (req, res) => {
     try {
-        //let ad_read_id;
-        const { chapters_read, books_read, verses_memorized, ad_reader_id } = //change ad_reader_id to reader_id
-            req.body
-        //ad_reader_id = reader_id;
+        let ad_reader_id
+        const {
+            chapters_read,
+            books_read,
+            verses_memorized,
+            reader_id,
+        } = req.body //change ad_reader_id to reader_id
+        ad_reader_id = reader_id
         const updateAdReader = await pool.query(
             `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3 WHERE ad_reader_id=$4 RETURNING *;`,
             [chapters_read, books_read, verses_memorized, ad_reader_id]
