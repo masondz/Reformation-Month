@@ -1,29 +1,16 @@
-//add adReader to ReportReading parameters.
-//if adReader is undefined, leave reader to reader and set endPoint to '/submit-report'
-//else, set reader to adReader
-//set endPoint to '/additional-readers'
+//if adReader is true, set reader to adReader?
+//if adReader is true, set endPoint to additional-reader?
+//else, set endPoint to submit-report?
 
 import React, { Fragment, useEffect, useState } from "react";
 
-const ReportReading = ({ setAuth, reader, setReader }) => {
+const ReportAdReaderReading = ({ setAuth, adReader, setAdReader }) => {
   const [reporting, setReporting] = useState(false);
   const [chaptersTotal, setChaptersTotal] = useState("");
   const [booksTotal, setBooksTotal] = useState("");
   const [versesTotal, setVersesTotal] = useState("");
   const [challengeType, setChallengeType] = useState("");
-  
-  //const [endPoint, setEndPoint] = useState("");
-  /*const checkIfAdReader = () => {
-      if (adReader !== undefined) {
-        setReader(adReader);
-        setEndPoint('/additional-readers');
-      }
-      else {
-        setEndPoint('/submit-report');
-      }
-  }
-*/
-  
+
   const resetAll = () => {
     setChaptersTotal(0);
     setBooksTotal(0);
@@ -31,9 +18,9 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
   };
 
   const updateTotals = (total, challengeType) => {
-    let newTotal = reader[challengeType] + Number(total);
-    setReader({
-      ...reader,
+    let newTotal = adReader[challengeType] + Number(total);
+    setAdReader({
+      ...adReader,
       [challengeType]: newTotal,
     });
   };
@@ -44,7 +31,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
     try {
       const thisChallengeType = challengeType;
       const challenge_type = challengeType;
-      const reader_id = reader.id;
+      const ad_reader_id = adReader.ad_reader_id;
       let total;
       // check which challenge type it is
       if (thisChallengeType === "chapters_read") {
@@ -57,8 +44,8 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
         total = versesTotal;
         updateTotals(total, challengeType);
       }
-      const body = { challenge_type, total, reader_id };
-      const response = await fetch(`http://localhost:5000/submit-report/`, { //change end point to variable endPoint
+      const body = { challenge_type, total, ad_reader_id };
+      const response = await fetch(`http://localhost:5000/submit-report/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -205,4 +192,4 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
   );
 };
 
-export default ReportReading;
+export default ReportAdReaderReading;
