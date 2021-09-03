@@ -1,31 +1,50 @@
-//add adReader to ReportReading parameters. [X]
-//if adReader is undefined, leave reader to reader and set endPoint to '/submit-report' [X]
-//else, set reader to adReader [X]
-//set endPoint to '/additional-readers' [ ]
+//Trying to allow values to change in report modal.
+//To do this, values of the inputs must have their own state, that reset to 0 after form is submitted.
+//I've started an initialValue state, and began coding a function. Good Luck.
+
+//if adReader is true, set reader to adReader?
+//if adReader is true, set endPoint to additional-reader?
+//else, set endPoint to submit-report?
 
 import React, { Fragment, useEffect, useState } from "react";
 
-const ReportReading = ({ setAuth, reader, setReader }) => {
+const ReportAdReaderReading = ({ setAuth, adReader }) => {
+  const { name, chapters_read, books_read, verses_memorized } = adReader;
+  console.log(chapters_read);
+
   const [reporting, setReporting] = useState(false);
   const [chaptersTotal, setChaptersTotal] = useState("");
   const [booksTotal, setBooksTotal] = useState("");
   const [versesTotal, setVersesTotal] = useState("");
   const [challengeType, setChallengeType] = useState("");
-
-  const [endPoint, setEndPoint] = useState("");
-
   const resetAll = () => {
     setChaptersTotal(0);
     setBooksTotal(0);
     setVersesTotal(0);
   };
+  const [initialValue, setInitialValue] = useState({
+    //this is to set the initail value of the form's inputs to zero.
+    chapters_total: 0,
+    books_total: 0,
+    verses_total: 0,
+  });
 
-  const updateTotals = (total, challengeType) => {
-    let newTotal = reader[challengeType] + Number(total);
-    setReader({
-      ...reader,
-      [challengeType]: newTotal,
-    });
+  useEffect(() => {
+    setChaptersTotal(chapters_read);
+    setBooksTotal(books_read);
+    setVersesTotal(verses_memorized);
+  }, []);
+
+  // const updateTotals = (total, challengeType) => {
+  //   let newTotal = adReader[challengeType] + Number(total);
+  //   setAdReader({
+  //     ...adReader,
+  //     [challengeType]: newTotal,
+  //   });
+  // };
+
+  const updateInitialValues = (total, challengeType) => {
+    let newTotal = "?"; //must pick the challenge type somehow.
   };
 
   const onSubmit = async (e) => {
@@ -34,35 +53,31 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
     try {
       const thisChallengeType = challengeType;
       const challenge_type = challengeType;
-      const reader_id = reader.id;
+      const ad_reader_id = adReader.ad_reader_id;
       let total;
       // check which challenge type it is
       if (thisChallengeType === "chapters_read") {
         total = chaptersTotal;
-        updateTotals(total, challengeType);
+        // updateTotals(total, challengeType);
       } else if (thisChallengeType === "books_read") {
         total = booksTotal;
-        updateTotals(total, challengeType);
+        // updateTotals(total, challengeType);
       } else {
         total = versesTotal;
-        updateTotals(total, challengeType);
+        // updateTotals(total, challengeType);
       }
-      const body = { challenge_type, total, reader_id };
-      const response = await fetch(
-        `http://localhost:5000/submit-report/${endPoint}`,
-        {
-          //change end point to variable endPoint
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            token: localStorage.token,
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const body = { challenge_type, total, ad_reader_id };
+      const response = await fetch(`http://localhost:5000/additional-readers`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
+        body: JSON.stringify(body),
+      });
       const res = await response.json();
       console.log(res);
-      resetAll();
+      // resetAll();
     } catch (err) {
       console.error(err.message);
     }
@@ -80,19 +95,25 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
     }
   };
 
+  const jsxId = `id${adReader.ad_reader_id}`;
+  const targetId = `#id${adReader.ad_reader_id}`;
+
   return (
     <Fragment>
+      <h5>
+        Chapters: {chaptersTotal} Books: {booksTotal} Verses: {versesTotal}
+      </h5>
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary btn-sm"
         data-toggle="modal"
-        data-target="#thing"
+        data-target={targetId}
       >
         Report Reading
       </button>
       <div
         className="modal fade"
-        id="thing"
+        id={jsxId}
         tabindex="-1"
         aria-labelledby="edit-challenge"
         aria-hidden="true"
@@ -100,8 +121,8 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="thing">
-                Report Reading for {reader.first_name}
+              <h3 class="modal-title" id={jsxId}>
+                Report Reading for: {name}
               </h3>
               <button
                 type="button"
@@ -123,7 +144,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
                       name="chapters_read"
                       placeholder="0"
                       onChange={(e) => onChange(e)} //don't change state inside JSX event listener; use callback function.
-                      value={chaptersTotal}
+                      value={initialValue.chapters_total}
                     />
                     <button
                       type="button"
@@ -147,7 +168,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
                     className="form-control mt-1"
                     type="number"
                     name="books_read"
-                    value={booksTotal}
+                    value={initialValue.books_total}
                     placeholder="0"
                     onChange={(e) => onChange(e)} //don't change state inside JSX event listener; use callback function.
                   />
@@ -173,7 +194,7 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
                       className=" form-control mt-1"
                       type="number"
                       name="verses_memorized"
-                      value={versesTotal}
+                      value={initialValue.verses_total}
                       placeholder="0"
                       onChange={(e) => onChange(e)} //don't change state inside JSX event listener; use callback function.
                     />
@@ -199,4 +220,4 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
   );
 };
 
-export default ReportReading;
+export default ReportAdReaderReading;

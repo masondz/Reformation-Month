@@ -48,22 +48,47 @@ router.post('/', authorization, async (req, res) => {
 })
 
 //update additional reader's stats
+// router.put('/', authorization, async (req, res) => {
+//     try {
+//         const { chapters_read, books_read, verses_memorized, ad_reader_id } =
+//             req.body
+//         const updateAdReader = await pool.query(
+//             `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3 WHERE ad_reader_id=$4 RETURNING *;`,
+//             [chapters_read, books_read, verses_memorized, ad_reader_id]
+//         )
+//         const parseRes = await res.json(updateAdReader.rows[0])
+//         console.log(parseRes)
+//     } catch (err) {
+//         console.error(err.message)
+//     }
+// })
+
 router.put('/', authorization, async (req, res) => {
     try {
-        let ad_reader_id
-        const {
-            chapters_read,
-            books_read,
-            verses_memorized,
-            reader_id,
-        } = req.body //change ad_reader_id to reader_id
-        ad_reader_id = reader_id
-        const updateAdReader = await pool.query(
-            `UPDATE additional_readers SET chapters_read = $1, books_read = $2, verses_memorized = $3 WHERE ad_reader_id=$4 RETURNING *;`,
-            [chapters_read, books_read, verses_memorized, ad_reader_id]
-        )
-        const parseRes = await res.json(updateAdReader.rows[0])
-        console.log(parseRes)
+        const { challenge_type, total, ad_reader_id } = req.body
+        console.log(req.body)
+        if (challenge_type === 'books_read') {
+            console.log('Update books read')
+            const updateTotal = await pool.query(
+                `UPDATE additional_readers SET books_read = books_read + $1 WHERE ad_reader_id = $2 RETURNING *`,
+                [total, ad_reader_id]
+            )
+            res.json(updateTotal.rows[0].books_read)
+        } else if (challenge_type === 'chapters_read') {
+            console.log('Update chapters read')
+            const updateTotal = await pool.query(
+                `UPDATE additional_readers SET chapters_read = chapters_read + $1 WHERE ad_reader_id = $2 RETURNING *`,
+                [total, ad_reader_id]
+            )
+            res.json(updateTotal.rows[0].chapters_read)
+        } else {
+            console.log('Update verses memorized')
+            const updateTotal = await pool.query(
+                `UPDATE additional_readers SET verses_memorized = verses_memorized + $1 WHERE ad_reader_id = $2 RETURNING *`,
+                [total, ad_reader_id]
+            )
+            res.json(updateTotal.rows[0].verses_memorized)
+        }
     } catch (err) {
         console.error(err.message)
     }
