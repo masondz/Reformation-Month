@@ -32,7 +32,7 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
 
   const updateTotals = (total, challengeType) => {
     console.log(`${challengeType}: ${displayTotal[challengeType]}`);
-    let newTotal = Number(inputs[challengeType]) + Number(total); //I think this should change displayed totals
+    let newTotal = Number(displayTotal[challengeType]) + Number(total); //I think this should change displayed totals
     console.log(newTotal);
     setDisplayTotal({
       ...displayTotal,
@@ -40,24 +40,35 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setChallengeType(e.target.name);
     try {
       const thisChallengeType = challengeType; //for display totals
       const challenge_type = challengeType; //for fetch request
-      const ad_reader_id = adReader.ad_reader_id;
-      let total;
+      const ad_reader_id = adReader.ad_reader_id; //for fetch request
+      let total; //send total via fetch. Postgres will ADD it to correct challenge type
       if (thisChallengeType === "chapters_read") {
-        total = displayTotal.chapters_read;
+        total = inputs.chapters_read;
         updateTotals(total, challengeType);
       } else if (thisChallengeType === "books_read") {
-        total = displayTotal.books_read;
+        total = inputs.books_read;
         updateTotals(total, challengeType);
       } else {
-        total = displayTotal.verses_memorized;
+        total = inputs.verses_memorized;
         updateTotals(total, challengeType);
       }
+      const body = { challenge_type, total, ad_reader_id };
+      const response = await fetch(`http://localhost:5000/additional-readers`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
+        body: JSON.stringify(body),
+      });
+      const res = await response.json();
+      console.log(res);
     } catch (err) {
       console.error(err.message);
     }
