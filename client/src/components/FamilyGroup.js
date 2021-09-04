@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReportAdReaderReading from "./ReportAdReaderReading";
 import JoinFamilyGroup from "./JoinFamilyGroup";
+import CreateFamilyGroup from "./CreateFamilyGroup";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
@@ -76,7 +77,10 @@ const FamilyGroup = ({ setAuth, reader }) => {
             report for readers who are not able to make reading reports for
             themselves (such as children)
           </h4>
-          <JoinFamilyGroup setAuth={setAuth} reader={reader} />
+          <div>
+            <JoinFamilyGroup setAuth={setAuth} reader={reader} />
+            <CreateFamilyGroup setAuth={setAuth} reader={reader} />
+          </div>
         </div>
       ) : (
         <div>

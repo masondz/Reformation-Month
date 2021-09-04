@@ -1,44 +1,15 @@
-// -> /family-group/add-reader  is the route to add reader
-// -> /family-group/add-additional-reader  is the rout to add additional reader
-
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const JoinFamilyGroup = ({ setAuth, reader }) => {
+const CreateFamilyGroup = ({ setAuth, reader }) => {
+  // const { family_name, reader_id, fg_password } = req.body;
   const [inputs, setInputs] = useState({
     familyName: "",
     familyPassword: "",
+    confirmPassword: "",
   });
 
-  const { familyName, familyPassword } = inputs;
-
-  const onSubmitForm = async (e) => {
-    e.preventDefault();
-    console.log("you submitted something.");
-    let family_name = familyName;
-    let fg_password = familyPassword;
-    let reader_id = reader.id;
-    try {
-      const body = { family_name, fg_password, reader_id };
-      const response = await fetch(
-        "http://localhost:5000/family-group/add-reader",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            token: localStorage.token,
-          },
-          body: JSON.stringify(body),
-        }
-      );
-      const parseRes = await response.json();
-      if (parseRes.status === 401) {
-        return toast.error("Password or Family Name is incorrect");
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  const { familyName, familyPassword, confirmPassword } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -48,7 +19,41 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
     setInputs({
       familyName: "",
       familyPassword: "",
+      confirmPassword: "",
     });
+  };
+
+  const checkPassword = (familyPassword, confirmPassword) => {
+    if (familyPassword !== confirmPassword) {
+      return toast.error("Password does not match. Please try again.");
+    } else {
+      console.log("password matches");
+    }
+  };
+
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    console.log("you submitted something.");
+    let family_name = familyName;
+    let fg_password = familyPassword;
+    let reader_id = reader.id;
+    try {
+      const body = { family_name, fg_password, reader_id };
+      const response = await fetch("http://localhost:5000/family-group/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
+        body: JSON.stringify(body),
+      });
+      const parseRes = await response.json();
+      if (parseRes.status === 401) {
+        return toast.error("family name already taken!");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   return (
@@ -56,26 +61,26 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
       {/* Button trigger modal  */}
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-outline-primary"
         data-bs-toggle="modal"
-        data-bs-target="#joinFGModal"
+        data-bs-target="#createFGModal"
       >
-        Join A Family Group
+        Create Family Group
       </button>
 
       {/* // <!-- Modal --> */}
       <div
         class="modal fade"
-        id="joinFGModal"
+        id="createFGModal"
         tabindex="-1"
-        aria-labelledby="joinFGModalLabel"
+        aria-labelledby="createFGModalLabel"
         aria-hidden="true"
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="joinFGModalLabel">
-                Join a Family Group
+              <h5 class="modal-title" id="createFGModalLabel">
+                Create a Family Group
               </h5>
               <button
                 type="button"
@@ -86,12 +91,12 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
               ></button>
             </div>
             <div class="modal-body">
-              <form onSubmit={onSubmitForm} id="join-family-group">
+              <form onSubmit={onSubmitForm} id="create-family-group">
                 <lable
                   htmlFor="familyName"
                   className="bg-light text-black form-control"
                 >
-                  Family Group Name
+                  Name Family Group
                   <input
                     className=" form-control mt-1 mb-1"
                     type="character"
@@ -100,13 +105,22 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
                     value={familyName}
                     onChange={(e) => onChange(e)}
                   />
-                  Family Group Password
+                  Create Password for Family Group
                   <input
                     className=" form-control mt-1"
                     type="password"
                     name="familyPassword"
                     placeholder=""
                     value={familyPassword}
+                    onChange={(e) => onChange(e)}
+                  />
+                  Confirm Password
+                  <input
+                    className=" form-control mt-1"
+                    type="password"
+                    name="confirmPassword"
+                    placeholder=""
+                    value={confirmPassword}
                     onChange={(e) => onChange(e)}
                   />
                 </lable>
@@ -117,13 +131,14 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
+                onClick={() => resetInputs()}
               >
                 Close
               </button>
               <button
                 type="submit"
                 class="btn btn-primary"
-                form="join-family-group"
+                form="create-family-group"
               >
                 Submit
               </button>
@@ -135,4 +150,4 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
   );
 };
 
-export default JoinFamilyGroup;
+export default CreateFamilyGroup;
