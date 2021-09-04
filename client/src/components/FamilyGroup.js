@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReportAdReaderReading from "./ReportAdReaderReading";
+import JoinFamilyGroup from "./JoinFamilyGroup";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
@@ -70,8 +71,12 @@ const FamilyGroup = ({ setAuth, reader }) => {
       </h4>
       {!inFamGroup ? (
         <div>
-          <h4>You are not in a family Group yet</h4>
-          <button onClick={() => toggleFG()}>Join Family Group</button>
+          <h4>
+            You are not in a family Group yet. Family Groups allows you to
+            report for readers who are not able to make reading reports for
+            themselves (such as children)
+          </h4>
+          <JoinFamilyGroup setAuth={setAuth} reader={reader} />
         </div>
       ) : (
         <div>

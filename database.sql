@@ -119,3 +119,8 @@ JOIN readers
   ON (readers.id = ANY(family_group.reader_ids))
 	WHERE readers.id = '446c6ded-1f7b-4962-a213-f42f06985a6e'
     ORDER BY additional_readers.name;
+
+/*update a postgres array with append*/
+UPDATE player_scores SET round_scores = array_append(round_scores, 100);
+
+UPDATE family_group SET reader_ids = array_append(reader_ids, $1) WHERE family_name = $2 AND fg_password = $3, [reader_id, family_name, fg_password]
