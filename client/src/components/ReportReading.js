@@ -48,18 +48,14 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
         updateTotals(total, challengeType);
       }
       const body = { challenge_type, total, reader_id };
-      const response = await fetch(
-        `http://localhost:5000/submit-report/${endPoint}`,
-        {
-          //change end point to variable endPoint
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            token: localStorage.token,
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch(`http://localhost:5000/submit-report/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
+        body: JSON.stringify(body),
+      });
       const res = await response.json();
       console.log(res);
       resetAll();

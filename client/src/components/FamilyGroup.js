@@ -1,11 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import ReportAdReaderReading from "./ReportAdReaderReading";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
   const [famGroup, setFamGroup] = useState({});
   const [adReaders, setAdReaders] = useState([
     {
-      name: "",
+      name: undefined,
       chapters_read: "",
       books_read: "",
       verses_memorized: "",
@@ -82,8 +83,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
                 {adReader.name}:
               </h4>
               <h5>
-                Chapters: {adReader.chapters_read} Books: {adReader.books_read}{" "}
-                Verses: {adReader.verses_memorized}
+                <ReportAdReaderReading adReader={adReader} />
               </h5>
             </ul>
           ))}

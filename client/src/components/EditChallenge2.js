@@ -3,7 +3,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 //third test
-const EditChallenge = ({
+const EditChallenge2 = ({
   challenge,
   reader,
   setReadersChallenges,
@@ -244,4 +244,4 @@ const EditChallenge = ({
   );
 };
 
-export default EditChallenge;
+export default EditChallenge2;
