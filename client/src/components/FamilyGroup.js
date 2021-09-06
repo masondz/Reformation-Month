@@ -92,7 +92,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
                 {adReader.name}:
               </h4>
               <h5>
-                <ReportAdReaderReading adReader={adReader} />
+                <ReportAdReaderReading adReader={adReader} adReaders={adReaders} setAdReaders={setAdReaders}/>
               </h5>
             </ul>
           ))}
