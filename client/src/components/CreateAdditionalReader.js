@@ -18,7 +18,22 @@ const CreateAdditionalReader = ({ setAuth, reader }) => {
   }
   
   const onSumbitForm = () => {
-    const body.name = name;
+    e.preventDefault();
+    try {
+      const body.name = name;
+      const response = await fetch("http://localhost:5000/additional-reader",{
+        method: "POST",
+        headers:{"Content-Type": "application/json",
+                  token: "localStorage.token",
+                }
+        body: JSON.stringify(body),
+        });
+    const parseRes = await response.json()
+    console.log(parseRes.status)
+    } catch(err){
+      console.error(err.message)
+    }
+    
     return console.log("you submitted something")
   }
   
