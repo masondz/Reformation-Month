@@ -2,12 +2,26 @@ import React, { useState } from "react";
 
 const CreateAdditionalReader = ({ setAuth, reader }) => {
   // const { name } = req.body
-  const [inputs, setInputs] = useState({
+  const [input, setInput] = useState({
     name: "",
   });
 
-  const name = inputs.name;
-
+  const name = input.name;
+  
+  const resetInput = () => {
+    setInput({name: ""});
+  }
+  
+  const onChange = (e) => {
+    e.preventDefault();
+    setInput({ name: e.target.value });
+  }
+  
+  const onSumbitForm = () => {
+    const body.name = name;
+    return console.log("you submitted something")
+  }
+  
   return (
     <div>
       {/* Button trigger modal  */}
@@ -39,7 +53,7 @@ const CreateAdditionalReader = ({ setAuth, reader }) => {
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                // onClick={() => resetInputs()}
+                // onClick={() => resetInput()}
               ></button>
             </div>
             <div class="modal-body">
@@ -65,7 +79,7 @@ const CreateAdditionalReader = ({ setAuth, reader }) => {
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-                onClick={() => resetInputs()}
+                onClick={() => resetInput()}
               >
                 Close
               </button>
