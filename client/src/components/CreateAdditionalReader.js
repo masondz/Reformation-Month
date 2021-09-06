@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
-const CreateAdditionalReader = ({ setAuth, reader }) => {
+const CreateAdditionalReader = ({ setAuth, reader, adReaders, setAdReaders }) => {
   // const { name } = req.body
   const [input, setInput] = useState({
     name: "",
   });
-
+  
   const name = input.name;
+  
+  const [additionalReaders, setAdditionalReaders] = useState([])
   
   const resetInput = () => {
     setInput({name: ""});
@@ -15,6 +17,10 @@ const CreateAdditionalReader = ({ setAuth, reader }) => {
   const onChange = (e) => {
     e.preventDefault();
     setInput({ name: e.target.value });
+  }
+  
+  const listAdReaders = () =>{
+    setAdReaders([...adReaders, {name: name}]  //somehow update list of additional readers??
   }
   
   const onSumbitForm = () => {
