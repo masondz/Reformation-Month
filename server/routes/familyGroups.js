@@ -8,7 +8,7 @@ const validinfo = require('../middleware/validinfo')
 router.get('/', authorization, async (req, res) => {
     try {
         const getFamilyGroup = await pool.query(
-            'SELECT family_name FROM family_group WHERE $1 = ANY(reader_ids)',
+            'SELECT family_name, id FROM family_group WHERE $1 = ANY(reader_ids)',
             [req.user]
         )
         if (getFamilyGroup.rowCount === 0) {
@@ -87,8 +87,8 @@ router.put('/add-additional-reader', authorization, async (req, res) => {
             `UPDATE family_group SET additional_reader_ids = array_append(additional_reader_ids, $1::uuid) WHERE id = $2 RETURNING additional_reader_ids`,
             [ad_reader_id, fg_id]
         )
-        const parsRes = res.json(adReaderFG)
-        console.log(parsRes)
+        res.json(adReaderFG)
+        console.log(adReaderFG)
     } catch (err) {
         console.error(err.message)
     }

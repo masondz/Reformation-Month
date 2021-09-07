@@ -117,7 +117,7 @@ INNER JOIN family_group
   ON (additional_readers.ad_reader_id = ANY(family_group.additional_reader_ids))
 JOIN readers
   ON (readers.id = ANY(family_group.reader_ids))
-	WHERE readers.id = '446c6ded-1f7b-4962-a213-f42f06985a6e'
+	WHERE readers.id = '8a485680-8574-4210-8cb2-74a34b84f28f'
     ORDER BY additional_readers.name;
 
 /*update a postgres array with append*/

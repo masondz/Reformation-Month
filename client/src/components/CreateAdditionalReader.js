@@ -36,6 +36,7 @@ const CreateAdditionalReader = ({
   const adReaderJoinFG = async (adReaderId) => {
     let ad_reader_id = adReaderId;
     let fg_id = famGroup.id;
+    console.log(`I'm in the adReaderJoinFG func: ${ad_reader_id} ${fg_id}...`);
     try {
       const body = { ad_reader_id, fg_id };
       const joinFG = await fetch(
@@ -52,7 +53,7 @@ const CreateAdditionalReader = ({
       const parseJoinFG = await joinFG.json();
       console.log(parseJoinFG);
     } catch (err) {
-      console.error(`adreader join FG: ${err.message}`);
+      console.error(err.message);
     }
   };
 
@@ -75,11 +76,14 @@ const CreateAdditionalReader = ({
         }
       );
       const parseRes = await newAdReader.json();
-      //   console.log(parseRes);
+      console.log(parseRes.ad_reader_id);
       //   console.log(parseRes.status);
-      if (parseRes.ad_reader_id) {
-        //   adReaderJoinFG()
+      if (parseRes) {
+        console.log("I'm in the if statement");
+        await adReaderJoinFG(parseRes.ad_reader_id, famGroup.id);
         addAdReaders(); //will this work???
+      } else {
+        console.log("adREaderJoinFG didn't work");
       }
     } catch (err) {
       console.error(err.message);
