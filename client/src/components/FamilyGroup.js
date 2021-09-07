@@ -48,14 +48,13 @@ const FamilyGroup = ({ setAuth, reader }) => {
         token: localStorage.token},
         body: JSON.stringify(body),
       });
+      const adReaderList = adReaders;
+      const newList = readers.filter(reader => reader.ad_reader_id !== adReaderId);
+      setAdReaders(newList); //will this work??
     } catch (err){
       console.error(err.message)
     }
-    const adReaderList = adReaders;
-    const newList = readers.filter(reader => reader.ad_reader_id === adReaderId);
-    setAdReaders(newList); //will this work??
-    
-  }
+   };
   
   useEffect(() => {
     getFamilyGroup();
