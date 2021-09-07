@@ -36,11 +36,24 @@ const FamilyGroup = ({ setAuth, reader }) => {
     }
   };
   
-  const deleteAdReader = (adReaderId) => { //possible delete adReader from list
+  const deleteAdReader = async (e) => { //possible delete adReader from list
+    e.preventDefault();
+    
+    try {
+      const body.reader_id = reader.id;
+      const body.ad_reader_id = adReader.ad_reader_id;
+      const request = await fetch("http://localhost:5000/additional-readers", {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json",
+        token: localStorage.token},
+        body: JSON.stringify(body),
+      });
+    } catch (err){
+      console.error(err.message)
+    }
     const adReaderList = adReaders;
     const newList = readers.filter(reader => reader.ad_reader_id === adReaderId);
     setAdReaders(newList); //will this work??
-    
     
   }
   
