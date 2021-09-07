@@ -35,30 +35,34 @@ const FamilyGroup = ({ setAuth, reader }) => {
       console.error(err.message);
     }
   };
-  
-  const deleteAdReader = async (e) => { //possible delete adReader from list
-    e.preventDefault();
-    
+
+  const deleteAdReader = async (adReader) => {
+    //possible delete adReader from list
+    let reader_id = reader.id;
+    let ad_reader_id = adReader.ad_reader_id;
     try {
-      const body.reader_id = reader.id;
-      const body.ad_reader_id = adReader.ad_reader_id;
+      const body = { reader_id, ad_reader_id };
       const request = await fetch("http://localhost:5000/additional-readers", {
         method: "DELETE",
-        headers: {"Content-Type": "application/json",
-        token: localStorage.token},
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
         body: JSON.stringify(body),
       });
       const adReaderList = adReaders;
-      const newList = readers.filter(reader => reader.ad_reader_id !== adReaderId);
+      const newList = adReaders.filter(
+        (reader) => reader.ad_reader_id !== ad_reader_id
+      );
       setAdReaders(newList); //will this work??
-    } catch (err){
-      console.error(err.message)
+    } catch (err) {
+      console.error(err.message);
     }
-   };
-  
+  };
+
   useEffect(() => {
     getFamilyGroup();
-  }, []); 
+  }, []);
 
   //Get Additional Readers: ...
   const getAdditionalReader = async () => {
@@ -113,8 +117,18 @@ const FamilyGroup = ({ setAuth, reader }) => {
                 {adReader.name}:
               </h4>
               <h5>
-                <ReportAdReaderReading adReader={adReader} adReaders={adReaders} setAdReaders={setAdReaders}/> <button type='button' 
-                    onClick={(e)=>deleteAdReader(e)}> Delete Reader </button>
+                <ReportAdReaderReading
+                  adReader={adReader}
+                  adReaders={adReaders}
+                  setAdReaders={setAdReaders}
+                />{" "}
+                <button
+                  type="button"
+                  onClick={(adReader) => deleteAdReader(adReader)}
+                >
+                  {" "}
+                  Delete Reader{" "}
+                </button>
               </h5>
             </ul>
           ))}
