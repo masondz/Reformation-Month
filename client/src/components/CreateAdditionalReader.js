@@ -19,10 +19,11 @@ const CreateAdditionalReader = ({ setAuth, reader, adReaders, setAdReaders }) =>
     setInput({ name: e.target.value });
   }
   
-  const listAdReaders = () =>{
-    setAdReaders([...adReaders, {name: name}]  //somehow update list of additional readers??
+  const addAdReaders = () =>{
+    setAdReaders([...adReaders, {name: name, chapters_read: 0, books_read: 0, verses_memorized: 0}]  //somehow update list of additional readers??
   }
   
+                 
   const onSumbitForm = () => {
     e.preventDefault();
     try {
@@ -36,6 +37,9 @@ const CreateAdditionalReader = ({ setAuth, reader, adReaders, setAdReaders }) =>
         });
     const parseRes = await response.json()
     console.log(parseRes.status)
+    if (parseRes.status === 201){
+      addAdReaders();                      //will this work???
+    }
     } catch(err){
       console.error(err.message)
     }
