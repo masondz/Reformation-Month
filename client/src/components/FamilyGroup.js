@@ -35,9 +35,18 @@ const FamilyGroup = ({ setAuth, reader }) => {
       console.error(err.message);
     }
   };
+  
+  const deleteAdReader = (adReaderId) => { //possible delete adReader from list
+    const adReaderList = adReaders;
+    const newList = readers.filter(reader => reader.ad_reader_id === adReaderId);
+    setAdReaders(newList); //will this work??
+    
+    
+  }
+  
   useEffect(() => {
     getFamilyGroup();
-  }, []);
+  }, []); 
 
   //Get Additional Readers: ...
   const getAdditionalReader = async () => {
@@ -58,7 +67,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
   };
   useEffect(() => {
     getAdditionalReader();
-  }, []);
+  }, []); //might try adding adReaders to dependencies, so that it refreshes with an ad_reader_id?
 
   // console.log(adReaders);
   const toggleFG = () => {
@@ -92,7 +101,8 @@ const FamilyGroup = ({ setAuth, reader }) => {
                 {adReader.name}:
               </h4>
               <h5>
-                <ReportAdReaderReading adReader={adReader} adReaders={adReaders} setAdReaders={setAdReaders}/>
+                <ReportAdReaderReading adReader={adReader} adReaders={adReaders} setAdReaders={setAdReaders}/> <button type='button' 
+                    onClick={(e)=>deleteAdReader(e)}> Delete Reader </button>
               </h5>
             </ul>
           ))}
