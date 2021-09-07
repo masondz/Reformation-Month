@@ -34,14 +34,21 @@ router.get('/', authorization, async (req, res) => {
 
 router.post('/', authorization, async (req, res) => {
     try {
-        //check if reader has additional_reader with named that already
+        //check if additional reader has a name
         const { name } = req.body
+        if (!name) {
+            return res.status(401).send('New reader must have a name!')
+        }
+
         const makeAdReader = await pool.query(
             `INSERT INTO additional_readers (
       name, chapters_read, books_read, verses_memorized) VALUES($1, 0, 0, 0) RETURNING ad_reader_id;`,
             [name]
         )
-        const parseRes = await res.json(makeAdReader.rows[0])
+        if (makeAdReader.rows === 0) {
+            return res.status(401).send('Error with server!')
+        }
+        res.status(201).json(makeAdReader.rows[0])
     } catch (err) {
         console.error(err.message)
     }

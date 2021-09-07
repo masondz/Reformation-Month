@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReportAdReaderReading from "./ReportAdReaderReading";
 import JoinFamilyGroup from "./JoinFamilyGroup";
 import CreateFamilyGroup from "./CreateFamilyGroup";
+import CreateAdditionalReader from "./CreateAdditionalReader";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
@@ -132,6 +133,13 @@ const FamilyGroup = ({ setAuth, reader }) => {
               </h5>
             </ul>
           ))}
+          <CreateAdditionalReader
+            setAuth={setAuth}
+            reader={reader}
+            adReaders={adReaders}
+            setAdReaders={setAdReaders}
+            famGroup={famGroup}
+          />
         </div>
       )}
     </div>

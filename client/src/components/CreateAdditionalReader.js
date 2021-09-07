@@ -1,52 +1,94 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const CreateAdditionalReader = ({ setAuth, reader, adReaders, setAdReaders }) => {
+const CreateAdditionalReader = ({
+  setAuth,
+  reader,
+  adReaders,
+  setAdReaders,
+  famGroup,
+}) => {
   // const { name } = req.body
   const [input, setInput] = useState({
     name: "",
   });
-  
+
   const name = input.name;
-  
-  const [additionalReaders, setAdditionalReaders] = useState([])
-  
+
+  const [additionalReaders, setAdditionalReaders] = useState([]);
+
   const resetInput = () => {
-    setInput({name: ""});
-  }
-  
+    setInput({ name: "" });
+  };
+
   const onChange = (e) => {
     e.preventDefault();
     setInput({ name: e.target.value });
-  }
-  
-  const addAdReaders = () =>{
-    setAdReaders([...adReaders, {name: name, chapters_read: 0, books_read: 0, verses_memorized: 0}]  //somehow update list of additional readers??
-  }
-  
-                 
-  const onSumbitForm = () => {
+  };
+
+  const addAdReaders = () => {
+    setAdReaders([
+      ...adReaders,
+      { name: name, chapters_read: 0, books_read: 0, verses_memorized: 0 },
+    ]); //somehow update list of additional readers??
+  };
+
+  const adReaderJoinFG = async (adReaderId) => {
+    let ad_reader_id = adReaderId;
+    let fg_id = famGroup.id;
+    try {
+      const body = { ad_reader_id, fg_id };
+      const joinFG = await fetch(
+        "http://localhost:5000/family-group/add-additional-reader",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+          body: JSON.stringify(body),
+        }
+      );
+      const parseJoinFG = await joinFG.json();
+      console.log(parseJoinFG);
+    } catch (err) {
+      console.error(`adreader join FG: ${err.message}`);
+    }
+  };
+
+  const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body.name = name;
-      const response = await fetch("http://localhost:5000/additional-reader",{
-        method: "POST",
-        headers:{"Content-Type": "application/json",
-                  token: "localStorage.token",
-                }
-        body: JSON.stringify(body),
-        });
-    const parseRes = await response.json()
-    console.log(parseRes.status)
-    if (parseRes.status === 201){
-      addAdReaders();                      //will this work???
+      const body = { name };
+      if (!name) {
+        throw new Error("New reader must have a name!");
+      }
+      const newAdReader = await fetch(
+        "http://localhost:5000/additional-readers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+          body: JSON.stringify(body),
+        }
+      );
+      const parseRes = await newAdReader.json();
+      //   console.log(parseRes);
+      //   console.log(parseRes.status);
+      if (parseRes.ad_reader_id) {
+        //   adReaderJoinFG()
+        addAdReaders(); //will this work???
+      }
+    } catch (err) {
+      console.error(err.message);
+      toast.error(err.message);
     }
-    } catch(err){
-      console.error(err.message)
-    }
-    
-    return console.log("you submitted something")
-  }
-  
+
+    return console.log("you submitted something");
+  };
+
   return (
     <div>
       {/* Button trigger modal  */}
