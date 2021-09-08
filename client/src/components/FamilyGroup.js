@@ -105,7 +105,11 @@ const FamilyGroup = ({ setAuth, reader }) => {
           </h4>
           <div>
             <JoinFamilyGroup setAuth={setAuth} reader={reader} />
-            <CreateFamilyGroup setAuth={setAuth} reader={reader} />
+            <CreateFamilyGroup 
+              setAuth={setAuth} 
+              reader={reader}
+              setFamGroup={setFamGroup}
+              setInFamGroup={setInFamGroup}/>
           </div>
         </div>
       ) : (
@@ -139,8 +143,6 @@ const FamilyGroup = ({ setAuth, reader }) => {
             adReaders={adReaders}
             setAdReaders={setAdReaders}
             famGroup={famGroup}
-            setFamGroup={setFamGroup}
-            setInFamGroup={setInFamGroup}
           />
         </div>
       )}
