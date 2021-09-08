@@ -1,9 +1,10 @@
 
-const adReaderReadingChallenge = async (adReaderId, challengeId) => {
+const adReaderReadingChallenge = async (adReaderId, challengeId, readerId) => {
   let ad_reader_id = adReaderId;
   let challenge_id = challengeId;
+  let reader_id = readerId
   try{
-    const body = { ad_reader_id, challenge_id };
+    const body = { ad_reader_id, challenge_id, reader_id };
     const respone = await fetch("http://localhost:5000/find-challenge/add-additional-reader", {
         method: "POST",
         headers: {"Content-Type": "application/json",
