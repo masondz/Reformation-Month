@@ -60,6 +60,28 @@ const FamilyGroup = ({ setAuth, reader }) => {
       console.error(err.message);
     }
   };
+  
+  //allow reader to leave family group
+  const leaveFG = async () => {
+    let reader_id = reader.id;
+    let fg_id = famGroup.id;
+    try {
+      const body = { reader_id, fg_id };
+      const request = await fetch("http://localhost:5000/family-group/remove-reader", {
+          method: "PUT",
+          headers: {
+          "Content-Type": "application/json",
+          token: localStorage.token,
+        },
+        body: JSON.stringify(body),
+      });
+      let parsRes = await request.json();
+      console.log(parsRes)
+      // setInFamilyGroup(false);
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   useEffect(() => {
     getFamilyGroup();
@@ -144,6 +166,11 @@ const FamilyGroup = ({ setAuth, reader }) => {
             setAdReaders={setAdReaders}
             famGroup={famGroup}
           />
+              <button
+              type="button"
+              onClick={() => leaveFG()}>
+                Leave Family Group
+              </button>
         </div>
       )}
     </div>
