@@ -35,15 +35,15 @@ router.get('/', authorization, async (req, res) => {
 router.post('/', authorization, async (req, res) => {
     try {
         //check if additional reader has a name
-        const { name } = req.body
+        const { name, reader_id } = req.body
         if (!name) {
             return res.status(401).send('New reader must have a name!')
         }
 
         const makeAdReader = await pool.query(
             `INSERT INTO additional_readers (
-      name, chapters_read, books_read, verses_memorized) VALUES($1, 0, 0, 0) RETURNING ad_reader_id;`,
-            [name]
+      name, chapters_read, books_read, verses_memorized, reader_id) VALUES($1, 0, 0, 0, $2) RETURNING ad_reader_id;`,
+            [name, reader_id]
         )
         if (makeAdReader.rows === 0) {
             return res.status(401).send('Error with server!')
@@ -120,6 +120,21 @@ router.put('/change-add-reader-name', authorization, async (req, res) => {
 router.delete('/', authorization, async (req, res) => {
     try {
         const { reader_id, ad_reader_id } = req.body
+        console.log(reader_id)
+        console.log(ad_reader_id)
+        //check if reader is creator of adreader
+        const getReader = await pool.query(
+            `SELECT * FROM additional_readers WHERE ad_reader_id = $1 AND reader_id = $2`,
+            [ad_reader_id, reader_id]
+        )
+        // console.log(getReader)
+        if (getReader.rowCount === 0) {
+            return res
+                .status(403)
+                .json('You must be the creator of reader to delete reader.')
+        }
+        res.json(getReader)
+        // console.log(getReader)
         const deleteAdReader = await pool.query(
             `DELETE FROM additional_readers WHERE ad_reader_id = $1 AND reader_id = $2`,
             [ad_reader_id, reader_id]

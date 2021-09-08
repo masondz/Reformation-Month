@@ -3,6 +3,7 @@ import ReportAdReaderReading from "./ReportAdReaderReading";
 import JoinFamilyGroup from "./JoinFamilyGroup";
 import CreateFamilyGroup from "./CreateFamilyGroup";
 import CreateAdditionalReader from "./CreateAdditionalReader";
+import DeleteAdReader from "./DeleteAdReader";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
@@ -15,6 +16,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
       verses_memorized: "",
     },
   ]);
+  const [checkAdReaders, setCheckAdReaders] = useState(true);
 
   //get reader's family group
   const getFamilyGroup = async () => {
@@ -37,51 +39,30 @@ const FamilyGroup = ({ setAuth, reader }) => {
     }
   };
 
-  const deleteAdReader = async (adReader) => {
-    //possible delete adReader from list
-    let reader_id = reader.id;
-    let ad_reader_id = adReader.ad_reader_id;
-    try {
-      const body = { reader_id, ad_reader_id };
-      const request = await fetch("http://localhost:5000/additional-readers", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.token,
-        },
-        body: JSON.stringify(body),
-      });
-      const adReaderList = adReaders;
-      const newList = adReaders.filter(
-        (reader) => reader.ad_reader_id !== ad_reader_id
-      );
-      setAdReaders(newList); //will this work??
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-  
   //allow reader to leave family group
   const leaveFG = async () => {
     let reader_id = reader.id;
     let fg_id = famGroup.id;
     try {
       const body = { reader_id, fg_id };
-      const request = await fetch("http://localhost:5000/family-group/remove-reader", {
+      const request = await fetch(
+        "http://localhost:5000/family-group/remove-reader",
+        {
           method: "PUT",
           headers: {
-          "Content-Type": "application/json",
-          token: localStorage.token,
-        },
-        body: JSON.stringify(body),
-      });
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+          body: JSON.stringify(body),
+        }
+      );
       let parsRes = await request.json();
-      console.log(parsRes)
+      console.log(parsRes);
       // setInFamilyGroup(false);
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
-  }
+  };
 
   useEffect(() => {
     getFamilyGroup();
@@ -106,7 +87,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
   };
   useEffect(() => {
     getAdditionalReader();
-  }, []); //might try adding adReaders to dependencies, so that it refreshes with an ad_reader_id?
+  }, [checkAdReaders]); //might try adding adReaders to dependencies, so that it refreshes with an ad_reader_id?
 
   // console.log(adReaders);
   const toggleFG = () => {
@@ -127,11 +108,12 @@ const FamilyGroup = ({ setAuth, reader }) => {
           </h4>
           <div>
             <JoinFamilyGroup setAuth={setAuth} reader={reader} />
-            <CreateFamilyGroup 
-              setAuth={setAuth} 
+            <CreateFamilyGroup
+              setAuth={setAuth}
               reader={reader}
               setFamGroup={setFamGroup}
-              setInFamGroup={setInFamGroup}/>
+              setInFamGroup={setInFamGroup}
+            />
           </div>
         </div>
       ) : (
@@ -149,13 +131,14 @@ const FamilyGroup = ({ setAuth, reader }) => {
                   adReaders={adReaders}
                   setAdReaders={setAdReaders}
                 />{" "}
-                <button
-                  type="button"
-                  onClick={(adReader) => deleteAdReader(adReader)}
-                >
-                  {" "}
-                  Delete Reader{" "}
-                </button>
+                <DeleteAdReader
+                  setAuth={setAuth}
+                  adReader={adReader}
+                  setAdReaders={setAdReaders}
+                  adReaders={adReaders}
+                  reader={reader}
+                  setCheckAdReaders={setCheckAdReaders}
+                />
               </h5>
             </ul>
           ))}
@@ -165,12 +148,12 @@ const FamilyGroup = ({ setAuth, reader }) => {
             adReaders={adReaders}
             setAdReaders={setAdReaders}
             famGroup={famGroup}
+            setCheckAdReaders={setCheckAdReaders}
+            checkAdReaders={checkAdReaders}
           />
-              <button
-              type="button"
-              onClick={() => leaveFG()}>
-                Leave Family Group
-              </button>
+          <button type="button" onClick={() => leaveFG()}>
+            Leave Family Group
+          </button>{" "}
         </div>
       )}
     </div>

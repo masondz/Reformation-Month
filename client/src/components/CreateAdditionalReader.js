@@ -7,15 +7,22 @@ const CreateAdditionalReader = ({
   adReaders,
   setAdReaders,
   famGroup,
+  setCheckAdReaders,
+  checkAdReaders,
 }) => {
-  // const { name } = req.body
   const [input, setInput] = useState({
     name: "",
   });
 
   const name = input.name;
 
-  const [additionalReaders, setAdditionalReaders] = useState([]);
+  const toggleCheck = () => {
+    if (checkAdReaders) {
+      setCheckAdReaders(false);
+    } else {
+      setCheckAdReaders(true);
+    }
+  };
 
   const resetInput = () => {
     setInput({ name: "" });
@@ -60,7 +67,8 @@ const CreateAdditionalReader = ({
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { name };
+      let reader_id = reader.id;
+      const body = { name, reader_id };
       if (!name) {
         throw new Error("New reader must have a name!");
       }
@@ -77,11 +85,11 @@ const CreateAdditionalReader = ({
       );
       const parseRes = await newAdReader.json();
       console.log(parseRes.ad_reader_id);
-      //   console.log(parseRes.status);
       if (parseRes) {
-        console.log("I'm in the if statement");
         await adReaderJoinFG(parseRes.ad_reader_id, famGroup.id);
         addAdReaders(); //will this work???
+        resetInput();
+        toggleCheck();
       } else {
         console.log("adREaderJoinFG didn't work");
       }
@@ -156,6 +164,7 @@ const CreateAdditionalReader = ({
               </button>
               <button
                 type="submit"
+                data-dismiss="modal"
                 class="btn btn-primary"
                 form="make-additional-readerform"
               >
