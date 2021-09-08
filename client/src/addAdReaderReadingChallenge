@@ -1,0 +1,20 @@
+
+const adReaderReadingChallenge = async (adReaderId, challengeId) => {
+  let ad_reader_id = adReaderId;
+  let challenge_id = challengeId;
+  try{
+    const body = { ad_reader_id, challenge_id };
+    const respone = await fetch("http://localhost:5000/find-challenge/add-additional-reader", {
+        method: "POST",
+        headers: {"Content-Type": "application/json",
+        token: localStorage.token,
+        },
+        body: JSON.stringify(body)
+    });
+  }catch (err){
+    console.log(err.message);
+  }
+  
+}
+
+export default adReaderReadingChallenge;
