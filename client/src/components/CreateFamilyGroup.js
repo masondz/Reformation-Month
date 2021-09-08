@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const CreateFamilyGroup = ({ setAuth, reader }) => {
+const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
   // const { family_name, reader_id, fg_password } = req.body;
   const [inputs, setInputs] = useState({
     familyName: "",
@@ -51,6 +51,9 @@ const CreateFamilyGroup = ({ setAuth, reader }) => {
       if (parseRes.status === 401) {
         return toast.error("family name already taken!");
       }
+      const familyName = parseRes.family_name;
+      setFamGroup({family_name: familyName});  //will this work?
+      setInFamGroup(true);
     } catch (err) {
       console.error(err.message);
     }
