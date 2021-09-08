@@ -139,6 +139,8 @@ const FamilyGroup = ({ setAuth, reader }) => {
             adReaders={adReaders}
             setAdReaders={setAdReaders}
             famGroup={famGroup}
+            setFamGroup={setFamGroup}
+            setInFamGroup={setInFamGroup}
           />
         </div>
       )}
