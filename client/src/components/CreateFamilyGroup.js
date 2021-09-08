@@ -136,6 +136,7 @@ const CreateFamilyGroup = ({ setAuth, reader }) => {
                 Close
               </button>
               <button
+                data-dismiss="modal"
                 type="submit"
                 class="btn btn-primary"
                 form="create-family-group"
