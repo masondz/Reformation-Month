@@ -65,25 +65,40 @@ router.post('/', authorization, async (req, res) => {
 
 router.post('/add-additional-reader', authorization, (req, res) => {
     try {
-        const { reader_id, ad_reader_id, challenge_id } = req.body
-        //check if additional_reader is already in challenge
-        const checkAdReader = pool.query(
-            `SELECT * FROM adreaders_reading_challenges WHERE ad_reader_id = $1 AND challenge_id = $2`,
-            [ad_reader_id, challenge_id]
-        )
-        const parsRes = res.json(checkAdReader)
-        console.log(parsRes)
-        if (checkAdReader.rowCount > 0) {
-            return console.log('addtional reader is already in challenge')
-        } else {
-            console.log('adding additional_reader')
-        }
+        //add adreader based on what challenge reader is in.
+        const { reader_id, ad_reader_id } = req.body;
+        const adddAdReader = pool.query(
+            `INSERT INTO adreaders_reding_challenges (ad_reader_id, challenge_id)
+             SELECT $1, reading_challenges.id FROM reading_challenges 
+             JOIN readers_reading_challenges
+                ON reading_challenges.id = readers_reading_challenges.challenge_id
+             JOIN readers
+                ON readers_reading_challenges.readers.id = readers.id
+                WHERE readers.id = $2
+                ON CONFLICT DO NOTHING`,
+            [ad_reader_id, reader_id]
+        );
+        return res.json(addAdReader);
+        
+//         //check if additional_reader is already in challenge
+//         const checkAdReader = pool.query(
+//             `SELECT * FROM adreaders_reading_challenges WHERE ad_reader_id = $1 AND challenge_id = $2`,
+//             [ad_reader_id, challenge_id]
+//         )
+//         const parsRes = res.json(checkAdReader)
+//         console.log(parsRes)
+//         if (checkAdReader.rowCount > 0) {
+//             return console.log('addtional reader is already in challenge')
+//         } else {
+//             console.log('adding additional_reader')
+//         }
 
-        const addAdReader = pool.query(
-            'INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id) VALUES ($1, $2)',
-            [ad_reader_id, challenge_id]
-        )
-        return res.json(addAdReader)
+//         const addAdReader = pool.query(
+//             'INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id) VALUES ($1, $2)',
+//             [ad_reader_id, challenge_id]
+//         )
+//         return res.json(addAdReader)
+        
     } catch (err) {
         console.error(err.message)
     }
