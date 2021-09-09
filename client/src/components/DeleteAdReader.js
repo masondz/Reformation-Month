@@ -7,7 +7,6 @@ const DeleteAdReader = ({
   reader,
   adReaders,
   setAdReaders,
-  setCheckAdReaders,
 }) => {
   console.log(adReader);
   const deleteAdReader = async () => {
@@ -36,22 +35,6 @@ const DeleteAdReader = ({
       console.error(err.message);
     }
   };
-
-  //   const onClick = async () => {
-  //     let ad_reader_id = adReader.ad_reader_id;
-  //     try {
-  //       const deleteReader = await deleteAdReader();
-  //       if (deleteReader) {
-  //         console.log(deleteReader);
-  //       }
-  //       const newList = adReaders.filter(
-  //         (addReader) => addReader.ad_reader_id !== ad_reader_id
-  //       );
-  //       setAdReaders(newList);
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     }
-  //   };
 
   return (
     <button

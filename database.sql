@@ -124,3 +124,28 @@ JOIN readers
 UPDATE player_scores SET round_scores = array_append(round_scores, 100);
 
 UPDATE family_group SET reader_ids = array_append(reader_ids, $1) WHERE family_name = $2 AND fg_password = $3, [reader_id, family_name, fg_password]
+
+SELECT r.first_name, rc.challenge_name
+FROM readers r
+INNER JOIN readers_reading_challenges rrc
+ON rrc.reader_id = r.id
+INNER JOIN reading_challenges rc
+ON rrc.challenge_id = rc.id
+WHERE r.first_name = 'Jimmy'
+
+SELECT r.id, r.first_name, rc.challenge_name
+FROM readers r
+INNER JOIN readers_reading_challenges rrc
+ON rrc.reader_id = r.id
+INNER JOIN reading_challenges rc
+ON rrc.challenge_id = rc.id
+WHERE r.first_name = 'Jimmy'
+
+INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
+             SELECT '09bb081b-07a4-4606-95f4-eab14ba288ef', reading_challenges.id FROM reading_challenges 
+             INNER JOIN readers_reading_challenges
+                ON reading_challenges.id = readers_reading_challenges.challenge_id
+             INNER JOIN readers
+                ON readers_reading_challenges.reader_id = readers.id
+                WHERE readers.id = '7abc8697-d65e-4265-a844-a18dd2a981e2'
+                ON CONFLICT DO NOTHING

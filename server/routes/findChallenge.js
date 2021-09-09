@@ -41,7 +41,6 @@ router.post('/', authorization, async (req, res) => {
             return res.status(401).json('User already exists.')
         }
 
-        //AtM: Don't need to check if challenge exists.
         //Express recieves an invalid input syntax for uuid syntax for reading_challenges.id
 
         // add the user
@@ -63,23 +62,26 @@ router.post('/', authorization, async (req, res) => {
 
 //add additional_readers to reading challenges
 
-router.post('/add-additional-reader', authorization, (req, res) => {
-    try {
-        //add adreader based on what challenge reader is in.
-        const { reader_id, ad_reader_id } = req.body;
-        const adddAdReader = pool.query(
-            `INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
-             SELECT $1, reading_challenges.id FROM reading_challenges 
-             JOIN readers_reading_challenges
-                ON reading_challenges.id = readers_reading_challenges.challenge_id
-             JOIN readers
-                ON readers_reading_challenges.readers.id = readers.id
-                WHERE readers.id = $2
-                ON CONFLICT DO NOTHING`,
-            [ad_reader_id, reader_id]
-        );
-        return res.json(addAdReader);
-        
+// THIS IS DONE IN additionalReader ROUTE!!
+
+// router.post('/add-additional-reader', authorization, (req, res) => {
+//     try {
+//         //add adreader based on what challenge reader is in.
+//         const { reader_id, ad_reader_id } = req.body
+//         const addAdReader = pool.query(
+//             `INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
+//             SELECT $1, reading_challenges.id FROM reading_challenges
+//             INNER JOIN readers_reading_challenges
+//                ON reading_challenges.id = readers_reading_challenges.challenge_id
+//             INNER JOIN readers
+//                ON readers_reading_challenges.reader_id = readers.id
+//                WHERE readers.id = $2
+//                ON CONFLICT DO NOTHING`,
+//             [ad_reader_id, reader_id]
+//         )
+//         console.log(addAdReader)
+//         res.json(addAdReader)
+
 //         //check if additional_reader is already in challenge
 //         const checkAdReader = pool.query(
 //             `SELECT * FROM adreaders_reading_challenges WHERE ad_reader_id = $1 AND challenge_id = $2`,
@@ -98,10 +100,9 @@ router.post('/add-additional-reader', authorization, (req, res) => {
 //             [ad_reader_id, challenge_id]
 //         )
 //         return res.json(addAdReader)
-        
-    } catch (err) {
-        console.error(err.message)
-    }
-})
+// } catch (err) {
+//     console.error(err.message)
+// }
+// })
 
 module.exports = router

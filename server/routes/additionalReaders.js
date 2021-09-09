@@ -48,6 +48,22 @@ router.post('/', authorization, async (req, res) => {
         if (makeAdReader.rows === 0) {
             return res.status(401).send('Error with server!')
         }
+
+        const ad_reader_id = makeAdReader.rows[0].ad_reader_id
+
+        const addAdReader = pool.query(
+            `INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
+            SELECT $1, reading_challenges.id FROM reading_challenges 
+            INNER JOIN readers_reading_challenges
+               ON reading_challenges.id = readers_reading_challenges.challenge_id
+            INNER JOIN readers
+               ON readers_reading_challenges.reader_id = readers.id
+               WHERE readers.id = $2
+               ON CONFLICT DO NOTHING`,
+            [ad_reader_id, reader_id]
+        )
+        console.log(addAdReader)
+
         res.status(201).json(makeAdReader.rows[0])
     } catch (err) {
         console.error(err.message)
