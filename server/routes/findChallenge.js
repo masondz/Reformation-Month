@@ -68,7 +68,7 @@ router.post('/add-additional-reader', authorization, (req, res) => {
         //add adreader based on what challenge reader is in.
         const { reader_id, ad_reader_id } = req.body;
         const adddAdReader = pool.query(
-            `INSERT INTO adreaders_reding_challenges (ad_reader_id, challenge_id)
+            `INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
              SELECT $1, reading_challenges.id FROM reading_challenges 
              JOIN readers_reading_challenges
                 ON reading_challenges.id = readers_reading_challenges.challenge_id
