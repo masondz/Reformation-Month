@@ -26,7 +26,9 @@ router.get('/:challenge_name', authorization, async (req, res) => {
     }
 })
 
-//add reader(id) to readers_reading_challenges
+//add reader(id) to readers_reading_challenges, 
+//then add adreaders to adreaders_reading_challenges
+
 router.post('/', authorization, async (req, res) => {
     try {
         const { reader_id, challenge_id } = req.body
@@ -52,6 +54,19 @@ router.post('/', authorization, async (req, res) => {
         )
         VALUES ($1, $2, 0)`,
             [reader_id, challenge_id]
+        )
+        
+        const addAdReader = await pool.query(
+            `INSERT INTO adreaders_reading_challenges
+	                (ad_reader_id, challenge_id)
+             SELECT
+	                unnest(ad_reader_ids), reading_challenges.challenge_id FROM family_group INNER JOIN readers
+             ON (readers.id = ANY(family_group.reader_ids)) INNER JOIN readers_reading_challenges
+             ON readers_reading_challenges.reader_id = readers.id INNER JOIN reading_challenges
+             ON reading_challenges.id = readers_reading_challenges.challenge_id
+	                WHERE readers.id = $2 ON CONFLICT DO NOTHING;
+                    RETURNING *`,
+            [challenge_id, reader_id]
         )
         return res.json(addedUser)
     } catch (err) {
