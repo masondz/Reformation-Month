@@ -105,6 +105,11 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
             `,
             [reader_id, challenge_id]
         )
+
+        //check if sibling readers in famgroup are also in challenge
+        //if so, return
+        //if not, remove adreader from challenge
+
         res.json(leaveChallenge)
     } catch (err) {
         console.error(err.message)
