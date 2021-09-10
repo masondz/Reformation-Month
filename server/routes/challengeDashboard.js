@@ -12,6 +12,7 @@ router.post('/', authorization, validInputs, async (req, res) => {
             challenge_type,
             challenge_admin,
             goal,
+            reader_id,
         } = req.body
         //check if challenge already exists.
         const challengeExist = await pool.query(
@@ -36,20 +37,7 @@ router.post('/', authorization, validInputs, async (req, res) => {
             [challenge_name, organization, challenge_type, req.user, goal]
         )
         //add aditional readers to challenge
-        const challenge_id = challengeToAdd.challenge_id
-        const addAdReader = await pool.query(
-            `INSERT INTO adreaders_reading_challenges
-	                (ad_reader_id, challenge_id)
-             SELECT
-	                unnest(ad_reader_ids), $1 FROM family_group INNER JOIN readers
-             ON 
-	     		(readers.id = ANY(family_group.reader_ids)) 
-	     WHERE 
-	     		readers.id = $2 ON CONFLICT DO NOTHING;
-             RETURNING *`,
-            [challenge_id, reader_id]
-            )
-        
+        console.log(challengeToAdd)
         res.json(challengeToAdd.rows[0])
     } catch (err) {
         console.error(err.message)
