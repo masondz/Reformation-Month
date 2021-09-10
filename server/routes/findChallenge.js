@@ -26,14 +26,14 @@ router.get('/:challenge_name', authorization, async (req, res) => {
     }
 })
 
-//add reader(id) to readers_reading_challenges, 
+//add reader(id) to readers_reading_challenges,
 //then add adreaders to adreaders_reading_challenges
 
 router.post('/', authorization, async (req, res) => {
     try {
         const { reader_id, challenge_id } = req.body
-
         //check if reader is already in challenge
+        console.log(`reader: ${reader_id} challenge: ${challenge_id}`)
         const readerToAdd = await pool.query(
             'SELECT * FROM readers_reading_challenges WHERE reader_id= $1 AND challenge_id=$2',
             [reader_id, challenge_id]
@@ -52,23 +52,25 @@ router.post('/', authorization, async (req, res) => {
             challenge_id,
             role
         )
-        VALUES ($1, $2, 0)`,
+        VALUES ($1, $2, 0)
+        RETURNING *`,
             [reader_id, challenge_id]
         )
-        
+        console.log(addedUser.rows[0])
+
         const addAdReader = await pool.query(
             `INSERT INTO adreaders_reading_challenges
-	                (ad_reader_id, challenge_id)
+                    (ad_reader_id, challenge_id)
              SELECT
-	                unnest(ad_reader_ids), $1 FROM family_group INNER JOIN readers
-             ON 
-	     		(readers.id = ANY(family_group.reader_ids)) 
-	     WHERE 
-	     		readers.id = $2 ON CONFLICT DO NOTHING;
+                    unnest(family_group.additional_reader_ids), $1 FROM family_group INNER JOIN readers
+             ON
+         		(readers.id = ANY(family_group.reader_ids))
+         WHERE
+         		readers.id = $2 ON CONFLICT DO NOTHING
              RETURNING *`,
             [challenge_id, reader_id]
         )
-	console.log(addAdReader)
+        console.log(addAdReader)
         return res.json(addedUser)
     } catch (err) {
         console.log(err.message)
