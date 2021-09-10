@@ -60,14 +60,15 @@ router.post('/', authorization, async (req, res) => {
             `INSERT INTO adreaders_reading_challenges
 	                (ad_reader_id, challenge_id)
              SELECT
-	                unnest(ad_reader_ids), reading_challenges.challenge_id FROM family_group INNER JOIN readers
-             ON (readers.id = ANY(family_group.reader_ids)) INNER JOIN readers_reading_challenges
-             ON readers_reading_challenges.reader_id = readers.id INNER JOIN reading_challenges
-             ON reading_challenges.id = readers_reading_challenges.challenge_id
-	                WHERE readers.id = $2 ON CONFLICT DO NOTHING;
-                    RETURNING *`,
+	                unnest(ad_reader_ids), $1 FROM family_group INNER JOIN readers
+             ON 
+	     		(readers.id = ANY(family_group.reader_ids)) 
+	     WHERE 
+	     		readers.id = $2 ON CONFLICT DO NOTHING;
+             RETURNING *`,
             [challenge_id, reader_id]
         )
+	console.log(addAdReader)
         return res.json(addedUser)
     } catch (err) {
         console.log(err.message)
