@@ -7,14 +7,16 @@ const DeleteAdReader = ({
   reader,
   adReaders,
   setAdReaders,
+  famGroup,
 }) => {
   console.log(adReader);
   const deleteAdReader = async () => {
     //possible delete adReader from list
     let reader_id = reader.id;
     let ad_reader_id = adReader.ad_reader_id;
+    let fg_id = famGroup.id;
     try {
-      const body = { reader_id, ad_reader_id };
+      const body = { reader_id, ad_reader_id, fg_id };
       const response = await fetch("http://localhost:5000/additional-readers", {
         method: "DELETE",
         headers: {

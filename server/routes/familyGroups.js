@@ -95,18 +95,6 @@ router.put('/add-additional-reader', authorization, async (req, res) => {
 })
 
 //remove additional_reader from family group
-router.put('/remove-reader', authorization, async (req, res) => {
-    try {
-        const { ad_reader_id, fg_id } = req.body
-        const removeAdReader = await pool.query(
-            `UPDATE family_group SET ad_reader_ids = array_remove(ad_reader_ids, $1) WHERE id=$2 RETURNING ad_reader_ids`,
-            [ad_reader_id, fg_id]
-        )
-        res.json(removeAdReader)
-    } catch (err) {
-        console.log(err.message)
-    }
-})
 
 //add another reader.id to reader_ids
 router.put('/add-reader', authorization, validinfo, async (req, res) => {

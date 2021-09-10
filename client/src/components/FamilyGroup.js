@@ -138,6 +138,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
                   adReaders={adReaders}
                   reader={reader}
                   setCheckAdReaders={setCheckAdReaders}
+                  famGroup={famGroup}
                 />
               </h5>
             </ul>

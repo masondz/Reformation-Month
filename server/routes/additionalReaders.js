@@ -135,7 +135,7 @@ router.put('/change-add-reader-name', authorization, async (req, res) => {
 //delete additional reader
 router.delete('/', authorization, async (req, res) => {
     try {
-        const { reader_id, ad_reader_id } = req.body
+        const { reader_id, ad_reader_id, fg_id } = req.body
         console.log(reader_id)
         console.log(ad_reader_id)
         //check if reader is creator of adreader
@@ -155,6 +155,12 @@ router.delete('/', authorization, async (req, res) => {
             `DELETE FROM additional_readers WHERE ad_reader_id = $1 AND reader_id = $2`,
             [ad_reader_id, reader_id]
         )
+        //remove from family group
+        const removeAdReader = await pool.query(
+            `UPDATE family_group SET additional_reader_ids = array_remove(additional_reader_ids, $1::uuid) WHERE id=$2 RETURNING additional_reader_ids`,
+            [ad_reader_id, fg_id]
+        )
+        console.log(removeAdReader)
         res.json(deleteAdReader)
     } catch (err) {
         console.error(err.message)

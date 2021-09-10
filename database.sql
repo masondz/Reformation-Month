@@ -149,3 +149,17 @@ INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
                 ON readers_reading_challenges.reader_id = readers.id
                 WHERE readers.id = '7abc8697-d65e-4265-a844-a18dd2a981e2'
                 ON CONFLICT DO NOTHING
+
+SELECT rc.challenge_name FROM reading_challenges rc
+INNER JOIN readers_reading_challenges rrc
+ON rc.id = rrc.challenge_id
+INNER JOIN readers r
+ON r.id = rrc.reader_id
+WHERE r.first_name = 'Jimmy';
+
+
+-- array_remove(anyarray, anyelement)
+
+-- c537e5ec-bbd6-4a7d-9b76-b23b89dfbb35 Rocket's Id
+
+SELECT array_remove(family_group.additional_reader_ids, 'c537e5ec-bbd6-4a7d-9b76-b23b89dfbb35');
