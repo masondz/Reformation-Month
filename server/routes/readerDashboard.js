@@ -99,6 +99,60 @@ router.get('/reader-challenge-id', authorization, async (req, res) => {
 router.delete('/reader-challenge-id/', authorization, async (req, res) => {
     try {
         const { reader_id, challenge_id } = req.query
+        //check if in a family_group
+        const checkFG = await pool.query(
+            `SELECT fg.family_name FROM family_group fg
+            INNER JOIN readers r
+            ON r.id = fg.id
+            WHERE r.id = $1`,
+            [reader_id]
+           )
+        if (checkFG.rows === 0) { //just delete reader from challenge
+            const leaveChallenge = await pool.query(
+            `
+            DELETE FROM readers_reading_challenges WHERE reader_id = $1 AND challenge_id = $2
+            `,
+            [reader_id, challenge_id]
+        )
+        return res.json(leaveChallenge)
+        };
+        
+        //check if sibling readers are in reading challenge
+        const checkSibs = await pool.query(
+            `SELECT count(*) as the_count from readers_reading_challenges rrc
+             WHERE rrc.reader_id IN (SELECT unnest(reader_ids)
+                                    FROM family_group fg
+                                    INNER JOIN readers r
+                                    ON r.id = ANY(fg.reader_ids)
+                                    WHERE r.id = $1)
+              AND rrc.challenge_id = $2;`,
+            [reader_id, challenge_id]
+            );
+        
+        if (checkSibs > 1) {
+             const leaveChallenge = await pool.query(
+            `
+            DELETE FROM readers_reading_challenges WHERE reader_id = $1 AND challenge_id = $2
+            `,
+            [reader_id, challenge_id]
+        )
+        return res.json(leaveChallenge)
+        };
+        }
+        
+        const removeAdReader = await pool.query(  // remove additional readers from additional_readers_reading_challege
+            `DELETE FROM adreaders_reading_challenges arc
+             WHERE arc.ad_reader_id IN (SELECT unnest(ad_reader_ids) 
+                                   FROM family_group fg
+                                   INNER JOIN readers r
+                                   ON r.id = ANY(fg.reader_ids)
+                                   WHERE r.id = $1)
+             AND arc.challenge_id = $2;`,
+            [reader_id, challenge_id]
+        );
+        
+        console.log(removeAdReader);
+        
         const leaveChallenge = await pool.query(
             `
             DELETE FROM readers_reading_challenges WHERE reader_id = $1 AND challenge_id = $2
