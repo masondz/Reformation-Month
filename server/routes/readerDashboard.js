@@ -103,11 +103,13 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
         const checkFG = await pool.query(
             `SELECT fg.family_name FROM family_group fg
             INNER JOIN readers r
-            ON r.id = fg.id
+            ON r.id = ANY(fg.reader_ids)
             WHERE r.id = $1`,
             [reader_id]
         )
-        if (checkFG.rows === 0) {
+        console.log(checkFG)
+        if (checkFG.rowCount === 0) {
+            console.log('checkFG: Not in family group')
             //just delete reader from challenge
             const leaveChallenge = await pool.query(
                 `
@@ -129,8 +131,9 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
               AND rrc.challenge_id = $2;`,
             [reader_id, challenge_id]
         )
-
-        if (checkSibs > 1) {
+        console.log(checkSibs.rows[0].the_count)
+        if (checkSibs.rows[0].the_count > 1) {
+            console.log('checkSibs: true')
             const leaveChallenge = await pool.query(
                 `
             DELETE FROM readers_reading_challenges WHERE reader_id = $1 AND challenge_id = $2
@@ -143,7 +146,7 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
         const removeAdReader = await pool.query(
             // remove additional readers from additional_readers_reading_challege
             `DELETE FROM adreaders_reading_challenges arc
-             WHERE arc.ad_reader_id IN (SELECT unnest(ad_reader_ids) 
+             WHERE arc.ad_reader_id IN (SELECT unnest(additional_reader_ids) 
                                    FROM family_group fg
                                    INNER JOIN readers r
                                    ON r.id = ANY(fg.reader_ids)
@@ -152,7 +155,7 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
             [reader_id, challenge_id]
         )
 
-        console.log(removeAdReader)
+        // console.log(removeAdReader)
 
         const leaveChallenge = await pool.query(
             `
@@ -160,7 +163,7 @@ router.delete('/reader-challenge-id/', authorization, async (req, res) => {
             `,
             [reader_id, challenge_id]
         )
-
+        console.log('In FamGroup but only sibling in challenge!')
         res.json(leaveChallenge)
     } catch (err) {
         console.error(err.message)

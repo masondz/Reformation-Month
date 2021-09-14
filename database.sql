@@ -163,3 +163,31 @@ WHERE r.first_name = 'Jimmy';
 -- c537e5ec-bbd6-4a7d-9b76-b23b89dfbb35 Rocket's Id
 
 SELECT array_remove(family_group.additional_reader_ids, 'c537e5ec-bbd6-4a7d-9b76-b23b89dfbb35');
+SELECT readers.first_name, family_group.family_name, family_group.id FROM family_group INNER JOIN readers 
+ON readers.id = ANY(family_group.reader_ids)
+WHERE readers.id = '7abc8697-d65e-4265-a844-a18dd2a981e2';
+
+-- nutron fg_id = '2a2bf035-5a4f-4297-9948-41896448f43a'
+
+
+
+SELECT r.first_name, r.id FROM readers r 
+INNER JOIN family_group fg 
+ON r.id = ANY(fg.reader_ids)
+WHERE fg.id = '2a2bf035-5a4f-4297-9948-41896448f43a';
+
+SELECT ar.name as adreaders_in_tfc FROM additional_readers ar
+INNER JOIN adreaders_reading_challenges arc
+ON ar.ad_reader_id = arc.ad_reader_id
+INNER JOIN reading_challenges rc
+ON rc.id = arc.challenge_id
+WHERE rc.challenge_name = 'First Test Challenge'
+
+
+SELECT rc.challenge_name FROM reading_challenges rc
+INNER JOIN adreaders_reading_challenges
+arc
+ON arc.challenge_id = rc.id
+INNER JOIN additional_readers ar
+ON ar.ad_reader_id = arc.ad_reader_id
+WHERE ar.name = 'Rocket';
