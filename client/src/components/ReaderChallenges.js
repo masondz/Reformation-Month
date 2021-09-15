@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import ChallengeTotal from "./ChallengeTotal";
 
 import EditChallenge from "./EditChallenge";
 import EditChallenge2 from "./EditChallenge2";
@@ -22,6 +23,12 @@ const ReaderChallenges = ({
     versus_memorized,
     id,
   } = reader;
+
+  const [calculating, setCalculating] = useState(false);
+
+  const toggleCa = () => {
+    calculating === true ? setCalculating(false) : setCalculating(true);
+  };
 
   //Remove reader from reading challenge
   const removeReader = async (reader_id, challenge_id) => {
@@ -82,7 +89,13 @@ const ReaderChallenges = ({
                 )}
               </h3>
               <h3>
-                Goal: current count / {challenge.goal} {challenge.challenge}
+                Goal:{" "}
+                {calculating ? (
+                  "..."
+                ) : (
+                  <ChallengeTotal setAuth={setAuth} challenge={challenge} />
+                )}{" "}
+                / {challenge.goal} {challenge.challenge}
               </h3>
             </ul>
           </Fragment>
