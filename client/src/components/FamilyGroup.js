@@ -4,7 +4,6 @@ import JoinFamilyGroup from "./JoinFamilyGroup";
 import CreateFamilyGroup from "./CreateFamilyGroup";
 import CreateAdditionalReader from "./CreateAdditionalReader";
 import DeleteAdReader from "./DeleteAdReader";
-import AdReadFindChall from "./AdReadFindChall";
 
 const FamilyGroup = ({ setAuth, reader }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
@@ -124,7 +123,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
           {adReaders.map((adReader, index) => (
             <ul>
               <h4 key={index} style={{ background: "lightgreen" }}>
-                {adReader.name}:
+                {adReader.name}:{" "}
               </h4>
               <h5>
                 <ReportAdReaderReading
@@ -132,7 +131,6 @@ const FamilyGroup = ({ setAuth, reader }) => {
                   adReaders={adReaders}
                   setAdReaders={setAdReaders}
                 />{" "}
-                <AdReadFindChall setAuth={setAuth} adReader={adReader} />{" "}
                 <DeleteAdReader
                   setAuth={setAuth}
                   adReader={adReader}

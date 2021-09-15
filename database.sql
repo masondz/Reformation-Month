@@ -191,3 +191,8 @@ ON arc.challenge_id = rc.id
 INNER JOIN additional_readers ar
 ON ar.ad_reader_id = arc.ad_reader_id
 WHERE ar.name = 'Rocket';
+
+
+SELECT (SELECT count(*) as count FROM reading_challenges), challenge_name, organization, goal, challenge, id, challenge_admin 
+FROM reading_challenges ch, readers_reading_challenges rch
+WHERE ch.id = rch.challenge_id AND rch.reader_id = '7abc8697-d65e-4265-a844-a18dd2a981e2' ORDER BY challenge_name;
