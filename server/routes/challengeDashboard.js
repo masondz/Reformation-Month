@@ -137,4 +137,24 @@ router.delete('/', authorization, async (req, res) => {
         console.error(err.message)
     }
 })
+
+//Get totals for challenge
+router.get('/challenge-total', authorization, async (req, res) => {
+    try{
+        const {challenge_id} = req.body;
+        const getTotals = await pool.query(
+            `SELECT (SELECT COALESCE(SUM(chapters),0)  FROM readers r
+                    INNER JOIN readers_reading_challenges rrc
+                    ON r.id = rrc.reader_id
+                    WHERE rrc.challenge_id = 2) +
+                    (SELECT COALESCE(SUM(chapters),0) FROM additional_readers ar
+                    INNER JOIN adreaders_reading_challenges arc
+                    ON ar.id = arc.ad_reader_id
+                    WHERE arc.challenge_id = 2) as total`
+    }catch(err){
+        console.error(err.message);
+    }
+
+})
+
 module.exports = router
