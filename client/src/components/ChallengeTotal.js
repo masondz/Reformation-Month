@@ -24,7 +24,7 @@ const ChallengeTotal = ({ setAuth, challenge }) => {
     }
   }
   
-  return <>{challenge.challenge_name} total</>;
+  return <>{total}</>;
 };
 
 export default ChallengeTotal;
