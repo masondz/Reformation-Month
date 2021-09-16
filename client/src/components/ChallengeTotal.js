@@ -9,7 +9,16 @@ const ChallengeTotal = ({ setAuth, challenge }) => {
     try{
       const body = {challenge_id};
       const getTotal = await fetch('https://localhost:5000/challenge-dashboard/challenge-total',
-      [challenge_id]      
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+          body: JSON.stringify(body),
+        }
+      const parseRes = getTotal.json();
+      setTotal(parseRes);
     }catch(err){
       console.error(err.message)
     }
