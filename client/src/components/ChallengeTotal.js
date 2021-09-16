@@ -22,7 +22,22 @@ const ChallengeTotal = ({ setAuth, challenge }) => {
     }
   }
   
-  return <>{total}</>
+  const {calculating, setCalculating] useState("...")
+  
+  return <>
+    <div>
+      {total}
+   /* <h3>
+                Goal:{" "}
+                {calculating ? (
+                  "..."
+                ) : (
+                  <ChallengeTotal setAuth={setAuth} challenge={challenge} setTotal={setTotal}/>
+                )}{" "}
+                / {total} {challenge.challenge}
+              </h3>*/
+    </div>
+    </>
 };
 
 export default ChallengeTotal;
