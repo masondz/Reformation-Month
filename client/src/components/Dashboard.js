@@ -70,14 +70,6 @@ const Dashboard = ({ setAuth }) => {
       : setFamilyGroupState(false);
   };
 
-  //   useEffect(() => {
-  //   const hideComponents = (e) => {
-  //     if (createChallenge) {
-  //       e.target.style={{display: hidden}}
-  //     }
-  //   }
-  // });
-
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>

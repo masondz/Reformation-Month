@@ -29,10 +29,8 @@ const ReaderChallenges = ({
     calculating === true ? setCalculating(false) : setCalculating(true);
   };
 
-  
   const [total, setTotal] = useState("...");
-  
-  
+
   //Remove reader from reading challenge
   const removeReader = async (reader_id, challenge_id) => {
     try {
@@ -66,11 +64,11 @@ const ReaderChallenges = ({
   return (
     <div className="form-control">
       <h2>Reading challenges:</h2>
-      {readersChallenges.map((challenge) => {
+      {readersChallenges.map((challenge, index) => {
         return (
-          <Fragment key={challenge.challenge_id}>
+          <Fragment key={challenge.id.toString()}>
             <ul>
-              <h3 style={{ background: "tan" }} value={challenge.id}>
+              <h3 style={{ background: "tan" }} value={challenge.id} key={110}>
                 {console.log(reader.id, challenge.challenge_admin)}
                 {challenge.challenge_name} - <i>{challenge.organization}</i>
                 {reader.id !== challenge.challenge_admin ? (
@@ -81,7 +79,7 @@ const ReaderChallenges = ({
                     Leave Challenge
                   </button>
                 ) : (
-                  <Fragment>
+                  <Fragment key={challenge.id.toString()}>
                     <EditChallenge2
                       challenge={challenge}
                       reader={reader}
@@ -91,15 +89,19 @@ const ReaderChallenges = ({
                   </Fragment>
                 )}
               </h3>
-              <h3>
-                Goal:{" "}
+              <div key={(challenge.challege_id + 1).toString()}>
                 {calculating ? (
                   "..."
                 ) : (
-                  <ChallengeTotal setAuth={setAuth} challenge={challenge} setTotal={setTotal}/>
-                )}{" "}
-                / {total} {challenge.challenge}
-              </h3>
+                  <ChallengeTotal
+                    reader={reader}
+                    setAuth={setAuth}
+                    challenge={challenge}
+                    setTotal={setTotal}
+                    setCalculating={setCalculating}
+                  />
+                )}
+              </div>
             </ul>
           </Fragment>
         );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import ReportAdReaderReading from "./ReportAdReaderReading";
 import JoinFamilyGroup from "./JoinFamilyGroup";
 import CreateFamilyGroup from "./CreateFamilyGroup";
@@ -125,7 +125,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
               <h4 key={index} style={{ background: "lightgreen" }}>
                 {adReader.name}:{" "}
               </h4>
-              <h5>
+              <Fragment key={index + 1}>
                 <ReportAdReaderReading
                   adReader={adReader}
                   adReaders={adReaders}
@@ -140,7 +140,7 @@ const FamilyGroup = ({ setAuth, reader }) => {
                   setCheckAdReaders={setCheckAdReaders}
                   famGroup={famGroup}
                 />
-              </h5>
+              </Fragment>
             </ul>
           ))}
           <CreateAdditionalReader
