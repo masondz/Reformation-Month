@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
-const ChallengeTotal = ({ setAuth, challenge, setTotal }) => {
-    
+const ChallengeTotal = ({ setAuth, challenge }) => {
+    const [total, setTotal] = useState("...");
   const getTotals = () => {
     const const challenge_id = challeng.id
     try{
@@ -21,6 +21,8 @@ const ChallengeTotal = ({ setAuth, challenge, setTotal }) => {
       console.error(err.message)
     }
   }
+  
+  return <>{total}</>
 };
 
 export default ChallengeTotal;
