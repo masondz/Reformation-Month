@@ -27,7 +27,8 @@ const ChallengeTotal = ({ setAuth, challenge }) => {
   return <>
     <div>
       {total}
-   /* <h3>
+   /*<meter id='goal min=0 max= 
+   <h3>Goal
                 Goal:{" "}
                 {calculating ? (
                   "..."
