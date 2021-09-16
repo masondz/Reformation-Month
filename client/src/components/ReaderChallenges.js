@@ -25,11 +25,14 @@ const ReaderChallenges = ({
   } = reader;
 
   const [calculating, setCalculating] = useState(false);
-
   const toggleCa = () => {
     calculating === true ? setCalculating(false) : setCalculating(true);
   };
 
+  
+  const [total, setTotal] = useState("...");
+  
+  
   //Remove reader from reading challenge
   const removeReader = async (reader_id, challenge_id) => {
     try {
@@ -93,9 +96,9 @@ const ReaderChallenges = ({
                 {calculating ? (
                   "..."
                 ) : (
-                  <ChallengeTotal setAuth={setAuth} challenge={challenge} />
+                  <ChallengeTotal setAuth={setAuth} challenge={challenge} setTotal={setTotal}/>
                 )}{" "}
-                / {challenge.goal} {challenge.challenge}
+                / {total} {challenge.challenge}
               </h3>
             </ul>
           </Fragment>
