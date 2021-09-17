@@ -15,9 +15,9 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
   const [endPoint, setEndPoint] = useState("");
 
   const resetAll = () => {
-    setChaptersTotal(0);
-    setBooksTotal(0);
-    setVersesTotal(0);
+    setChaptersTotal("");
+    setBooksTotal("");
+    setVersesTotal("");
   };
 
   const updateTotals = (total, challengeType) => {
