@@ -66,8 +66,7 @@ router.post('/', authorization, async (req, res) => {
              ON
          		(readers.id = ANY(family_group.reader_ids))
          WHERE
-         		readers.id = $2 ON CONFLICT DO NOTHING
-             RETURNING *`,
+         		readers.id = $2 ON CONFLICT DO NOTHING`,
             [challenge_id, reader_id]
         )
         console.log(addAdReader)
