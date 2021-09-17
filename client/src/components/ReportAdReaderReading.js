@@ -8,17 +8,18 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 
-const ReportAdReaderReading = ({ setAuth, adReader }) => {
+const ReportAdReaderReading = ({
+  setAuth,
+  adReader,
+  displayTotal,
+  setDisplayTotal,
+}) => {
   const { name, chapters_read, books_read, verses_memorized } = adReader;
-  const [displayTotal, setDisplayTotal] = useState({
+
+  const [inputs, setInputs] = useState({
     chapters_read: "",
     books_read: "",
     verses_memorized: "",
-  });
-  const [inputs, setInputs] = useState({
-    chapters_read: 0,
-    books_read: 0,
-    verses_memorized: 0,
   });
   const [challengeType, setChallengeType] = useState("");
 
@@ -28,7 +29,7 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
       books_read: books_read,
       verses_memorized: verses_memorized,
     });
-  }, [name, chapters_read, books_read, verses_memorized]); //needed something to get the first reader in the list to display stuff
+  }, [name, chapters_read, books_read, verses_memorized, setDisplayTotal]); //needed something to get the first reader in the list to display stuff
 
   const updateTotals = (total, challengeType) => {
     console.log(`${challengeType}: ${displayTotal[challengeType]}`);
@@ -37,6 +38,14 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
     setDisplayTotal({
       ...displayTotal,
       [challengeType]: newTotal,
+    });
+  };
+
+  const resetInputs = () => {
+    setInputs({
+      chapters_read: "",
+      books_read: "",
+      verses_memorized: "",
     });
   };
 
@@ -69,10 +78,10 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
       });
       const res = await response.json();
       console.log(res);
+      resetInputs();
     } catch (err) {
       console.error(err.message);
     }
-    resetInputs();
   };
 
   const onChange = (e) => {
@@ -90,14 +99,6 @@ const ReportAdReaderReading = ({ setAuth, adReader }) => {
       setInputs({ ...inputs, verses_memorized: e.target.value });
     }
     console.log("you changed something");
-  };
-
-  const resetInputs = () => {
-    setInputs({
-      chapters_read: 0,
-      books_read: 0,
-      verses_memorized: 0,
-    });
   };
 
   let jsxId = `ad${adReader.ad_reader_id}`;

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const ChallengeTotal = ({ setAuth, challenge, setCalculating, reader }) => {
+const ChallengeTotal = ({
+  setAuth,
+  challenge,
+  setCalculating,
+  reader,
+  displayTotal,
+}) => {
   const [total, setTotal] = useState("...");
   console.log("ChallengeTotal challenge prop:" + challenge.challenge);
+  console.log("displayTotal challenge prop:" + displayTotal);
 
   const [progress, setProgress] = useState(0);
 
@@ -37,6 +44,9 @@ const ChallengeTotal = ({ setAuth, challenge, setCalculating, reader }) => {
     reader.chapters_read,
     reader.books_read,
     reader.verses_memorized,
+    displayTotal.chapters_read,
+    displayTotal.books_read,
+    displayTotal.verses_memorized,
   ]);
   console.log(progress);
 

@@ -5,7 +5,7 @@ import CreateFamilyGroup from "./CreateFamilyGroup";
 import CreateAdditionalReader from "./CreateAdditionalReader";
 import DeleteAdReader from "./DeleteAdReader";
 
-const FamilyGroup = ({ setAuth, reader }) => {
+const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
   const [inFamGroup, setInFamGroup] = useState(false);
   const [famGroup, setFamGroup] = useState({});
   const [adReaders, setAdReaders] = useState([
@@ -130,6 +130,8 @@ const FamilyGroup = ({ setAuth, reader }) => {
                   adReader={adReader}
                   adReaders={adReaders}
                   setAdReaders={setAdReaders}
+                  displayTotal={displayTotal}
+                  setDisplayTotal={setDisplayTotal}
                 />{" "}
                 <DeleteAdReader
                   setAuth={setAuth}

@@ -11,9 +11,10 @@ const ReaderChallenges = ({
   readersChallenges,
   setReadersChallenges,
   setInReadingChallenge,
+  displayTotal,
 }) => {
   // console.log(readersChallenges);
-  // console.log(reader);
+  console.log("ReadeChallenges.js:displayTotal -" + displayTotal);
   const {
     //destructer reader that is passed down by props from Dashboard
     first_name,
@@ -99,6 +100,7 @@ const ReaderChallenges = ({
                     challenge={challenge}
                     setTotal={setTotal}
                     setCalculating={setCalculating}
+                    displayTotal={displayTotal}
                   />
                 )}
               </div>

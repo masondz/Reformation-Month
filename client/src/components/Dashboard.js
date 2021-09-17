@@ -70,6 +70,12 @@ const Dashboard = ({ setAuth }) => {
       : setFamilyGroupState(false);
   };
 
+  const [displayTotal, setDisplayTotal] = useState({
+    chapters_read: "",
+    books_read: "",
+    verses_memorized: "",
+  });
+
   return (
     <Fragment>
       <h1>Welcome {reader.first_name}</h1>
@@ -90,7 +96,14 @@ const Dashboard = ({ setAuth }) => {
           </button>
         </div>
         <br></br>
-        {familyGroupState && <FamilyGroup setAuth={setAuth} reader={reader} />}
+        {familyGroupState && (
+          <FamilyGroup
+            setAuth={setAuth}
+            reader={reader}
+            setDisplayTotal={setDisplayTotal}
+            displayTotal={displayTotal}
+          />
+        )}
         <br></br>
         {!createChallenge && inReadingChallenge && (
           <>
@@ -101,6 +114,7 @@ const Dashboard = ({ setAuth }) => {
               readersChallenges={readersChallenges}
               setReadersChallenges={setReadersChallenges}
               setInReadingChallenge={setInReadingChallenge}
+              displayTotal={displayTotal}
             />
           </>
         )}
