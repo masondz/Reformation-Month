@@ -23,8 +23,19 @@ const ReportAdReaderReading = ({
   });
   const [challengeType, setChallengeType] = useState("");
 
+  const [adReaderTotal, setAdReaderTotal] = useState({
+    chapters_read: "",
+    books_read: "",
+    verses_memorized: "",
+  });
+
   useEffect(() => {
     setDisplayTotal({
+      chapters_read: chapters_read,
+      books_read: books_read,
+      verses_memorized: verses_memorized,
+    });
+    setAdReaderTotal({
       chapters_read: chapters_read,
       books_read: books_read,
       verses_memorized: verses_memorized,
@@ -32,9 +43,13 @@ const ReportAdReaderReading = ({
   }, [name, chapters_read, books_read, verses_memorized, setDisplayTotal]); //needed something to get the first reader in the list to display stuff
 
   const updateTotals = (total, challengeType) => {
-    console.log(`${challengeType}: ${displayTotal[challengeType]}`);
-    let newTotal = Number(displayTotal[challengeType]) + Number(total); //I think this should change displayed totals
+    console.log(`${challengeType}: ${adReaderTotal[challengeType]}`);
+    let newTotal = Number(adReaderTotal[challengeType]) + Number(total); //I think this should change displayed totals
     console.log(newTotal);
+    setAdReaderTotal({
+      ...adReaderTotal,
+      [challengeType]: newTotal,
+    });
     setDisplayTotal({
       ...displayTotal,
       [challengeType]: newTotal,
@@ -107,8 +122,8 @@ const ReportAdReaderReading = ({
   return (
     <>
       <h3>
-        Chapters: {displayTotal.chapters_read} Books: {displayTotal.books_read}{" "}
-        Verses: {displayTotal.verses_memorized}
+        Chapters: {adReaderTotal.chapters_read} Books:{" "}
+        {adReaderTotal.books_read} Verses: {adReaderTotal.verses_memorized}
       </h3>
       <button
         type="button"
