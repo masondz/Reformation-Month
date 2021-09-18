@@ -62,6 +62,17 @@ function App() {
             />
             <Route
               exact
+              path="/"
+              render={(props) =>
+                !isAuthenticated ? (
+                  <Login {...props} setAuth={setAuth} />
+                ) : (
+                  <Redirect to="/dashboard" />
+                )
+              }
+            />
+            <Route
+              exact
               path="/register"
               render={(props) =>
                 !isAuthenticated ? (
