@@ -16,9 +16,10 @@ const ChallengeTotal = ({
   useEffect(() => {
     const getTotals = async () => {
       const challenge_id = challenge.id;
+      const challenge_type = challenge.challenge;
       try {
         const getTotal = await fetch(
-          `http://localhost:5000/challenge-dashboard/challenge-total/${challenge_id}`,
+          `http://localhost:5000/challenge-dashboard/challenge-total/${challenge_id}/${challenge_type}`,
           {
             method: "GET",
             headers: {
@@ -28,7 +29,7 @@ const ChallengeTotal = ({
           }
         );
         const parseRes = await getTotal.json();
-        console.log(parseRes);
+        console.log("getTotal query" + parseRes);
         setTotal(parseRes.total);
         setCalculating(false);
       } catch (err) {
