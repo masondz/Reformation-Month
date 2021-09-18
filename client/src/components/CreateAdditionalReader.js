@@ -110,7 +110,7 @@ const CreateAdditionalReader = ({
         data-bs-toggle="modal"
         data-bs-target="#make-additional-reader"
       >
-        Create Family Group Member
+        Add Family Group Member
       </button>
 
       {/* // <!-- Modal --> */}

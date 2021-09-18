@@ -51,6 +51,8 @@ VALUES ($1, ARRAY [$2::uuid], $3)
 RETURNING *`,
         [family_name, reader_id, bcryptPassword] //rest of columns have default values
     )
+    console.log(newFamilyGroup)
+    res.json(newFamilyGroup)
 })
 
 //update family group
@@ -142,6 +144,7 @@ router.put('/remove-reader', authorization, async (req, res) => {
             [reader_id, fg_id]
         )
         res.json(removeReader)
+        console.log(removeReader)
     } catch (err) {
         console.log(err.message)
     }

@@ -59,6 +59,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
       let parsRes = await request.json();
       console.log(parsRes);
       // setInFamilyGroup(false);
+      window.location = "/dashboard";
     } catch (err) {
       console.error(err.message);
     }
@@ -154,7 +155,12 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             setCheckAdReaders={setCheckAdReaders}
             checkAdReaders={checkAdReaders}
           />
-          <button type="button" onClick={() => leaveFG()}>
+          <button
+            button
+            type="button"
+            className="btn-sm btn btn-outline-danger mt-2"
+            onClick={() => leaveFG()}
+          >
             Leave Family Group
           </button>{" "}
         </div>

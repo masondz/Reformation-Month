@@ -171,7 +171,7 @@ const ReportAdReaderReading = ({
                     <button
                       type="button"
                       name="chapters_read"
-                      htmlFor="chapters_memorized"
+                      htmlFor="chapters_read"
                       className="btn btn-primary"
                       data-dismiss="modal"
                       onClick={(e) => onSubmit(e)}
@@ -231,6 +231,10 @@ const ReportAdReaderReading = ({
                       Save changes
                     </button>
                   </lable>
+
+                  <button onClick={() => resetInputs()}>
+                    Test clear inputs
+                  </button>
                 </form>
                 <div class="modal-footer"></div>
               </form>

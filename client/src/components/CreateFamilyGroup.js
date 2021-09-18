@@ -52,8 +52,9 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
         return toast.error("family name already taken!");
       }
       const familyName = parseRes.family_name;
-      setFamGroup({family_name: familyName});  //will this work?
+      setFamGroup({ family_name: familyName }); //will this work?
       setInFamGroup(true);
+      window.location = "/dashboard";
     } catch (err) {
       console.error(err.message);
     }

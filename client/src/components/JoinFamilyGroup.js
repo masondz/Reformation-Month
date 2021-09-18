@@ -32,6 +32,7 @@ const JoinFamilyGroup = ({ setAuth, reader }) => {
         }
       );
       const parseRes = await response.json();
+      window.location = "/dashboard";
       if (parseRes.status === 401) {
         return toast.error("Password or Family Name is incorrect");
       }
