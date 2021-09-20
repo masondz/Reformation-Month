@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const pool = require('./db')
+const PORT = process.env.PORT || 5000
 
 //middleware
 app.use(cors())
@@ -13,31 +14,31 @@ app.use('/auth', require('./routes/jwtAuth'))
 
 //dashboard route
 
-app.use('/dashboard', require('../server/routes/dashboard'))
+app.use('/dashboard', require('../routes/dashboard'))
 
 //find-challenges routes
 
-app.use('/find-challenges', require('../server/routes/findChallenge'))
+app.use('/find-challenges', require('../routes/findChallenge'))
 
 //challenge-dashboard routes
 
-app.use('/challenge-dashboard', require('../server/routes/challengeDashboard'))
+app.use('/challenge-dashboard', require('../routes/challengeDashboard'))
 
 //reader-dashboard routes
 
-app.use('/reader-dashboard', require('../server/routes/readerDashboard'))
+app.use('/reader-dashboard', require('../routes/readerDashboard'))
 
 //increment or decrement challenge totals per reader
 
-app.use('/submit-report', require('../server/routes/submitReading'))
+app.use('/submit-report', require('../routes/submitReading'))
 
 //add, update, or remove additional readers
 
-app.use('/additional-readers', require('../server/routes/additionalReaders'))
+app.use('/additional-readers', require('../routes/additionalReaders'))
 
 //family-group routes
 
-app.use('/family-group', require('../server/routes/familyGroups'))
+app.use('/family-group', require('../routes/familyGroups'))
 
 //CRUD FOR readers
 //create new reader with app.post
@@ -173,6 +174,6 @@ app.get('/reading_challenges', async (req, res) => {
 
 // delete reading challenge
 
-app.listen(5000, () => {
-    console.log(`Server listening on PORT 5000`)
+app.listen(PORT, () => {
+    console.log(`Server listening on PORT ${5000}`)
 })
