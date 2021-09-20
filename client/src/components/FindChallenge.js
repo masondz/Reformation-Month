@@ -122,6 +122,8 @@ const FindChallenge = ({
     setInputs({ ...inputs, challenge_name: e.target.value });
   };
 
+  const [verb, setVerb] = useState("");
+
   //   return statement
   return (
     <Fragment>
@@ -140,7 +142,7 @@ const FindChallenge = ({
           {challengeList.map((challenge) => {
             return (
               <option value={challenge.challenge_name} key={challenge.id}>
-                Read {challenge.goal} Chapters
+                {challenge.challenge}: {challenge.goal}
               </option>
             );
           })}
