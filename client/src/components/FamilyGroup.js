@@ -27,12 +27,15 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
       });
       if (familyGroup.status === 401) {
         console.log("You are not in a family group");
+        setLoading(false);
+
         return;
       }
       console.log(familyGroup);
       const parseRes = await familyGroup.json();
       setFamGroup(parseRes);
       setInFamGroup(true);
+      setLoading(false);
       console.log(parseRes);
     } catch (err) {
       console.error(err.message);
@@ -91,78 +94,88 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
   }, [checkAdReaders]); //might try adding adReaders to dependencies, so that it refreshes with an ad_reader_id?
 
   // console.log(adReaders);
-  const toggleFG = () => {
-    inFamGroup === false ? setInFamGroup(true) : setInFamGroup(false);
-  };
+
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="form-control">
       <h4>
         <i>Family Group</i>
       </h4>
-      {!inFamGroup ? (
-        <div>
-          <h4>
-            You are not in a family Group yet. Family Groups allows you to
-            report for readers who are not able to make reading reports for
-            themselves (such as children)
-          </h4>
-          <div>
-            <JoinFamilyGroup setAuth={setAuth} reader={reader} />
-            <CreateFamilyGroup
-              setAuth={setAuth}
-              reader={reader}
-              setFamGroup={setFamGroup}
-              setInFamGroup={setInFamGroup}
-            />
-          </div>
-        </div>
+      {loading ? (
+        <h4>loading...</h4>
       ) : (
         <div>
-          <h3>{famGroup.family_name}</h3>
-          {console.log(adReaders)}
-          {adReaders.map((adReader, index) => (
-            <ul>
-              <h4 key={index} style={{ background: "lightgreen" }}>
-                {adReader.name}:{" "}
+          {!inFamGroup ? (
+            <div>
+              <h4>
+                You are not in a family Group yet. Family Groups allows you to
+                report for readers who are not able to make reading reports for
+                themselves (such as children)
               </h4>
-              <Fragment key={index + 1}>
-                <ReportAdReaderReading
-                  adReader={adReader}
-                  adReaders={adReaders}
-                  setAdReaders={setAdReaders}
-                  displayTotal={displayTotal}
-                  setDisplayTotal={setDisplayTotal}
-                />{" "}
-                <DeleteAdReader
+              <div>
+                <JoinFamilyGroup setAuth={setAuth} reader={reader} />
+                <CreateFamilyGroup
                   setAuth={setAuth}
-                  adReader={adReader}
-                  setAdReaders={setAdReaders}
-                  adReaders={adReaders}
                   reader={reader}
-                  setCheckAdReaders={setCheckAdReaders}
-                  famGroup={famGroup}
+                  setFamGroup={setFamGroup}
+                  setInFamGroup={setInFamGroup}
                 />
-              </Fragment>
-            </ul>
-          ))}
-          <CreateAdditionalReader
-            setAuth={setAuth}
-            reader={reader}
-            adReaders={adReaders}
-            setAdReaders={setAdReaders}
-            famGroup={famGroup}
-            setCheckAdReaders={setCheckAdReaders}
-            checkAdReaders={checkAdReaders}
-          />
-          <button
-            button
-            type="button"
-            className="btn-sm btn btn-outline-danger mt-2"
-            onClick={() => leaveFG()}
-          >
-            Leave Family Group
-          </button>{" "}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h3>{famGroup.family_name}</h3>
+              {console.log(adReaders)}
+              {adReaders.map((adReader, index) => (
+                <ul>
+                  <div className="form-control">
+                    <h4
+                      key={index}
+                      style={{ backgroundColor: "rgba(252, 169, 3, .25)" }}
+                    >
+                      {adReader.name}:{" "}
+                    </h4>
+                    <Fragment key={index + 1}>
+                      <ReportAdReaderReading
+                        adReader={adReader}
+                        adReaders={adReaders}
+                        setAdReaders={setAdReaders}
+                        displayTotal={displayTotal}
+                        setDisplayTotal={setDisplayTotal}
+                      />{" "}
+                      <DeleteAdReader
+                        setAuth={setAuth}
+                        adReader={adReader}
+                        setAdReaders={setAdReaders}
+                        adReaders={adReaders}
+                        reader={reader}
+                        setCheckAdReaders={setCheckAdReaders}
+                        famGroup={famGroup}
+                      />
+                    </Fragment>
+                  </div>
+                </ul>
+              ))}
+              <CreateAdditionalReader
+                setAuth={setAuth}
+                reader={reader}
+                adReaders={adReaders}
+                setAdReaders={setAdReaders}
+                famGroup={famGroup}
+                setCheckAdReaders={setCheckAdReaders}
+                checkAdReaders={checkAdReaders}
+              />
+              <button
+                button
+                type="button"
+                className="btn-sm btn btn-outline-danger mt-2"
+                onClick={() => leaveFG()}
+              >
+                Leave Family Group
+              </button>{" "}
+            </div>
+          )}
         </div>
       )}
     </div>
