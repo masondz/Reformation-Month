@@ -41,6 +41,7 @@ const DeleteAdReader = ({
   return (
     <button
       type="button"
+      style={{ float: "right" }}
       className="btn-sm btn-danger"
       onClick={() => deleteAdReader()}
     >

@@ -6,18 +6,15 @@ const ReaderInfo = ({ setAuth, reader }) => {
   console.log(reader);
   return (
     <Fragment>
-      <h2>{reader.first_name}'s Info Goes Here</h2>
       <div>
-        <h3>
-          Chapters: {reader.chapters_read} Books: {reader.books_read} Verses:{" "}
-          {reader.verses_memorized}
-        </h3>
+        <div className="d-flex justify-content-lg-start align-items-center">
+          <h2 className="pe-3">Chapters: {reader.chapters_read}</h2>
+          <h2 className="pe-3">Books: {reader.books_read}</h2>
+          <h2 className="pe-3">Verses: {reader.verses_memorized}</h2>
+        </div>
       </div>
     </Fragment>
   );
 };
-
-// stats={stats}
-//         setStats={setStats}
 
 export default ReaderInfo;

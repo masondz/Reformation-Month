@@ -125,6 +125,7 @@ const ReportAdReaderReading = ({
         Chapters: {adReaderTotal.chapters_read} Books:{" "}
         {adReaderTotal.books_read} Verses: {adReaderTotal.verses_memorized}
       </h3>
+      <br></br>
       <button
         type="button"
         class="btn btn-primary btn-sm"
@@ -231,10 +232,6 @@ const ReportAdReaderReading = ({
                       Save changes
                     </button>
                   </lable>
-
-                  <button onClick={() => resetInputs()}>
-                    Test clear inputs
-                  </button>
                 </form>
                 <div class="modal-footer"></div>
               </form>

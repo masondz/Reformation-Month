@@ -78,22 +78,26 @@ const Dashboard = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1>Welcome {reader.first_name}</h1>
+      <h3 style={{ backgroundColor: "orange", width: "100%", padding: "3" }}>
+        Welcome {reader.first_name}
+      </h3>
       <div>
-        <ReaderInfo reader={reader} />
-        <div>
-          <ReportReading
-            setAuth={setAuth}
-            reader={reader}
-            setReader={setReader}
-          />
-          <button
-            type="button"
-            className="btn btn-outline-danger"
-            onClick={() => toggleFG()}
-          >
-            Family Group
-          </button>
+        <div className="card border-success p-2">
+          <ReaderInfo reader={reader} />
+          <div>
+            <ReportReading
+              setAuth={setAuth}
+              reader={reader}
+              setReader={setReader}
+            />
+            <button
+              type="button"
+              className="btn btn-block btn-outline-danger"
+              onClick={() => toggleFG()}
+            >
+              Family Group
+            </button>
+          </div>
         </div>
         <br></br>
         {familyGroupState && (
