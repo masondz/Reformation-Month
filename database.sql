@@ -196,3 +196,14 @@ WHERE ar.name = 'Rocket';
 SELECT (SELECT count(*) as count FROM reading_challenges), challenge_name, organization, goal, challenge, id, challenge_admin 
 FROM reading_challenges ch, readers_reading_challenges rch
 WHERE ch.id = rch.challenge_id AND rch.reader_id = '7abc8697-d65e-4265-a844-a18dd2a981e2' ORDER BY challenge_name;
+
+
+INSERT INTO adreaders_reading_challenges
+                    (ad_reader_id, challenge_id)
+             SELECT
+                    unnest(family_group.additional_reader_ids), 'f1af668e-1c99-4a7d-9037-f8b06a861386'  FROM family_group INNER JOIN readers
+             ON
+         		(readers.id = ANY(family_group.reader_ids))
+         WHERE
+         		readers.id = '446c6ded-1f7b-4962-a213-f42f06985a6e' 
+                 ON CONFLICT DO NOTHING

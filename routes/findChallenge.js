@@ -65,8 +65,9 @@ router.post('/', authorization, async (req, res) => {
                     unnest(family_group.additional_reader_ids), $1 FROM family_group INNER JOIN readers
              ON
          		(readers.id = ANY(family_group.reader_ids))
-         WHERE
-         		readers.id = $2 ON CONFLICT DO NOTHING`,
+            WHERE
+         		readers.id = $2 
+                 ON CONFLICT DO NOTHING`,
             [challenge_id, reader_id]
         )
         console.log(addAdReader)

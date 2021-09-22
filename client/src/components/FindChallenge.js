@@ -22,13 +22,10 @@ const FindChallenge = ({
     //Get all of the Challenges //
     async function getChallenges() {
         try {
-            const response = await fetch(
-                'http://localhost:5000/find-challenges',
-                {
-                    method: 'GET',
-                    headers: { token: localStorage.token },
-                }
-            )
+            const response = await fetch('/find-challenges', {
+                method: 'GET',
+                headers: { token: localStorage.token },
+            })
 
             const parseRes = await response.json()
             setChallengeList(parseRes)
@@ -49,13 +46,10 @@ const FindChallenge = ({
     useEffect(() => {
         async function getReaderId() {
             try {
-                const response = await fetch(
-                    'http://localhost:5000/dashboard/',
-                    {
-                        method: 'GET',
-                        headers: { token: localStorage.token },
-                    }
-                )
+                const response = await fetch('/dashboard/', {
+                    method: 'GET',
+                    headers: { token: localStorage.token },
+                })
 
                 const parseRes = await response.json()
 
@@ -94,18 +88,15 @@ const FindChallenge = ({
             const reader_id = readerId
             const challenge_id = id
             const body = { reader_id, challenge_id }
-            const response = await fetch(
-                'http://localhost:5000/find-challenges',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        token: localStorage.token,
-                    },
+            const response = await fetch('/find-challenges', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    token: localStorage.token,
+                },
 
-                    body: JSON.stringify(body),
-                }
-            )
+                body: JSON.stringify(body),
+            })
                 .then((response) => {
                     response.json().then((results) => console.log(results))
                     if (response.status === 200) {
