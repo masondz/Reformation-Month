@@ -10,7 +10,10 @@ const devConfig = {
 }
 
 const proConfig = {
-    connectionString: process.env.DATABASE_URL, //HEROKU ADDON
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    }, //HEROKU ADDON
 }
 
 const pool = new Pool(
