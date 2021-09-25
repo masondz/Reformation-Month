@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 //Get reader
 router.get('/', authorization, async (req, res) => {

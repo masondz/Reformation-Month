@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const pool = require('../db')
 const authorization = require('../middleware/Authorization')
-const bcrypt = require('bcrypt') // encrypts password
+const bcrypt = require('bcryptjs') // encrypts password
 const validinfo = require('../middleware/validinfo')
 
 //get family group
