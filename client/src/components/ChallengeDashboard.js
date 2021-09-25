@@ -169,8 +169,6 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
                     Cancel
                 </button>
             </form>
-            <p>{newChallengeId}</p>
-            <p>{inputs.challenge_type}</p>
         </Fragment>
     )
 }

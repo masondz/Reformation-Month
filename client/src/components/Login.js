@@ -52,7 +52,6 @@ const Login = ({ setAuth }) => {
                     value={email}
                     onChange={(e) => onChange(e)}
                 />
-                <p>{email}</p>
                 <input
                     className="form-control"
                     type="password"
@@ -61,7 +60,6 @@ const Login = ({ setAuth }) => {
                     value={user_password}
                     onChange={(e) => onChange(e)}
                 />
-                <p>{user_password}</p>
                 <button className="btn btn-success btn-block">Submit</button>
             </form>
             <Link to="/register">Register</Link>
