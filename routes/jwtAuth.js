@@ -70,6 +70,7 @@ router.post('/login', validInfo, async (req, res) => {
             'SELECT * FROM readers WHERE email = $1',
             [email]
         )
+        console.log(reader)
         if (reader.rows.length === 0) {
             return res.status(401).json('Password or Email is incorrect')
         }
