@@ -7,6 +7,8 @@ const Authorization = require('../middleware/Authorization') // checks if user i
 const jwtGenerator = require('../utils/jwtGenerator')
 //registering
 
+console.log('trying jwtAuth file')
+
 router.post('/register', validInfo, async (req, res) => {
     //valid info: middlware that checks if email has '@' sign, and that password an name are not blank.
     try {
@@ -52,7 +54,7 @@ router.post('/register', validInfo, async (req, res) => {
         res.json({ token })
     } catch (err) {
         console.error(err.message)
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error: Register Route')
     }
 })
 
@@ -91,7 +93,7 @@ router.post('/login', validInfo, async (req, res) => {
         res.json({ token })
     } catch (err) {
         console.error(err.message)
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error: Login Route')
     }
 })
 
@@ -101,7 +103,7 @@ router.get('/is-verify', Authorization, async (req, res) => {
         res.json(true)
     } catch (err) {
         console.error(err.message)
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error: is-verify Route')
     }
 })
 

@@ -40,9 +40,7 @@ const Login = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h1 className="text-center my-5">
-                Login start reformationmonth.com!
-            </h1>
+            <h1 className="text-center my-5">Login to report your reading!</h1>
             <form onSubmit={onSubmitForm}>
                 <input
                     className="form-control my-3"
