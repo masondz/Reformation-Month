@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 
 //ROUTES
 //register and login routes
-app.use('/auth', require('routes/jwtAuth'))
+app.use('/auth', require('./routes/jwtAuth'))
 
 //dashboard route
 
