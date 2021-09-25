@@ -1,13 +1,13 @@
-CREATE TABLE readers (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),,
+CREATE TABLE IF NOT EXISTS readers (
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     first_name VARCHAR(100),
     last_name VARCHAR(100),
     email VARCHAR(200) UNIQUE,
     user_password VARCHAR(20),
     chapters_read INTEGER,
     books_read INTEGER,
-    verses_memorized INTEGER,
-)
+    verses_memorized INTEGER
+);
 
 CREATE TABLE reading_challenges (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -19,26 +19,26 @@ CREATE TABLE reading_challenges (
     CONSTRAINT fk_reader
       FOREIGN KEY(challenge_admin) 
 	  REFERENCES readers(id)
-)
+);
 
 CREATE TABLE readers_reading_challenges (
     reader_id uuid REFERENCES readers(id) ON DELETE CASCADE,
     challenge_id uuid  REFERENCES reading_challenges(id) ON DELETE CASCADE,
     role INTEGER,
     PRIMARY KEY (reader_id, challenge_id)
-)
+);
 
 CREATE TABLE additional_readers (
     ad_reader_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100),
     chapters_read INTEGER,
     books_read INTEGER,
-    verses_memorized INTEGER
+    verses_memorized INTEGER,
     reader_id uuid,
     CONSTRAINT fk_reader
       FOREIGN KEY(reader_id)
-      REFERENCES (readers(id))
-)
+      REFERENCES readers(id)
+);
 
 CREATE TABLE family_group (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -46,13 +46,13 @@ CREATE TABLE family_group (
     reader_ids uuid[],
     additional_reader_ids uuid[],
     fg_password VARCHAR(100)
-)
+);
 
 CREATE TABLE adreaders_reading_challenges (
     ad_reader_id uuid REFERENCES additional_readers(ad_reader_id) ON DELETE CASCADE,
     challenge_id uuid REFERENCES reading_challenges(id) ON DELETE CASCADE,
     PRIMARY KEY (ad_reader_id, challenge_id)
-)
+);
 
 -- ALTER TABLE readers
 -- ADD COLUMN reading_challenges VARCHAR(200)[]
