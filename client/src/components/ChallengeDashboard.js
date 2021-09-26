@@ -77,7 +77,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
                 challenge_type: 'chapters',
                 goal: '',
             })
-            window.location = '/dashboard'
+            window.location = '/login'
         } catch (err) {
             console.error(err.message)
             toast.error(err.message)

@@ -59,7 +59,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             let parsRes = await request.json()
             console.log(parsRes)
             // setInFamilyGroup(false);
-            window.location = '/dashboard'
+            window.location = '/login'
         } catch (err) {
             console.error(err.message)
         }

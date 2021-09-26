@@ -51,7 +51,7 @@ const EditChallenge2 = ({
                 const response = await deleteChallenge.json()
                 console.log(response)
                 if (deleteChallenge.status === 202) {
-                    window.location = '/dashboard'
+                    window.location = '/login'
                 } else if (deleteChallenge.status === 401) {
                     toast.error("Challenge already doesn't exist.")
                 } else if (deleteChallenge.status === 403) {
@@ -108,7 +108,7 @@ const EditChallenge2 = ({
                     'You are not authorized to change this challenge'
                 )
             }
-            window.location = '/dashboard'
+            window.location = '/login'
             toast.success('Reading Challenge updated!')
         } catch (err) {
             console.error(err.messages)
