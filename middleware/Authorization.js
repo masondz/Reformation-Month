@@ -15,6 +15,7 @@ module.exports = async (req, res, next) => {
         req.user = payload.user
     } catch (err) {
         console.error(err.message)
+        window.location = '/'
         res.status(403).json('Not Authorized: unknown error')
     }
     next() //don't forget this, otherwise the GET request in jwtAuth for is-verify route won't advance.
