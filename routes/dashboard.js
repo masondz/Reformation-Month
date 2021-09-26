@@ -18,6 +18,4 @@ router.get('/', authorization, async (req, res) => {
     }
 })
 
-//get reading challenges of the logged in user!
-
 module.exports = router
