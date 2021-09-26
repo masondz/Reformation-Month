@@ -40,9 +40,7 @@ const Login = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h1 className="text-center my-5">
-                Welcome to the Reformation Month App!
-            </h1>
+            <h1 className="text-center my-5">Login to report reading!</h1>
             <form onSubmit={onSubmitForm}>
                 <input
                     className="form-control my-3"
