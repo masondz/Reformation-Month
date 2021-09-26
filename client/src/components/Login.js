@@ -22,7 +22,7 @@ const Login = ({ setAuth }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-
+            console.log(`body: ${body}, response: ${response}`)
             const parseRes = await response.json()
 
             if (parseRes.token) {
@@ -40,7 +40,9 @@ const Login = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h1 className="text-center my-5">Login to report your reading!</h1>
+            <h1 className="text-center my-5">
+                Welcome to the Reformation Month App!
+            </h1>
             <form onSubmit={onSubmitForm}>
                 <input
                     className="form-control my-3"
