@@ -3,6 +3,8 @@ const app = express()
 const cors = require('cors')
 const pool = require('./db')
 const path = require('path')
+const Authorization = require('./middleware/Authorization') // checks if user is authorized
+
 const { allowedNodeEnvironmentFlags } = require('process')
 const PORT = process.env.PORT || 5000
 
@@ -46,7 +48,7 @@ app.use('/additional-readers', require('./routes/additionalReaders'))
 
 app.use('/family-group', require('./routes/familyGroups'))
 
-app.get('*', (req, res) => {
+app.get('*', Authorization, (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'))
 })
 
