@@ -39,9 +39,12 @@ router.post('/register', validInfo, async (req, res) => {
             first_name, 
             last_name, 
             email, 
-            user_password) 
+            user_password,
+            chapters_read,
+            books_read,
+            verses_memorized) 
         
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2, $3, $4, 0, 0, 0)
         RETURNING *`,
             [first_name, last_name, email, bcryptPassword] //rest of columns have default values
         )
