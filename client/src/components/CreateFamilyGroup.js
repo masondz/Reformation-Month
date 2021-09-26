@@ -54,7 +54,7 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
             const familyName = parseRes.family_name
             setFamGroup({ family_name: familyName }) //will this work?
             setInFamGroup(true)
-            window.location = '/login'
+            window.location = '/'
         } catch (err) {
             console.error(err.message)
         }

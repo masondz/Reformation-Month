@@ -100,7 +100,7 @@ const EditChallenge = ({ challenge, reader }) => {
                     'You are not authorized to change this challenge'
                 )
             }
-            window.location = '/login'
+            window.location = '/'
             toast.success('Reading Challenge updated!')
         } catch (err) {
             console.error(err.messages)
@@ -246,7 +246,7 @@ const EditChallenge = ({ challenge, reader }) => {
                                 data-dismiss="modal"
                                 onClick={() => {
                                     onDelete()
-                                    window.location = '/login'
+                                    window.location = '/'
                                 }}
                             >
                                 Delete

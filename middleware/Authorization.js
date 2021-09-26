@@ -6,9 +6,7 @@ module.exports = async (req, res, next) => {
         const jwtToken = req.header('token')
 
         if (!jwtToken) {
-            app.get('*', (req, res) => {
-                res.sendFile(path.join(__dirname, 'client/build/index.html'))
-            })
+            window.location = '/'
             return res.status(403).json('Token error: Not Authorized')
         }
 
