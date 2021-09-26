@@ -46,7 +46,7 @@ app.use('/additional-readers', require('./routes/additionalReaders'))
 
 app.use('/family-group', require('./routes/familyGroups'))
 
-app.get('/**', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'))
 })
 
