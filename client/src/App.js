@@ -120,6 +120,16 @@ function App() {
                                 )
                             }
                         />
+                        <Route
+                            path="*"
+                            render={(props) =>
+                                isAuthenticated ? (
+                                    <Dashboard {...props} setAuth={setAuth} />
+                                ) : (
+                                    <Redirect to="/login" />
+                                )
+                            }
+                        />
                     </Switch>
                 </div>
             </Router>
