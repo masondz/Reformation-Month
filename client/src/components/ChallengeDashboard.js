@@ -139,15 +139,15 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
                         Read Books
                     </label>
                     <input
-                        id="versus"
+                        id="verses"
                         className="btn-check"
                         type="radio"
                         name="challenge-type"
-                        value="versus"
+                        value="verses"
                         onClick={(e) => onRadioClick(e)}
                     />
-                    <label className="btn btn-outline-primary" htmlFor="versus">
-                        Memorize Versus
+                    <label className="btn btn-outline-primary" htmlFor="verses">
+                        Memorize Verses
                     </label>
                 </div>
                 <input
