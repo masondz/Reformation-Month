@@ -44,7 +44,7 @@ const DeleteAdReader = ({
         <button
             type="button"
             style={{ float: 'right' }}
-            className="btn-sm btn-danger"
+            className="btn btn-sm btn-danger"
             onClick={() => deleteAdReader()}
         >
             Delete Reader

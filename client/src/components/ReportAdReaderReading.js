@@ -121,11 +121,11 @@ const ReportAdReaderReading = ({
 
     return (
         <>
-            <h3>
+            <h5>
                 Chapters: {adReaderTotal.chapters_read} Books:{' '}
                 {adReaderTotal.books_read} Verses:{' '}
                 {adReaderTotal.verses_memorized}
-            </h3>
+            </h5>
             <br></br>
             <button
                 type="button"

@@ -105,7 +105,7 @@ const CreateAdditionalReader = ({
 
     return (
         <div>
-            <div className="d-flex justify-content-between">
+            <div className="d-grid gap-2 col-6 mx-auto">
                 <button
                     type="button"
                     class="btn btn-outline-primary btn-sm"
