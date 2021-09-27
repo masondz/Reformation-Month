@@ -9,6 +9,7 @@ const CreateAdditionalReader = ({
     famGroup,
     setCheckAdReaders,
     checkAdReaders,
+    leaveFG,
 }) => {
     const [input, setInput] = useState({
         name: '',
@@ -104,16 +105,24 @@ const CreateAdditionalReader = ({
 
     return (
         <div>
-            {/* Button trigger modal  */}
-            <button
-                style={{ position: 'relative', left: '32px' }}
-                type="button"
-                class="btn btn-outline-primary d-inline-block"
-                data-bs-toggle="modal"
-                data-bs-target="#make-additional-reader"
-            >
-                Add Family Group Member
-            </button>
+            <div className="d-flex justify-content-between">
+                <button
+                    type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#make-additional-reader"
+                >
+                    Add Family Group Member
+                </button>
+                <button
+                    button
+                    type="button"
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() => leaveFG()}
+                >
+                    Leave Family Group
+                </button>
+            </div>
 
             {/* // <!-- Modal --> */}
             <div

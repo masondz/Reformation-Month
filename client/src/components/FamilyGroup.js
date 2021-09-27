@@ -93,41 +93,51 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
 
     return (
         <div className="form-control">
-            <h4>
-                <i>Family Group</i>
-            </h4>
             {loading ? (
                 <h4>loading...</h4>
             ) : (
                 <div>
                     {!inFamGroup ? (
-                        <div>
-                            <h4>
-                                You are not in a family Group yet. Family Groups
-                                allows you to report for readers who are not
-                                able to make reading reports for themselves
-                                (such as children)
-                            </h4>
-                            <div>
-                                <JoinFamilyGroup
-                                    setAuth={setAuth}
-                                    reader={reader}
-                                />
-                                <CreateFamilyGroup
-                                    setAuth={setAuth}
-                                    reader={reader}
-                                    setFamGroup={setFamGroup}
-                                    setInFamGroup={setInFamGroup}
-                                />
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <p>
+                                    You are not in a family Group yet. Family
+                                    Groups allows you to report for readers who
+                                    are not able to make reading reports for
+                                    themselves (such as children)
+                                </p>
+                                <div className="d-grid gap-2 col-6 mx-auto">
+                                    <JoinFamilyGroup
+                                        setAuth={setAuth}
+                                        reader={reader}
+                                    />
+                                    <CreateFamilyGroup
+                                        setAuth={setAuth}
+                                        reader={reader}
+                                        setFamGroup={setFamGroup}
+                                        setInFamGroup={setInFamGroup}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (
                         <div>
-                            <h3>{famGroup.family_name}</h3>
+                            <h4>
+                                Family Group:{' '}
+                                <strong>{famGroup.family_name}</strong>
+                            </h4>
                             {console.log(adReaders)}
                             {adReaders.map((adReader, index) => (
-                                <ul>
-                                    <div className="form-control">
+                                <ul
+                                    style={{
+                                        position: 'relative',
+                                        right: '32px',
+                                    }}
+                                >
+                                    <div
+                                        className="form-control"
+                                        style={{ width: '104%' }}
+                                    >
                                         <h4
                                             key={index}
                                             style={{
@@ -162,7 +172,6 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                     </div>
                                 </ul>
                             ))}
-
                             <CreateAdditionalReader
                                 setAuth={setAuth}
                                 reader={reader}
@@ -171,20 +180,8 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                 famGroup={famGroup}
                                 setCheckAdReaders={setCheckAdReaders}
                                 checkAdReaders={checkAdReaders}
+                                leaveFG={leaveFG}
                             />
-                            <button
-                                style={{
-                                    float: 'right',
-                                    position: 'relative',
-                                    bottom: '40px',
-                                }}
-                                button
-                                type="button"
-                                className="btn-sm btn btn-outline-danger mt-2 "
-                                onClick={() => leaveFG()}
-                            >
-                                Leave Family Group
-                            </button>
                         </div>
                     )}
                 </div>
