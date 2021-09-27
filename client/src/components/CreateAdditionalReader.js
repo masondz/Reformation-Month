@@ -106,8 +106,9 @@ const CreateAdditionalReader = ({
         <div>
             {/* Button trigger modal  */}
             <button
+                style={{ position: 'relative', left: '32px' }}
                 type="button"
-                class="btn btn-outline-primary"
+                class="btn btn-outline-primary d-inline-block"
                 data-bs-toggle="modal"
                 data-bs-target="#make-additional-reader"
             >

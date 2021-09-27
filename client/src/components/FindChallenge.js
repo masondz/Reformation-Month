@@ -133,32 +133,34 @@ const FindChallenge = ({
     //   return statement
     return (
         <Fragment>
-            <form onSubmit={onSubmit}>
-                <label htmlFor="chal-list">Find a reading Challenge</label>
-                <input
-                    value={challenge_name}
-                    onChange={(e) => onChange(e)}
-                    className="form-control"
-                    list="challenge-list"
-                    name="chal-list"
-                    id="chal-list"
-                    placeholder="Search for reading challenge"
-                />
-                <datalist id="challenge-list">
-                    {challengeList.map((challenge) => {
-                        return (
-                            <option
-                                value={challenge.challenge_name}
-                                key={challenge.id}
-                            >
-                                {challenge.challenge}: {challenge.goal}
-                            </option>
-                        )
-                    })}
-                </datalist>
-                <button className="btn btn-outline-success btn-sm mx-2"> //no callback, but form has onSubmit property
-                    Submit
-                </button>
+            <form className="container" onSubmit={onSubmit}>
+                <div className="row align-items-end">
+                    <label htmlFor="chal-list">Find a reading Challenge</label>
+                    <input
+                        value={challenge_name}
+                        onChange={(e) => onChange(e)}
+                        className="form-control"
+                        list="challenge-list"
+                        name="chal-list"
+                        id="chal-list"
+                        placeholder="Search for reading challenge"
+                    />
+                    <datalist id="challenge-list">
+                        {challengeList.map((challenge) => {
+                            return (
+                                <option
+                                    value={challenge.challenge_name}
+                                    key={challenge.id}
+                                >
+                                    {challenge.challenge}: {challenge.goal}
+                                </option>
+                            )
+                        })}
+                    </datalist>
+                    <button className="btn btn-outline-success  my-2">
+                        Join
+                    </button>
+                </div>
             </form>
         </Fragment>
     )

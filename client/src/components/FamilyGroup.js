@@ -162,6 +162,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                     </div>
                                 </ul>
                             ))}
+
                             <CreateAdditionalReader
                                 setAuth={setAuth}
                                 reader={reader}
@@ -172,13 +173,18 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                 checkAdReaders={checkAdReaders}
                             />
                             <button
+                                style={{
+                                    float: 'right',
+                                    position: 'relative',
+                                    bottom: '40px',
+                                }}
                                 button
                                 type="button"
-                                className="btn-sm btn btn-outline-danger mt-2"
+                                className="btn-sm btn btn-outline-danger mt-2 "
                                 onClick={() => leaveFG()}
                             >
                                 Leave Family Group
-                            </button>{' '}
+                            </button>
                         </div>
                     )}
                 </div>
