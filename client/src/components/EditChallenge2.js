@@ -207,7 +207,7 @@ const EditChallenge2 = ({
                                         <button
                                             type="button"
                                             className="btn btn-outline-secondary"
-                                            value="versus"
+                                            value="verses"
                                             name="challenge_type"
                                             onClick={(e) => onRadioClick(e)}
                                         >
