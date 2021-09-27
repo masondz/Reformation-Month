@@ -156,6 +156,9 @@ const FindChallenge = ({
                         )
                     })}
                 </datalist>
+                <button className="btn btn-outline-success btn-sm mx-2"> //no callback, but form has onSubmit property
+                    Submit
+                </button>
             </form>
         </Fragment>
     )
