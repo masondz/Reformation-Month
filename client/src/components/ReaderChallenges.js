@@ -65,7 +65,7 @@ const ReaderChallenges = ({
     })
 
     return (
-        <div className="form-control">
+        <div className="form-control my-2">
             <h2>Reading challenges:</h2>
             {readersChallenges.map((challenge, index) => {
                 return (

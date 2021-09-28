@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 // import { Link } from "react-router-dom";
+import './Dashboard.css'
 import { toast } from 'react-toastify'
 
 import FindChallenge from './FindChallenge'
@@ -78,34 +79,18 @@ const Dashboard = ({ setAuth }) => {
 
     return (
         <Fragment>
-            <h3
-                style={{
-                    backgroundColor: 'orange',
-                    width: '100%',
-                    padding: '3',
-                }}
-            >
-                Welcome {reader.first_name}
-            </h3>
-            <div>
-                <div className="card border-success p-2">
-                    <ReaderInfo reader={reader} />
-                    <div>
-                        <ReportReading
-                            setAuth={setAuth}
-                            reader={reader}
-                            setReader={setReader}
-                        />
-                        <button
-                            type="button"
-                            className="btn btn-block btn-outline-danger"
-                            onClick={() => toggleFG()}
-                        >
-                            Family Group
-                        </button>
-                    </div>
+            <nav className="nav-container">
+                <ReaderInfo reader={reader} />
+                <div>
+                    <ReportReading
+                        setAuth={setAuth}
+                        reader={reader}
+                        setReader={setReader}
+                        toggleFG={() => toggleFG()}
+                    />
                 </div>
-                <br></br>
+            </nav>
+            <main>
                 {familyGroupState && (
                     <FamilyGroup
                         setAuth={setAuth}
@@ -114,7 +99,6 @@ const Dashboard = ({ setAuth }) => {
                         displayTotal={displayTotal}
                     />
                 )}
-                <br></br>
                 {!createChallenge && inReadingChallenge && (
                     <>
                         <ReaderChallenges
@@ -128,8 +112,7 @@ const Dashboard = ({ setAuth }) => {
                         />
                     </>
                 )}
-                <br></br>
-                <br></br>
+
                 {!createChallenge && (
                     <Fragment>
                         <div className="form-control mb-5">
@@ -149,25 +132,24 @@ const Dashboard = ({ setAuth }) => {
                         </button>
                     </Fragment>
                 )}
-            </div>
-            <div className="mt-5">
-                {createChallenge && (
-                    <ChallengeDashboard
-                        setAuth={setAuth}
-                        setCreateChallenge={setCreateChallenge}
-                        reader={reader}
-                    />
-                )}
-            </div>
-            {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
-            <br></br>
+                <div className="mt-5">
+                    {createChallenge && (
+                        <ChallengeDashboard
+                            setAuth={setAuth}
+                            setCreateChallenge={setCreateChallenge}
+                            reader={reader}
+                        />
+                    )}
+                </div>
+                {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
 
-            <button
-                className="btn btn-warning text-white btn-sm mb-5"
-                onClick={(e) => logout(e)}
-            >
-                Logout
-            </button>
+                <button
+                    className="btn btn-warning text-white btn-sm mb-5"
+                    onClick={(e) => logout(e)}
+                >
+                    Logout
+                </button>
+            </main>
         </Fragment>
     )
 }

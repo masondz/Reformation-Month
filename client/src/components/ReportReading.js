@@ -5,7 +5,7 @@
 
 import React, { Fragment, useEffect, useState } from 'react'
 
-const ReportReading = ({ setAuth, reader, setReader }) => {
+const ReportReading = ({ setAuth, reader, setReader, toggleFG }) => {
     const [reporting, setReporting] = useState(false)
     const [chaptersTotal, setChaptersTotal] = useState('')
     const [booksTotal, setBooksTotal] = useState('')
@@ -78,14 +78,25 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
 
     return (
         <Fragment>
-            <button
-                type="button"
-                className="btn btn-primary btn-block me-4"
-                data-toggle="modal"
-                data-target="#thing"
-            >
-                Report Reading
-            </button>
+            <div className="nav-buttons">
+                <button
+                    type="button"
+                    className="nav-btn"
+                    data-toggle="modal"
+                    data-target="#thing"
+                >
+                    Report Reading
+                </button>
+
+                <button
+                    type="button"
+                    className="nav-btn"
+                    onClick={() => toggleFG()}
+                >
+                    Family Group
+                </button>
+            </div>
+
             <div
                 className="modal fade"
                 id="thing"
@@ -93,10 +104,14 @@ const ReportReading = ({ setAuth, reader, setReader }) => {
                 aria-labelledby="edit-challenge"
                 aria-hidden="true"
             >
-                <div class="modal-dialog">
+                <div class="modal-dialog" style={{ 'z-index': '2' }}>
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="thing">
+                            <h3
+                                class="modal-title"
+                                id="thing"
+                                style={{ color: 'black' }}
+                            >
                                 Report Reading for {reader.first_name}
                             </h3>
                             <button

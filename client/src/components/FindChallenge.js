@@ -157,7 +157,7 @@ const FindChallenge = ({
                             )
                         })}
                     </datalist>
-                    <button className="btn btn-outline-success  my-2">
+                    <button className="btn btn-outline-success my-2">
                         Join
                     </button>
                 </div>
