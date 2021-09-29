@@ -149,7 +149,7 @@ const ReportReading = ({ setAuth, reader, setReader, toggleFG }) => {
                                     </lable>
                                 </div>
                                 <br></br>
-                                <lable
+                                {/* <lable
                                     htmlFor="books_read"
                                     className="bg-light text-black form-control"
                                 >
@@ -198,8 +198,8 @@ const ReportReading = ({ setAuth, reader, setReader, toggleFG }) => {
                                         >
                                             Save changes
                                         </button>
-                                    </lable>
-                                </form>
+                                    </lable> 
+                                </form>*/}
                                 <div class="modal-footer"></div>
                             </form>
                         </div>

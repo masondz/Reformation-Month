@@ -194,17 +194,17 @@ router.get(
 //get reader count per challenge
 
 router.get('/readers-count/:challenge_id', authorization, async (req, res) => {
-    const {challenge_id} = req.params;
+    const { challenge_id } = req.params
     try {
-    const totalReaders = await.pool(
-        `SELECT (SELECT COUNT(rrc.challenge_id) FROM readers_reading_challenges rrc
+        const totalReaders = await pool.query(
+            `SELECT (SELECT COUNT(rrc.challenge_id) FROM readers_reading_challenges rrc
         WHERE rrc.challenge_id = $1) +
         (SELECT COUNT(arc.challenge_id) FROM adreaders_reading_challenges arc
         WHERE arc.challenge_id = $1) as total`,
-        [challenge_id]
-    );
+            [challenge_id]
+        )
         res.json(totalReaders.rows[0])
-    } catch(err){
+    } catch (err) {
         console.log(err.error)
     }
 })
