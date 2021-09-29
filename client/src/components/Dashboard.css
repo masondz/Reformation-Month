@@ -2,8 +2,25 @@ main {
     margin-top: 95px;
 }
 
+.challenge-card {
+    background-color: white;
+    border-top: rgb(175, 155, 150, 0.75) 0.8px solid;
+    border-left: rgb(175, 155, 150, 0.75) 0.8px solid;
+    box-shadow: 3px 3px rgb(245, 105, 2, 0.35);
+    border-bottom: rgb(245, 105, 2, 0.75) 2px solid;
+    border-right: rgb(245, 105, 2, 0.75) 2px solid;
+    border-radius: 5px;
+    padding: 10px 10px;
+    line-height: 10%;
+    margin-bottom: 25px;
+}
+
+.challenge-card .challenge-titles {
+    color: rgb(245, 105, 2);
+}
+
 @media screen and (max-width: 815px) {
     main {
-        margin-top: 175px;
+        margin-top: 115px;
     }
 }

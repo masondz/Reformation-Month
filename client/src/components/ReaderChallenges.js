@@ -65,70 +65,54 @@ const ReaderChallenges = ({
     })
 
     return (
-        <div className="form-control my-2">
-            <h2>Reading challenges:</h2>
+        <div className="my-2">
             {readersChallenges.map((challenge, index) => {
                 return (
                     <Fragment key={challenge.id.toString()}>
-                        <ul>
-                            <div className="card p-3">
-                                <div
-                                    style={{ backgroundColor: 'lightgreen' }}
-                                    className="d-flex justify-content-between"
-                                >
+                        <div className="challenge-card">
+                            <div className="challenge-content">
+                                <div className="challenge-titles">
+                                    <p>{challenge.organization}</p>
                                     <h3 value={challenge.id} key={110}>
-                                        {console.log(
-                                            reader.id,
-                                            challenge.challenge_admin
-                                        )}
-                                        {challenge.challenge_name} -{' '}
-                                        <i>{challenge.organization}</i>
+                                        {challenge.challenge_name}
                                     </h3>
-                                    {reader.id !== challenge.challenge_admin ? (
-                                        <button
-                                            className="btn btn-danger btn-sm px-3"
-                                            onClick={() =>
-                                                removeReader(
-                                                    reader.id,
-                                                    challenge.id
-                                                )
-                                            }
-                                        >
-                                            Leave Challenge
-                                        </button>
-                                    ) : (
-                                        <Fragment key={challenge.id.toString()}>
-                                            <EditChallenge2
-                                                challenge={challenge}
+                                    <div
+                                        key={(
+                                            challenge.challege_id + 1
+                                        ).toString()}
+                                    >
+                                        {calculating ? (
+                                            '...'
+                                        ) : (
+                                            <ChallengeTotal
                                                 reader={reader}
-                                                setReadersChallenges={
-                                                    setReadersChallenges
-                                                }
-                                                readersChallenges={
-                                                    readersChallenges
-                                                }
+                                                setAuth={setAuth}
+                                                challenge={challenge}
+                                                setTotal={setTotal}
+                                                setCalculating={setCalculating}
+                                                displayTotal={displayTotal}
                                             />
-                                        </Fragment>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
-                                <div
-                                    key={(challenge.challege_id + 1).toString()}
-                                >
-                                    {calculating ? (
-                                        '...'
-                                    ) : (
-                                        <ChallengeTotal
-                                            reader={reader}
-                                            setAuth={setAuth}
+                                {reader.id !== challenge.challenge_admin ? (
+                                    <></>
+                                ) : (
+                                    <Fragment key={challenge.id.toString()}>
+                                        <EditChallenge2
                                             challenge={challenge}
-                                            setTotal={setTotal}
-                                            setCalculating={setCalculating}
-                                            displayTotal={displayTotal}
+                                            reader={reader}
+                                            setReadersChallenges={
+                                                setReadersChallenges
+                                            }
+                                            readersChallenges={
+                                                readersChallenges
+                                            }
                                         />
-                                    )}
-                                </div>
+                                    </Fragment>
+                                )}
                             </div>
-                        </ul>
+                        </div>
                     </Fragment>
                 )
             })}

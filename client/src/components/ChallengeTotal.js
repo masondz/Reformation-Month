@@ -54,17 +54,17 @@ const ChallengeTotal = ({
     return (
         <div>
             <div>
+                <h3>
+                    {total} / {challenge.goal} {challenge.challenge}
+                </h3>
                 <div className="progress">
                     <div
-                        className="progress-bar"
+                        className="progress-bar bg-warning"
                         style={{ width: `${progress}%` }}
                     ></div>
                 </div>
                 {/* <meter id="goal" min="0" max={challenge.goal} value={total} /> */}
             </div>
-            <h3>
-                Goal: {total} / {challenge.goal} {challenge.challenge}
-            </h3>
         </div>
     )
 }
