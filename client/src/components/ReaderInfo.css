@@ -8,7 +8,7 @@
 .container-reader .stats {
     display: flex;
     padding-left: 20px;
-    padding-top: 15px;
+    padding-top: 5px;
 }
 
 nav {
@@ -33,18 +33,18 @@ nav {
 }
 
 .nav-btn {
-    margin: 10px;
+    margin: 5px;
     min-width: 150px;
-    padding: 5px;
+    padding: 3px;
     border: double 5px rgb(245, 105, 2);
     background-color: white;
     color: rgb(255, 75, 82);
 }
 
 .nav-btn:hover {
-    margin: 10px;
+    margin: 5px;
     min-width: 150px;
-    padding: 5px;
+    padding: 3px;
     border: double 5px rgb(255, 255, 255);
     color: white;
     background-color: rgb(255, 125, 82);
@@ -60,13 +60,24 @@ nav p {
     margin-left: 10px;
 }
 
+#chapters {
+    margin-bottom: 0px;
+}
+
 @media screen and (max-width: 815px) {
     .nav-container {
         display: flex;
         flex-flow: column wrap;
-        position: fixed;
+        position: absolute;
         left: 0px;
         justify-content: flex-start;
+        padding: 5px;
+    }
+
+    .container-reader .stats {
+        display: flex;
+        padding-left: 5px;
+        padding-top: 2px;
     }
 
     /* nav {
