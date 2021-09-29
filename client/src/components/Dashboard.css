@@ -19,8 +19,87 @@ main {
     color: rgb(245, 105, 2);
 }
 
+.leave-challenge {
+    float: right;
+    color: rgb(245, 105, 2);
+    transform: rotate(45deg);
+    font-size: 1.9rem;
+    cursor: pointer;
+}
+
+.leave-challenge p {
+    padding: 5px;
+    position: relative;
+    bottom: 82px;
+    right: 82px;
+}
+
+.challenge-edit {
+    padding: 15px 10px;
+    margin-top: 8px;
+    border: 0px;
+    background: rgb(255, 105, 75);
+    color: white;
+}
+
+.challenge-edit:hover {
+    padding: 15px 10px;
+    margin-top: 8px;
+    border: 0px;
+    background: rgb(255, 155, 175);
+    color: white;
+}
+
+.family-member {
+    border: solid rgb(245, 105, 2) 1px;
+    box-shadow: 5px 5px rgb(245, 105, 2, 0.3);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.family-options {
+    margin-top: 30px;
+}
+
+.family-title {
+    padding-left: 10px;
+    color: white;
+}
+
+.family-title p {
+    background-color: rgb(245, 105, 2);
+    padding-left: 15px;
+    padding-right: 10px;
+    width: 45%;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 5px;
+    position: relative;
+    top: 1em;
+}
+
+.family-group {
+    border-radius: 5px;
+    border: rgb(245, 105, 2) solid 2px;
+    padding: 9px;
+    margin-bottom: 45px;
+}
+
 @media screen and (max-width: 815px) {
     main {
         margin-top: 115px;
+    }
+
+    .leave-challenge {
+        float: right;
+        color: rgb(245, 105, 2);
+        transform: rotate(45deg);
+        font-size: 1.5rem;
+    }
+
+    .leave-challenge p {
+        padding: 5px;
+        bottom: 85px;
+        right: 78px;
     }
 }

@@ -92,13 +92,13 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
     const [loading, setLoading] = useState(true)
 
     return (
-        <div className="form-control">
+        <div className="">
             {loading ? (
                 <h4>loading...</h4>
             ) : (
                 <div>
                     {!inFamGroup ? (
-                        <div className="container">
+                        <div className="form-control my-2">
                             <div className="row justify-content-center">
                                 <p>
                                     You are not in a family Group yet. Family
@@ -121,23 +121,17 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                             </div>
                         </div>
                     ) : (
-                        <div>
-                            <h4>
-                                Family Group:{' '}
-                                <strong>{famGroup.family_name}</strong>
-                            </h4>
-                            {console.log(adReaders)}
-                            {adReaders.map((adReader, index) => (
-                                <ul
-                                    style={{
-                                        position: 'relative',
-                                        right: '32px',
-                                    }}
-                                >
-                                    <div
-                                        className="form-control"
-                                        style={{ width: '104%' }}
-                                    >
+                        <Fragment>
+                            <div className="family-title">
+                                <p>
+                                    Family Group:{' '}
+                                    <strong>{famGroup.family_name}</strong>
+                                </p>
+                            </div>
+                            <div className="family-group">
+                                {console.log(adReaders)}
+                                {adReaders.map((adReader, index) => (
+                                    <div className="family-member">
                                         <h4
                                             key={index}
                                             style={{
@@ -170,19 +164,21 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                             />
                                         </Fragment>
                                     </div>
-                                </ul>
-                            ))}
-                            <CreateAdditionalReader
-                                setAuth={setAuth}
-                                reader={reader}
-                                adReaders={adReaders}
-                                setAdReaders={setAdReaders}
-                                famGroup={famGroup}
-                                setCheckAdReaders={setCheckAdReaders}
-                                checkAdReaders={checkAdReaders}
-                                leaveFG={leaveFG}
-                            />
-                        </div>
+                                ))}
+                                <div className="family-options">
+                                    <CreateAdditionalReader
+                                        setAuth={setAuth}
+                                        reader={reader}
+                                        adReaders={adReaders}
+                                        setAdReaders={setAdReaders}
+                                        famGroup={famGroup}
+                                        setCheckAdReaders={setCheckAdReaders}
+                                        checkAdReaders={checkAdReaders}
+                                        leaveFG={leaveFG}
+                                    />
+                                </div>
+                            </div>
+                        </Fragment>
                     )}
                 </div>
             )}

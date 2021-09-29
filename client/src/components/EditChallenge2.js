@@ -122,7 +122,7 @@ const EditChallenge2 = ({
         <Fragment>
             <button
                 type="button"
-                class="btn btn-info btn-sm"
+                class="challenge-edit"
                 data-toggle="modal"
                 data-target={targetId}
             >
@@ -196,6 +196,7 @@ const EditChallenge2 = ({
                                             Chapters
                                         </button>
                                         <button
+                                            disabled
                                             type="button"
                                             className="btn btn-outline-secondary"
                                             value="books"
@@ -205,6 +206,7 @@ const EditChallenge2 = ({
                                             Books
                                         </button>
                                         <button
+                                            disabled
                                             type="button"
                                             className="btn btn-outline-secondary"
                                             value="verses"

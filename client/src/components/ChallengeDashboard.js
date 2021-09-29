@@ -125,6 +125,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
                     </label>
                     <input
                         id="books"
+                        disabled
                         className="btn-check"
                         autoComplete="off"
                         type="radio"
@@ -140,6 +141,7 @@ const ChallengeDashboard = ({ setAuth, setCreateChallenge, reader }) => {
                     </label>
                     <input
                         id="verses"
+                        disabled
                         className="btn-check"
                         type="radio"
                         name="challenge-type"

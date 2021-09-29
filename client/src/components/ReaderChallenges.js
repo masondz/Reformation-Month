@@ -96,7 +96,18 @@ const ReaderChallenges = ({
                                     </div>
                                 </div>
                                 {reader.id !== challenge.challenge_admin ? (
-                                    <></>
+                                    <div className="leave-challenge">
+                                        <p
+                                            onClick={() =>
+                                                removeReader(
+                                                    reader.id,
+                                                    challenge.id
+                                                )
+                                            }
+                                        >
+                                            +
+                                        </p>
+                                    </div>
                                 ) : (
                                     <Fragment key={challenge.id.toString()}>
                                         <EditChallenge2

@@ -65,7 +65,7 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
             {/* Button trigger modal  */}
             <button
                 type="button"
-                class="btn btn-outline-primary"
+                className="btn btn-outline-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#createFGModal"
             >
