@@ -158,7 +158,7 @@ const ReportAdReaderReading = ({
                             ></button>
                         </div>
                         <div class="modal-body">
-                            <form className="form-control">
+                            <form className="">
                                 <div className="form-control bg-light text-black">
                                     <lable htmlFor="Chapters" className="mr-2">
                                         Chapters Read
@@ -182,7 +182,7 @@ const ReportAdReaderReading = ({
                                         </button>
                                     </lable>
                                 </div>
-                                <br></br>
+                                {/* <br></br>
                                 <lable
                                     htmlFor="books_read"
                                     className="bg-light text-black form-control"
@@ -233,7 +233,7 @@ const ReportAdReaderReading = ({
                                             Save changes
                                         </button>
                                     </lable>
-                                </form>
+                                </form> */}
                                 <div class="modal-footer"></div>
                             </form>
                         </div>
