@@ -80,6 +80,10 @@ nav p {
         padding-top: 2px;
     }
 
+    nav p {
+        top: 3px;
+    }
+
     /* nav {
         position: fixed;
 
