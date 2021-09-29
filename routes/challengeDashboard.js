@@ -198,13 +198,9 @@ router.get('/readers-count/:challenge_id', authorization, async (req, res) => {
     try {
     const totalReaders = await.pool(
         `SELECT (SELECT COUNT(rrc.challenge_id) FROM readers_reading_challenges rrc
-INNER JOIN reading_challenges rc
-ON rc.id = rrc.challenge_id
-        WHERE rc.challenge_name = 'Reformation Month 2021') +
+        WHERE rrc.challenge_id = $1) +
         (SELECT COUNT(arc.challenge_id) FROM adreaders_reading_challenges arc
-        INNER JOIN reading_challenges rc
-        ON rc.id = arc.challenge_id
-        WHERE rc.challenge_name = 'Reformation Month 2021') as total`,
+        WHERE arc.challenge_id = $1) as total`,
         [challenge_id]
     );
         res.json(totalReaders.rows[0])
