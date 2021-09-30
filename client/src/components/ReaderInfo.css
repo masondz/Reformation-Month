@@ -33,6 +33,7 @@ nav {
 }
 
 .nav-btn {
+    flex-shrink: 2;
     margin: 5px;
     min-width: 150px;
     padding: 3px;
@@ -67,7 +68,7 @@ nav p {
 @media screen and (max-width: 815px) {
     .nav-container {
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: row wrap;
         position: absolute;
         left: 0px;
         justify-content: flex-start;
@@ -82,6 +83,23 @@ nav p {
 
     nav p {
         top: 3px;
+    }
+
+    .nav-btn {
+        padding-bottom: 0.3em;
+        flex-shrink: 1;
+        min-width: 3px;
+        line-height: 1.1em;
+    }
+
+    .nav-btn:hover {
+        padding-bottom: 0.3em;
+        flex-shrink: 1;
+        min-width: 3px;
+        line-height: 1.1em;
+        border: double 5px rgb(255, 255, 255);
+        color: white;
+        background-color: rgb(255, 125, 82);
     }
 
     /* nav {

@@ -2,6 +2,10 @@ main {
     margin-top: 95px;
 }
 
+.nav-container {
+    display: flex;
+}
+
 .challenge-card {
     background-color: white;
     border-top: rgb(175, 155, 150, 0.75) 0.8px solid;
@@ -85,9 +89,25 @@ main {
     margin-bottom: 45px;
 }
 
+.FC-close {
+    float: right;
+    color: rgb(245, 105, 2);
+    transform: rotate(45deg);
+    font-size: 1.63rem;
+    cursor: pointer;
+    padding: 5px;
+    position: relative;
+    bottom: 0.75em;
+    left: 0.5em;
+}
+
 @media screen and (max-width: 815px) {
     main {
         margin-top: 115px;
+    }
+
+    .modal-background {
+        background-color: coral;
     }
 
     .leave-challenge {

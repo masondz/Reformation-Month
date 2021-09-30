@@ -5,7 +5,14 @@
 
 import React, { Fragment, useEffect, useState } from 'react'
 
-const ReportReading = ({ setAuth, reader, setReader, toggleFG }) => {
+const ReportReading = ({
+    setAuth,
+    reader,
+    setReader,
+    toggleFG,
+    toggleFC,
+    findingChallenge,
+}) => {
     const [reporting, setReporting] = useState(false)
     const [chaptersTotal, setChaptersTotal] = useState('')
     const [booksTotal, setBooksTotal] = useState('')
@@ -95,6 +102,15 @@ const ReportReading = ({ setAuth, reader, setReader, toggleFG }) => {
                 >
                     Family Group
                 </button>
+                {!findingChallenge && (
+                    <button
+                        type="button"
+                        className="nav-btn"
+                        onClick={() => toggleFC()}
+                    >
+                        More Challenges
+                    </button>
+                )}
             </div>
 
             <div

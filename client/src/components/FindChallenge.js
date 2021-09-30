@@ -7,6 +7,7 @@ const FindChallenge = ({
     setReadersChallenges,
     readersChallenges,
     checkChallenge,
+    toggleFC,
 }) => {
     const [challengeList, setChallengeList] = useState([])
     const [inputs, setInputs] = useState({
@@ -133,7 +134,10 @@ const FindChallenge = ({
     //   return statement
     return (
         <Fragment>
-            <form className="container" onSubmit={onSubmit}>
+            <form className="" onSubmit={onSubmit}>
+                <p onClick={() => toggleFC()} className="FC-close">
+                    +
+                </p>
                 <div className="row align-items-end">
                     <label htmlFor="chal-list">Find a reading Challenge</label>
                     <input
