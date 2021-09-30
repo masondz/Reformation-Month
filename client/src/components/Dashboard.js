@@ -77,6 +77,10 @@ const Dashboard = ({ setAuth }) => {
         verses_memorized: '',
     })
 
+// 1. have find-challenge component and create challenge button loaded if reader not in any challenges.
+// 2. hide find-challenge compenent and create challenge button if in a challenge
+// 3. load both after pushing/clicking challenge button
+    
     return (
         <Fragment>
             <nav className="nav-container">
@@ -91,29 +95,7 @@ const Dashboard = ({ setAuth }) => {
                 </div>
             </nav>
             <main>
-                {familyGroupState && (
-                    <FamilyGroup
-                        setAuth={setAuth}
-                        reader={reader}
-                        setDisplayTotal={setDisplayTotal}
-                        displayTotal={displayTotal}
-                    />
-                )}
-                {!createChallenge && inReadingChallenge && (
-                    <>
-                        <ReaderChallenges
-                            reader={reader}
-                            getReader={getReader}
-                            setAuth={setAuth}
-                            readersChallenges={readersChallenges}
-                            setReadersChallenges={setReadersChallenges}
-                            setInReadingChallenge={setInReadingChallenge}
-                            displayTotal={displayTotal}
-                        />
-                    </>
-                )}
-
-                {!createChallenge && !inReadingChallenge (
+              {!createChallenge && !inReadingChallenge (
                     <Fragment>
                         <div className="form-control mb-5">
                             <FindChallenge
@@ -140,6 +122,29 @@ const Dashboard = ({ setAuth }) => {
                             reader={reader}
                         />
                     )}
+                {familyGroupState && (
+                    <FamilyGroup
+                        setAuth={setAuth}
+                        reader={reader}
+                        setDisplayTotal={setDisplayTotal}
+                        displayTotal={displayTotal}
+                    />
+                )}
+                {!createChallenge && inReadingChallenge && (
+                    <>
+                        <ReaderChallenges
+                            reader={reader}
+                            getReader={getReader}
+                            setAuth={setAuth}
+                            readersChallenges={readersChallenges}
+                            setReadersChallenges={setReadersChallenges}
+                            setInReadingChallenge={setInReadingChallenge}
+                            displayTotal={displayTotal}
+                        />
+                    </>
+                )}
+
+                
                 </div>
                 {/* <Link to={"/challenge-dashboard"}>Create Challenge</Link> */}
 
