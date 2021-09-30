@@ -113,7 +113,7 @@ const Dashboard = ({ setAuth }) => {
                     </>
                 )}
 
-                {!createChallenge && (
+                {!createChallenge && !inReadingChallenge (
                     <Fragment>
                         <div className="form-control mb-5">
                             <FindChallenge
