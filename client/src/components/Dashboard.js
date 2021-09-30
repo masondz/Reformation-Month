@@ -81,6 +81,10 @@ const Dashboard = ({ setAuth }) => {
 // 2. hide find-challenge compenent and create challenge button if in a challenge
 // 3. load both after pushing/clicking challenge button
     
+// a. Put a button in nav that toggles inReadingChallenge to false
+// b. Put an exit button in Find Challenge component that toggles inReadingChallenge to true
+// c. Put join button in Find Challenge component
+    
     return (
         <Fragment>
             <nav className="nav-container">
