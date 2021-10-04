@@ -136,6 +136,7 @@ const Dashboard = ({ setAuth }) => {
                         toggleFG={() => toggleFG()}
                         toggleFC={() => toggleFC()}
                         findingChallenge={findingChallenge}
+                        inReadingChallenge={inReadingChallenge}
                     />
                 </div>
             </nav>
