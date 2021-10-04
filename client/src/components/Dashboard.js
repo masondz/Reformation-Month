@@ -91,6 +91,7 @@ const Dashboard = ({ setAuth }) => {
                     setAuth={setAuth}
                     readersChallenges={readersChallenges}
                     setReadersChallenges={setReadersChallenges}
+                    inReadingChallenge={inReadingChallenge}
                     setInReadingChallenge={setInReadingChallenge}
                     checkChallenge={checkChallenge}
                     toggleFC={() => toggleFC()}
