@@ -137,7 +137,7 @@ const FindChallenge = ({
     return (
         <Fragment>
             <form className="" onSubmit={onSubmit}>
-        {!inReadingChallenge && <p onClick={() => setFindingChallenge(false)} className="FC-close">
+        {inReadingChallenge && <p onClick={() => setFindingChallenge(false)} className="FC-close">
                     +
                 </p>}
                 <div className="row align-items-end">
