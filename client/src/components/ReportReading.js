@@ -12,6 +12,7 @@ const ReportReading = ({
     toggleFG,
     toggleFC,
     findingChallenge,
+    inReadingChallenge,
 }) => {
     const [reporting, setReporting] = useState(false)
     const [chaptersTotal, setChaptersTotal] = useState('')
@@ -102,7 +103,7 @@ const ReportReading = ({
                 >
                     Family Group
                 </button>
-                {!findingChallenge && (
+                {!findingChallenge && inReadingChallenge && (
                     <button
                         type="button"
                         className="nav-btn"
