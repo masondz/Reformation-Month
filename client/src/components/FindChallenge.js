@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 const FindChallenge = ({
     setAuth,
+    inReadingChallenge,
     setInReadingChallenge,
     setReadersChallenges,
     readersChallenges,
@@ -136,9 +137,9 @@ const FindChallenge = ({
     return (
         <Fragment>
             <form className="" onSubmit={onSubmit}>
-                <p onClick={() => setFindingChallenge(false)} className="FC-close">
+        {!inReadingChallenge && <p onClick={() => setFindingChallenge(false)} className="FC-close">
                     +
-                </p>
+                </p>}
                 <div className="row align-items-end">
                     <label htmlFor="chal-list">Find a reading Challenge</label>
                     <input
