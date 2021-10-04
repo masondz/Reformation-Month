@@ -12,6 +12,27 @@ const ChallengeTotal = ({
     console.log('displayTotal challenge prop:' + displayTotal)
 
     const [progress, setProgress] = useState(0)
+    const [readerCount, setReaderCount] = useState(0)
+
+    const getReaderCount = async () => {
+        const challenge_id = challenge.id
+        try {
+            const getCount = await fetch(
+                `/challenge-dashboard/readers-count/${challenge_id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        token: localStorage.token,
+                    },
+                }
+            )
+            const parseRes = await getCount.json()
+            setReaderCount(parseRes.total)
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
 
     useEffect(() => {
         const getTotals = async () => {
@@ -38,6 +59,7 @@ const ChallengeTotal = ({
         }
         getTotals()
         setProgress((total / challenge.goal) * 100)
+        getReaderCount()
     }, [
         total,
         challenge.goal,
@@ -65,6 +87,7 @@ const ChallengeTotal = ({
                 </div>
                 {/* <meter id="goal" min="0" max={challenge.goal} value={total} /> */}
             </div>
+            <p className="reader-total">Readers: {readerCount}</p>
         </div>
     )
 }

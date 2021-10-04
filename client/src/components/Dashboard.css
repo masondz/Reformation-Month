@@ -34,8 +34,8 @@ main {
 .leave-challenge p {
     padding: 5px;
     position: relative;
-    bottom: 82px;
-    right: 82px;
+    bottom: 110px;
+    right: 100px;
 }
 
 .challenge-edit {
@@ -101,6 +101,10 @@ main {
     left: 0.5em;
 }
 
+.reader-total {
+    margin-top: 15px;
+}
+
 @media screen and (max-width: 815px) {
     main {
         margin-top: 115px;
@@ -119,7 +123,7 @@ main {
 
     .leave-challenge p {
         padding: 5px;
-        bottom: 85px;
-        right: 78px;
+        bottom: 105px;
+        right: 98px;
     }
 }
