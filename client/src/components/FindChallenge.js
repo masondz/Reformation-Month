@@ -137,9 +137,22 @@ const FindChallenge = ({
     return (
         <Fragment>
             <form className="" onSubmit={onSubmit}>
-        {inReadingChallenge && <p onClick={() => setFindingChallenge(false)} className="FC-close">
-                    +
-                </p>}
+                {inReadingChallenge ? (
+                    <p
+                        onClick={() => setFindingChallenge(false)}
+                        className="FC-close"
+                    >
+                        +
+                    </p>
+                ) : (
+                    <p
+                        onClick={() => setFindingChallenge(false)}
+                        className="FC-close"
+                        style={{ visibility: 'hidden' }}
+                    >
+                        +
+                    </p>
+                )}
                 <div className="row align-items-end">
                     <label htmlFor="chal-list">Find a reading Challenge</label>
                     <input
