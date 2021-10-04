@@ -9,7 +9,7 @@ const ReaderInfo = ({ setAuth, reader }) => {
         <Fragment>
             <div className="container-reader">
                 <div className="stats">
-                    <h4>Welcome {reader.first_name}:</h4>
+                    <h4>Welcome {reader.first_name}!</h4>
                     <p id="chapters">{chapters_read} chapters</p>
                     {/* <p id="books">{books_read} books</p>
                     <p id="verses">{verses_memorized} verses</p> */}
