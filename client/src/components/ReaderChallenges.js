@@ -112,7 +112,10 @@ const ReaderChallenges = ({
                                     </div>
                                 ) : (
                                     <Fragment key={challenge.id.toString()}>
-                                    
+                                        <Leaderboard
+                                            setAuth={setAuth}
+                                            challenge={challenge}
+                                        />
                                         <EditChallenge2
                                             challenge={challenge}
                                             reader={reader}
@@ -123,7 +126,6 @@ const ReaderChallenges = ({
                                                 readersChallenges
                                             }
                                         />
-                                    
                                     </Fragment>
                                 )}
                             </div>
