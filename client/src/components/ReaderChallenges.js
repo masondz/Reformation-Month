@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import ChallengeTotal from './ChallengeTotal'
 
+import Leaderboard from './Leaderboard.js'
+
 import EditChallenge from './EditChallenge'
 import EditChallenge2 from './EditChallenge2'
 
@@ -110,6 +112,8 @@ const ReaderChallenges = ({
                                     </div>
                                 ) : (
                                     <Fragment key={challenge.id.toString()}>
+                                    <div>
+                                    <Leaderboard setAuth={setAuth} />
                                         <EditChallenge2
                                             challenge={challenge}
                                             reader={reader}
@@ -120,6 +124,7 @@ const ReaderChallenges = ({
                                                 readersChallenges
                                             }
                                         />
+                                    </div>
                                     </Fragment>
                                 )}
                             </div>
