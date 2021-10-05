@@ -209,4 +209,24 @@ router.get('/readers-count/:challenge_id', authorization, async (req, res) => {
     }
 })
 
+//get reader's by name per challenge
+
+router.get('/reader-leaderboard/:challenge_id', authorization, async (req, res) => {
+    const {challenge_id} = req.params
+    try {
+        const leaderboard = await pool.query(
+            `SELECT r.first_name, r.last_name, r.chapters_read FROM readers r
+            INNER JOIN readers_reading_challenges rrc
+            ON r.id = rrc.challenge_id
+            WHERE challenge_id = $1
+            ORDER BY r.chapters_read DESC
+            `,
+            [challenge_id]
+        )
+        res.json(leaderboard.rows)
+    } catch(err) {
+        conosole.log(err.error)
+    }
+})
+
 module.exports = router
