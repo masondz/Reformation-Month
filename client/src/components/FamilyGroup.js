@@ -64,11 +64,22 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             console.error(err.message)
         }
     }
+    
+
 
     useEffect(() => {
         getFamilyGroup()
     }, [])
-
+    
+    const primaryReaders = (readers) => {
+            let primeReaders = readers;
+            let sentence;
+            for (let i = 0; i < primeReaders.length; i++) {
+            sentence += primeReader[i] + ' ';
+        }
+        return sentence;
+    }
+    
     //Get Additional Readers: ...
     const getAdditionalReader = async () => {
         try {
@@ -129,7 +140,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                 </p>
                             </div>
                             <div className="family-group">
-                                <p>{famGroup.primary_readers}</p>
+                                <p>Family Group Leaders: {primaryReaders(famGroup.primary_readers)}</p>
                                 {console.log(adReaders)}
                                 {adReaders.map((adReader, index) => (
                                     <div className="family-member">
