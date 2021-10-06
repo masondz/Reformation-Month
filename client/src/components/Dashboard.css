@@ -38,6 +38,22 @@ main {
     right: 100px;
 }
 
+.leaderboard {
+    border: solid rgb(245, 105, 2) 1px;
+    padding-top: 20px;
+    max-height: 300px;
+    overflow: scroll;
+    width: 50%;
+    margin: 0px auto;
+}
+
+.leaderboard p {
+    margin-bottom: 25px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid gray 1px;
+}
+
 .challenge-edit {
     padding: 15px 10px;
     margin-top: 8px;
@@ -125,5 +141,10 @@ main {
         padding: 5px;
         bottom: 105px;
         right: 98px;
+    }
+
+    .leaderboard {
+        width: 100%;
+        margin: 0px;
     }
 }
