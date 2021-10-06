@@ -29,9 +29,9 @@ const Leaderboard = ({ setAuth, challenge }) => {
     }, [challenge.id])
 
     return (
-        {board.map(reader => {
+        {board.map(reader => (
          <p>{reader.first_name} {reader.last_name}: {reader.chapters_read}</p>
-        }
+        )}
 //         <p>
 //             <i>Leaderboard coming soon!</i>
 //         </p>
