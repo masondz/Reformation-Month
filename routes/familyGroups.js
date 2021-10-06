@@ -8,7 +8,11 @@ const validinfo = require('../middleware/validinfo')
 router.get('/', authorization, async (req, res) => {
     try {
         const getFamilyGroup = await pool.query(
-            'SELECT family_name, id FROM family_group WHERE $1 = ANY(reader_ids)',
+            `SELECT family_name, id, ARRAY (SELECT r.first_name FROM readers r
+            INNER JOIN family_group fg
+            ON r.id = ANY(fg.reader_ids)
+                WHERE $1 = ANY(fg.reader_ids)) as primary_readers
+            FROM family_group WHERE $1 = ANY(reader_ids)`,
             [req.user]
         )
         if (getFamilyGroup.rowCount === 0) {
