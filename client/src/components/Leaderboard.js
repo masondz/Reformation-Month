@@ -18,9 +18,9 @@ const Leaderboard = ({ setAuth, challenge }) => {
                     }
                 )
                 let parseRes = await leaderboard.json()
-                let keys = Object.keys(parseRes); 
-                console.log('leaderboard?' + keys)
-                setBoard(keys)
+                let values = Object.values(parseRes); 
+                console.log('leaderboard?' + values)
+                setBoard(parseRes)
             } catch (err) {
                 console.error(err.message)
             }
@@ -29,9 +29,12 @@ const Leaderboard = ({ setAuth, challenge }) => {
     }, [challenge.id])
 
     return (
-        <p>
-            <i>Leaderboard coming soon!</i>
-        </p>
+        {board.maps(reader => {
+         <p>{reader.first_name} {reader.last_name}: {reader.chapters_read}</p>
+        }
+//         <p>
+//             <i>Leaderboard coming soon!</i>
+//         </p>
     )
 }
 
