@@ -129,6 +129,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                 </p>
                             </div>
                             <div className="family-group">
+                                <p>{famGroup.primary_readers</p>
                                 {console.log(adReaders)}
                                 {adReaders.map((adReader, index) => (
                                     <div className="family-member">
