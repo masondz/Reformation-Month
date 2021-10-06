@@ -18,8 +18,9 @@ const Leaderboard = ({ setAuth, challenge }) => {
                     }
                 )
                 let parseRes = await leaderboard.json()
-                console.log('leaderboard?' + parseRes.rows)
-                setBoard(parseRes)
+                let entries = Object.entries(parseRes); 
+                console.log('leaderboard?' + entries)
+                setBoard(entries)
             } catch (err) {
                 console.error(err.message)
             }
