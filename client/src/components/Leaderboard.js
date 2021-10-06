@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 const Leaderboard = ({ setAuth, challenge }) => {
     const [board, setBoard] = useState([])
 
-    useEffect(() => {
+    useEffect(() => {        
         const getLeaderboard = async () => {
             try {
                 const challenge_id = challenge.id
@@ -29,7 +29,7 @@ const Leaderboard = ({ setAuth, challenge }) => {
 
     return (
         <p>
-            <i>Leaderboard coming soon!</i>
+            <i>{board}</i>
         </p>
     )
 }
