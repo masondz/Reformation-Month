@@ -72,7 +72,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
     }, [])
     
     const primaryReaders = (readers) => {   
-            let sentence;
+            let sentence = "";
             for (let i = 0; i < readers.length; i++) {
             sentence += readers[i] + ' ';
         }
