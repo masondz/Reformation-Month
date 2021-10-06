@@ -71,11 +71,10 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
         getFamilyGroup()
     }, [])
     
-    const primaryReaders = (readers) => {
-            let primeReaders = readers;
+    const primaryReaders = (readers) => {   
             let sentence;
-            for (let i = 0; i < primeReaders.length; i++) {
-            sentence += primeReader[i] + ' ';
+            for (let i = 0; i < readers.length; i++) {
+            sentence += readers[i] + ' ';
         }
         return sentence;
     }
