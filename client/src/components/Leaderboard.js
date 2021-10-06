@@ -29,7 +29,7 @@ const Leaderboard = ({ setAuth, challenge }) => {
     }, [challenge.id])
 
     return (
-        {board.maps(reader => {
+        {board.map(reader => {
          <p>{reader.first_name} {reader.last_name}: {reader.chapters_read}</p>
         }
 //         <p>
