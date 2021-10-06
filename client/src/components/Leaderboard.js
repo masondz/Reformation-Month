@@ -32,7 +32,7 @@ const Leaderboard = ({ setAuth, challenge }) => {
         <div className="leaderboard">
         {board.map((reader) => (
          <p className="board-entry">{reader.first_name} {reader.last_name}: {reader.chapters_read}</p>
-        )}
+        ))}
         </div>
 //         <p>
 //             <i>Leaderboard coming soon!</i>
