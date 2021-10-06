@@ -18,7 +18,7 @@ const Leaderboard = ({ setAuth, challenge }) => {
                     }
                 )
                 let parseRes = await leaderboard.json()
-                console.log('leaderboard?' + parseRes)
+                console.log('leaderboard?' + parseRes.rows)
                 setBoard(parseRes)
             } catch (err) {
                 console.error(err.message)
@@ -29,7 +29,7 @@ const Leaderboard = ({ setAuth, challenge }) => {
 
     return (
         <p>
-            <i>{board}</i>
+            <i>Leaderboard coming soon!</i>
         </p>
     )
 }
