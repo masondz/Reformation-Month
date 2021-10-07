@@ -219,11 +219,15 @@ router.get(
         try {
             const leaderboard = await pool.query(
                 `SELECT r.first_name, r.last_name, r.chapters_read FROM readers r
-            INNER JOIN readers_reading_challenges rrc
-            ON r.id = rrc.reader_id
-            WHERE rrc.challenge_id = $1
-            ORDER BY r.chapters_read DESC
-            `,
+                 INNER JOIN readers_reading_challenges rrc
+                 ON r.id = rrc.reader_id
+                 WHERE rrc.challenge_id = $1
+                 UNION
+                 SELECT ar.name AS first_name, NULL AS last_name, ar.chapters_read FROM additional_readers ar
+                 INNER JOIN adreaders_reading_challenges arc
+                 ON ar.ad_reader_id = arc.ad_reader_id
+                 WHERE arc.challenge_id = $1
+                    ORDER BY chapters_read DESC`,
                 [challenge_id]
             )
             console.log(leaderboard)
