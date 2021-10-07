@@ -25,17 +25,19 @@ main {
 
 .leave-challenge {
     float: right;
-    color: rgb(245, 105, 2);
-    transform: rotate(45deg);
-    font-size: 1.9rem;
+    width: 8em;
+    color: #f63;
+    font-size: 1rem;
     cursor: pointer;
+    padding: 5px 0px;
+    position: relative;
+    bottom: 1.5em;
 }
 
 .leave-challenge p {
-    padding: 5px;
-    position: relative;
-    bottom: 110px;
-    right: 100px;
+    font-size: .8em;
+    padding-top: 10px;
+    margin-left: 2em;
 }
 
 .leaderboard {
@@ -128,19 +130,6 @@ main {
 
     .modal-background {
         background-color: coral;
-    }
-
-    .leave-challenge {
-        float: right;
-        color: rgb(245, 105, 2);
-        transform: rotate(45deg);
-        font-size: 1.5rem;
-    }
-
-    .leave-challenge p {
-        padding: 5px;
-        bottom: 105px;
-        right: 98px;
     }
 
     .leaderboard {

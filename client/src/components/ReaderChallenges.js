@@ -107,7 +107,7 @@ const ReaderChallenges = ({
                                                 )
                                             }
                                         >
-                                            +
+                                            Leave Challenge
                                         </p>
                                     </div>
                                 ) : (
