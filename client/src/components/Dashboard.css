@@ -25,17 +25,16 @@ main {
 
 .leave-challenge {
     float: right;
-    color: rgb(245, 105, 2);
-    transform: rotate(45deg);
-    font-size: 1.9rem;
+    color: #ffffff;
+    background-color: rgb(255, 102, 51);
+    font-size: 1rem;
     cursor: pointer;
 }
 
 .leave-challenge p {
     padding: 5px;
-    position: relative;
-    bottom: 110px;
-    right: 100px;
+    
+
 }
 
 .leaderboard {
