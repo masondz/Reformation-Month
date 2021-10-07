@@ -24,14 +24,20 @@ main {
 }
 
 .leave-challenge {
-    color: #ffffff;
-    background-color: rgb(255, 102, 51);
+    float: right;
+    width: 8em;
+    color: #f63;
     font-size: 1rem;
     cursor: pointer;
+    padding: 5px 0px;
+    position: relative;
+    bottom: 1.5em;
 }
 
 .leave-challenge p {
-    padding: 10px;
+    font-size: .8em;
+    padding-top: 10px;
+    margin-left: 2em;
 }
 
 .leaderboard {
