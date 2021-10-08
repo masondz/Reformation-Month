@@ -7,7 +7,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     const getChallenges = async () => {
       try {
         const adReaderId = adReader.ad_reader_id;
-        const challenges = await fetch('/additional-readers/${adReaderId}',
+        const challenges = await fetch(`/additional-readers/challenges/${adReaderId}`,
           {
             method: 'GET',
             headers: {
