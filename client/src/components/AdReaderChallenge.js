@@ -4,7 +4,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
   
   useEffect(() => {
-    const getChallenges = async (adReaderId) => {
+    const getChallenges = async () => {
       try {
         const adReaderId = adReader.ad_reader_id;
         const challenges = await fetch('/additional-readers/${adReaderId}',
@@ -22,8 +22,9 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
       } catch (err){
         console.error(err.message);
       }
-    }
-  })
+    };
+    getChallenges();
+  },[])
   
   
   
