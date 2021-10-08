@@ -172,8 +172,7 @@ router.delete('/', authorization, async (req, res) => {
 
 router.get('/:adreader_id', authorization, async (req, res) => {
     try{
-        const {adreader_id} = req.params
-        //get adreader challenges
+        const adreader_id = req.params.adreader_id
         const challenges = await pool.query(
             `SELECT rc.challenge_name, rc.challenge_id FROM reading_challenges rc
             INNER JOIN readers_reading_challenges rrc
