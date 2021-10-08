@@ -167,4 +167,24 @@ router.delete('/', authorization, async (req, res) => {
     }
 })
 
+//get additional readers challenges
+// => /additional-readers
+
+router.get('/:adreader_id', authorization, async (req, res) => {
+    try{
+        const {adreader_id} = req.params
+        //get adreader challenges
+        const challenges = await pool.query(
+            `SELECT rc.challenge_name, rc.challenge_id FROM reading_challenges rc
+            INNER JOIN readers_reading_challenges rrc
+            ON rrc.challenge_id = rc.challenge_id
+            WHERE rrc.ad_reader_id = $1`,
+            [adreader_id]
+        )
+        res.json(challenges.rows)
+    } catch (err){
+        console.log(err.message);
+    }
+})
+
 module.exports = router
