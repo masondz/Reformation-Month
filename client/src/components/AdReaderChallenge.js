@@ -1,22 +1,38 @@
 import React, {useState, useEffect} from 'react';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
-  const adReaderId = adReader.ad_reader_id;
+  const [challenges, setChallenges] = useState([]);
   
   useEffect(() => {
-    const adReaderId = adReader.ad_reader_id;
     const getChallenges = async (adReaderId) => {
       try {
-        const challenges = await fetch('/additional-readers/${adReaderId}', (req, res) => {
-          
-        })
+        const adReaderId = adReader.ad_reader_id;
+        const challenges = await fetch('/additional-readers/${adReaderId}',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              token: localStorage.token,
+            },
+          }
+        )
+        let parseRes = await challenges.json()
+        setChallenges(parseRes)
       } catch (err){
         console.error(err.message);
       }
     }
   })
   
-  return <p><i>Modify member's challenges coming soon!</i></p>
+  
+  
+  return( 
+    <div>
+      {challenges.map((challenge) => {
+        <p>{challenge.challenge_name}</p>
+      }
+    </div>
+  )
 }
 
 export default AdReaderChallenges;
