@@ -30,7 +30,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     <div>
       {challenges.map((challenge) => {
         <p>{challenge.challenge_name}</p>
-      }
+      })}
     </div>
   )
 }
