@@ -18,6 +18,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
         )
         let parseRes = await challenges.json()
         setChallenges(parseRes)
+        console.log(parseRes)
       } catch (err){
         console.error(err.message);
       }
@@ -28,6 +29,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   
   return( 
     <div>
+    <p><i>Modify member's challenges coming soon!</i></p>
       {challenges.map((challenge) => {
         <p>{challenge.challenge_name}</p>
       })}
