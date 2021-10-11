@@ -24,7 +24,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
       }
     };
     getChallenges();
-    console.
+    console.log(challenges)
   },[])
   
   
