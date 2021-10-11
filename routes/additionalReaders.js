@@ -172,13 +172,13 @@ router.delete('/', authorization, async (req, res) => {
 
 router.get('/challenges/:adreader_id', authorization, async (req, res) => {
     try{
-        const ad_reader_id = req.params.adreader_id
+        const { adreader_id } = req.params
         const challenges = await pool.query(
-            `SELECT rc.challenge_name, rc.challenge_id FROM reading_challenges rc
-            INNER JOIN readers_reading_challenges rrc
-            ON rrc.challenge_id = rc.challenge_id
-            WHERE rrc.ad_reader_id = $1`,
-            [ad_reader_id]
+            `SELECT rc.challenge_name, rc.id FROM reading_challenges rc
+            INNER JOIN adreaders_reading_challenges arc
+            ON arc.challenge_id = rc.id
+            WHERE arc.ad_reader_id = = $1`,
+            [adreader_id]
         )
         res.json(challenges)
     } catch (err){
