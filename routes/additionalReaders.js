@@ -180,7 +180,7 @@ router.get('/challenges/:ad_reader_id', authorization, async (req, res) => {
             WHERE arc.ad_reader_id = $1`,
             [ad_reader_id]
         )
-        res.json(challenges)
+        res.json(challenges.rows)
     } catch (err){
         console.log(err.message);
     }
