@@ -33,8 +33,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     <div>
       {challenges[0].challenge_name 
         ? <p><i>Modify member's challenges coming soon!</i></p>
-        :  {for (const [key, value] of Object.entries(object1)) {
-  <p>{value}</p>}
+        :  <p> challenge_name is false </p>
 }
     </div>
   )
