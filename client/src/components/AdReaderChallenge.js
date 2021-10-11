@@ -32,6 +32,9 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   return( 
     <div>
      <p><i>Modify member's challenge coming soon!</i></p>
+      {challenges.map((challenge) => (
+        <p>{Object.entries(challenge)}</p>
+      ))} 
     </div>
   )
 }
