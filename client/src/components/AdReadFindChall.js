@@ -18,7 +18,7 @@ const AdReadFindChall = ({ setAuth, adReader }) => {
   
   return (
     <div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} id="adreader-find-challenge">
           <input
             // onChange={(e) => onChange(e)}
             
@@ -39,7 +39,7 @@ const AdReadFindChall = ({ setAuth, adReader }) => {
               );
             })} */}
           </datalist>
-          <button onClick={(e) => onClick(e)}>cancel</button>
+          <input type="submit" value="Submit">
         </form>
       )}
     </div>
