@@ -4,6 +4,7 @@ import JoinFamilyGroup from './JoinFamilyGroup'
 import CreateFamilyGroup from './CreateFamilyGroup'
 import CreateAdditionalReader from './CreateAdditionalReader'
 import DeleteAdReader from './DeleteAdReader'
+import AdReaderChallenge from './AdReaderChallenge'
 
 const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
     const [inFamGroup, setInFamGroup] = useState(false)
@@ -180,6 +181,10 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
                                                 famGroup={famGroup}
                                             />
                                         </Fragment>
+                                        <AdReaderChallenge 
+                                           setAuth={setAuth}
+                                           adReader={adReader}
+                                        />
                                     </div>
                                 ))}
                                 <div className="family-options">

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const AdReadFindChall = ({ setAuth, adReader }) => {
   const [searchChallenge, setSearchChallenge] = useState(false);
-
+  const [input, setInput] = useState("");
+  
   const onSubmit = () => {
     console.log("you submitted something.");
   };
@@ -14,26 +15,21 @@ const AdReadFindChall = ({ setAuth, adReader }) => {
     }
     setSearchChallenge(true);
   };
-
+  
   return (
     <div>
-      {!searchChallenge ? (
-        <button onClick={(e) => onClick(e)} className=" btn-sm btn-secondary">
-          + Reading Challenge
-        </button>
-      ) : (
-        <form onSubmit={onSubmit} className="form-control">
+        <form onSubmit={onSubmit} id="adreader-find-challenge">
           <input
             // onChange={(e) => onChange(e)}
-            className="form-control"
+            
             list="challenge-list"
             name="chal-list"
             id="chal-list"
             placeholder="Search for reading challenge"
           />
           <datalist id="challenge-list">
-            <option>hello</option>
-            <option>world</option>
+            <option>Coming Soon!</option>
+            <option>Coming Soon!</option>
 
             {/* {challengeList.map((challenge) => {
               return (
@@ -43,9 +39,7 @@ const AdReadFindChall = ({ setAuth, adReader }) => {
               );
             })} */}
           </datalist>
-          <button onClick={(e) => onClick(e)}>cancel</button>
         </form>
-      )}
     </div>
   );
 };
