@@ -60,7 +60,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   
   return( 
     <div>
-    {editChallenges
+    {!editChallenges
      ? <button type="button">Edit Challenge</button>
      : <p><i>Modify {adReaderName}'s challenges coming soon!</i></p>
     }
