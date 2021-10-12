@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import AdReadChallList from './AdReadChallList.js';
+import AdReadChallList from './AdReadChallList';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
