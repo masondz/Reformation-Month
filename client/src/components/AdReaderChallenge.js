@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import AdReadChallList from './AdReadChallList';
+import AdReadFindChall from './AdReadFindChall';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
@@ -66,8 +66,11 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
         <div className="adreader-challenges">
           <h5><i>Modify {adReaderName}'s challenges coming soon!</i></h5>
             {challenges.map((challenge) => (
-              <p>{challenge.challenge_name}</p>
+              <p>{challenge.challenge_name}</p>  
             ))} 
+            <div>
+              <AdReadFindChall setAuth={setAuth} adReader={adReader} />
+            </div>
           <button className="adreader-button" type="button" onClick={()=> toggleEdit()}>Close</button>  
         </div>
       )}
