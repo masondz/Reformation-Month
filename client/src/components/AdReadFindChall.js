@@ -39,9 +39,7 @@ const AdReadFindChall = ({ setAuth, adReader }) => {
               );
             })} */}
           </datalist>
-          <input type="submit" value="Submit">
         </form>
-      )}
     </div>
   );
 };
