@@ -26,8 +26,11 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     };
   
   useEffect(() => {
+    const delayChallenges = setTimeout(() => {
     getChallenges();
     console.log(challenges)
+    }, 2000);
+    return () => clearTimeout(delayChallenges)
   },[])
   
   useEffect(() => {
