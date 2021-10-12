@@ -4,8 +4,18 @@ import React, {useState, useEffect} from 'react';
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
   const [adReaderName, setAdReaderName] = useState('member');
-  const adReaderId = adReader.ad_reader_id;
+  const [editChallenges, setEditChallenges] = useState(false);
   
+  const toggleEdit = () => {
+    if (edditChallenges){
+      setEditChallenges(false)
+    } else {
+      setEditChallenges(true)
+    }
+  };
+  
+  
+  const adReaderId = adReader.ad_reader_id;
   const getChallenges = async () => {
       try {
         const challenges = await fetch(`/additional-readers/challenges/${adReaderId}`,
@@ -25,21 +35,23 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
       }
     };
   
-  useEffect(() => {
-    const delayChallenges = setTimeout(() => {
+  const onClick =() => {
+    setAdReaderName(adReader.name);
     getChallenges();
-    console.log(challenges)
-    }, 2000);
-    return () => clearTimeout(delayChallenges)
-  },[])
+  }
   
-  useEffect(() => {
-    if (adReader.name === undefined) {
-      console.log('The additional reader was not passed')
-      return;
-    }
-      setAdReaderName(adReader.name);
-  },[])
+//   useEffect(() => {
+//     getChallenges();
+//     console.log(challenges)
+//   },[])
+  
+//   useEffect(() => {
+//     if (adReader.name === undefined) {
+//       console.log('The additional reader was not passed')
+//       return;
+//     }
+//       setAdReaderName(adReader.name);
+//   },[])
   
 //    {challenges.map((challenge) => (
 //         <p>{Object.entries(challenge)}</p>
@@ -47,7 +59,10 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   
   return( 
     <div>
-     <p><i>Modify {adReaderName}'s challenges coming soon!</i></p>
+    {editChallenges
+     ? <button type="button">Edit Challenge</button>
+     : <p><i>Modify {adReaderName}'s challenges coming soon!</i></p>
+    }
     </div>
   )
 }
