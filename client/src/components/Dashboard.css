@@ -123,6 +123,15 @@ main {
     margin-top: 15px;
 }
 
+.adreader-challenges p {
+    color: rgb(245, 105, 2);
+    border: 1px solid;
+    border-radius: 10px;
+    width: max-content;
+    padding: .4em;
+}
+
+
 @media screen and (max-width: 815px) {
     main {
         margin-top: 115px;
