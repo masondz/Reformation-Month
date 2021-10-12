@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import AdReadChallList from './AdReadChallList';
+// import AdReadChallList from './AdReadChallList';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
+  const adReaderId = adReader.ad_reader_id;
   
-  useEffect(() => {
-    const getChallenges = async () => {
+  const getChallenges = async () => {
       try {
-        const adReaderId = adReader.ad_reader_id;
         const challenges = await fetch(`/additional-readers/challenges/${adReaderId}`,
           {
             method: 'GET',
@@ -24,6 +23,8 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
         console.error(err.message);
       }
     };
+  
+  useEffect(() => {
     getChallenges();
     console.log(challenges)
   },[])
@@ -35,7 +36,6 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   return( 
     <div>
      <p><i>Modify member's challenge coming soon!</i></p>
-      <AdReadChallList setAuth={setAuth} challenges={challenges} />
     </div>
   )
 }
