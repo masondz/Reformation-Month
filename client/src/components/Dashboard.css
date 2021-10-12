@@ -131,6 +131,12 @@ main {
     padding: .4em;
 }
 
+.adreader-button {
+    background-color: rgb(245, 104, 2);
+    color: #ffffff;
+    border: 0px;
+}
+
 
 @media screen and (max-width: 815px) {
     main {
