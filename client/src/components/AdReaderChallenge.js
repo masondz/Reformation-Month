@@ -32,7 +32,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   
   useEffect(() => {
     if (adReader.name === undefined) {
-      console.log('The additional reader wasn't passed')
+      console.log('The additional reader was not passed')
       return;
     }
       setAdReaderName(adReader.name);
