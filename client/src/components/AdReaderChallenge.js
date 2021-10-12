@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import AdReadChallList from './AdReadChallList.js';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
@@ -34,7 +35,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   return( 
     <div>
      <p><i>Modify member's challenge coming soon!</i></p>
-   
+      <AdReadChallList setAuth={setAuth} challenges={challenges} />
     </div>
   )
 }
