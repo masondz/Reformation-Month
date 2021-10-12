@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 
 const AdReaderChallenges = ({setAuth, adReader}) => {
   const [challenges, setChallenges] = useState([]);
+  const [adReaderName, setAdReaderName] = useState('member');
   const adReaderId = adReader.ad_reader_id;
   
   const getChallenges = async () => {
@@ -29,13 +30,21 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     console.log(challenges)
   },[])
   
+  useEffect(() => {
+    if (adReader.name === undefined) {
+      console.log('The additional reader wasn't passed')
+      return;
+    }
+      setAdReaderName(adReader.name);
+  },[])
+  
 //    {challenges.map((challenge) => (
 //         <p>{Object.entries(challenge)}</p>
 //       ))} 
   
   return( 
     <div>
-     <p><i>Modify member's challenge coming soon!</i></p>
+     <p><i>Modify {adReaderName}'s challenge coming soon!</i></p>
     </div>
   )
 }
