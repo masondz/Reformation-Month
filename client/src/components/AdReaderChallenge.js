@@ -63,10 +63,10 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
     {!editChallenges
      ? <button type="button" onClick={()=>onClick()}>Edit Challenge</button>
      : (
-        <div>
-          <p><i>Modify {adReaderName}'s challenges coming soon!</i></p>
+        <div className="adreader-challenges">
+          <h5><i>Modify {adReaderName}'s challenges coming soon!</i></h5>
             {challenges.map((challenge) => (
-              <p className="adreader-challenges">{challenge.challenge_name}</p>
+              <p>{challenge.challenge_name}</p>
             ))} 
           <button type="button" onClick={()=> toggleEdit()}>Close</button>  
         </div>
