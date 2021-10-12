@@ -7,7 +7,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   const [editChallenges, setEditChallenges] = useState(false);
   
   const toggleEdit = () => {
-    if (edditChallenges){
+    if (editChallenges){
       setEditChallenges(false)
     } else {
       setEditChallenges(true)
@@ -38,6 +38,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   const onClick =() => {
     setAdReaderName(adReader.name);
     getChallenges();
+    toggleEdit();
   }
   
 //   useEffect(() => {
