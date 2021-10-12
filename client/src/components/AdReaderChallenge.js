@@ -44,7 +44,7 @@ const AdReaderChallenges = ({setAuth, adReader}) => {
   
   return( 
     <div>
-     <p><i>Modify {adReaderName}'s challenge coming soon!</i></p>
+     <p><i>Modify {adReaderName}'s challenges coming soon!</i></p>
     </div>
   )
 }
