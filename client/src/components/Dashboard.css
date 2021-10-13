@@ -137,6 +137,16 @@ main {
     border: 0px;
 }
 
+.delete-adreader {
+    float: right;
+    position: relative;
+    top: 45px;
+    background: #ffffff;
+    border: 0px;
+    color: rgb(245, 105, 2);
+    font-size: .8em;
+}
+
 
 @media screen and (max-width: 815px) {
     main {
