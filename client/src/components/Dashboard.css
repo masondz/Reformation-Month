@@ -149,6 +149,17 @@ main {
     background-color: #ffffff;
     color: rgb(255, 105, 2, 0.5);
     border: 0px;
+    margin-top: 0.5em;
+}
+
+.delete-adreader {
+    float: right;
+    position: relative;
+    top: 35px;
+    background: #ffffff;
+    border: 0px;
+    color: rgb(245, 105, 2);
+    font-size: 0.8em;
 }
 
 .adreader-join {
