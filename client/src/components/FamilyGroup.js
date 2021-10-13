@@ -69,7 +69,7 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             // setInFamilyGroup(false);
             window.location = '/'
            } else {
-               toast.warning("You did not leave the Family Group')
+               toast.warning("You did not leave the Family Group")
             }
         } catch (err) {
             console.error(err.message)
