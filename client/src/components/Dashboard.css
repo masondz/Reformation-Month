@@ -135,6 +135,7 @@ main {
     background-color: rgb(245, 104, 2);
     color: #ffffff;
     border: 0px;
+    margin-top: .5em;
 }
 
 .delete-adreader {
