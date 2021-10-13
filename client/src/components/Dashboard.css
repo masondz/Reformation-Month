@@ -155,7 +155,8 @@ main {
 .delete-adreader {
     float: right;
     position: relative;
-    top: 35px;
+    bottom: 2em;
+    right: 0.5em;
     background: #ffffff;
     border: 0px;
     color: rgb(245, 105, 2);
