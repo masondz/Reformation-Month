@@ -45,9 +45,14 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
 
     //allow reader to leave family group
     const leaveFG = async () => {
-        let reader_id = reader.id
-        let fg_id = famGroup.id
+        const choice = window.confirm(
+            "Are you sure you want to leave this Family Group?"
+        )
         try {
+            if (choice === true) {
+            let reader_id = reader.id
+            let fg_id = famGroup.id
+        
             const body = { reader_id, fg_id }
             const request = await fetch('/family-group/remove-reader', {
                 method: 'PUT',
@@ -61,6 +66,9 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             console.log(parsRes)
             // setInFamilyGroup(false);
             window.location = '/'
+           } else {
+               toast.warning("You did not leave the Family Group')
+            }
         } catch (err) {
             console.error(err.message)
         }
