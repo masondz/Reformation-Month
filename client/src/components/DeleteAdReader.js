@@ -62,6 +62,9 @@ const DeleteAdReader = ({
             console.error(err.message)
         }
     }
+    
+    let jsxId = `del-ad${adReader.ad_reader_id}`
+    let targetId = `#del-ad${adReader.ad_reader_id}`
 
     return (
       <div>
@@ -70,28 +73,33 @@ const DeleteAdReader = ({
             style={{ float: 'right' }}
             className="delete-adreader"
             data-bs-toggle="modal"
-            data-bs-target="#delete-adreader-model"
+            data-bs-target={targetId}
         >
             Delete Reader
         </button>
 
-       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <p>Are you sure you want to delete member?</p>
-                <div className="delete-modal-options" >
+       <div className="modal fade" id={jsxId} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        <p>Are you sure you want to delete member?</p>
+                    </div>
+                 <div className="modal-footer">
                     <button
                         type="button"
                         onClick={() => deleteAdReader()}
                     >
-                        Delete Reader
+                        Delete
                     </button>
-                   <button type="button" onClick={(e) => showModal(e)}>Cancel</button>
+                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>  
                     </div>
                 </div>
             </div>
         </div>
-      </div>
+
     )
 }
 
