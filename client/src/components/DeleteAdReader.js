@@ -69,13 +69,15 @@ const DeleteAdReader = ({
             type="button"
             style={{ float: 'right' }}
             className="delete-adreader"
-            onClick={(e) => showModal(e)}
+            data-bs-toggle="modal"
+            data-bs-target="#delete-adreader-model"
         >
             Delete Reader
         </button>
 
-       <div id="delete-adreader-modal" className="hidden">
-            <div id="modal-body">
+       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
                 <p>Are you sure you want to delete member?</p>
                 <div className="delete-modal-options" >
                     <button
@@ -85,6 +87,7 @@ const DeleteAdReader = ({
                         Delete Reader
                     </button>
                    <button type="button" onClick={(e) => showModal(e)}>Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
