@@ -64,6 +64,7 @@ const DeleteAdReader = ({
     }
 
     return (
+      <div>
         <button
             type="button"
             style={{ float: 'right' }}
@@ -87,6 +88,7 @@ const DeleteAdReader = ({
                 </div>
             </div>
         </div>
+      </div>
     )
 }
 
