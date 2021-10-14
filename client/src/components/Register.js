@@ -16,16 +16,19 @@ const Register = ({ setAuth }) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
     
-     const checkPassword = (user_password, confirm_password) => {
-        if (user_password !== confirm_password) {
-            return toast.error('Password does not match. Please try again.')
-        } else {
-            console.log('password matches')
-        }
-    }
+//      const checkPassword = (user_password, confirm_password) => {
+//         if (user_password !== confirm_password) {
+//             return toast.error('Password does not match. Please try again.')
+//         } else {
+//             console.log('password matches')
+//         }
+//     }
 
     const onSubmiForm = async (e) => {
         e.preventDefault()
+        if(user_password !== confirm_password) {
+            return toast.error('Password does not match. Please try again.')
+        } else {
         try {
             const body = { email, user_password, first_name, last_name }
             const response = await fetch('/auth/register', {
@@ -46,6 +49,7 @@ const Register = ({ setAuth }) => {
         } catch (err) {
             console.error(err.message)
         }
+       }
     }
     //Building the form. Form inputs must be consisistant with req.body of the serve i.e. the name of the inputs must the be the same as the keys for the request body
     return (
