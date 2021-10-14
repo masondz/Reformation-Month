@@ -99,7 +99,7 @@ const DeleteAdReader = ({
                 </div>
             </div>
         </div>
-
+      </div>
     )
 }
 
