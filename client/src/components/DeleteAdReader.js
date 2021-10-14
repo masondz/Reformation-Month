@@ -1,4 +1,4 @@
-import React from 'react'
+import React {useState} from 'react'
 import { toast } from 'react-toastify'
 
 const DeleteAdReader = ({
@@ -9,7 +9,13 @@ const DeleteAdReader = ({
     setAdReaders,
     famGroup,
 }) => {
-    console.log(adReader)
+    
+    const [deleting, setDeleting] = useState(false);
+    
+    const toggleDeleting = () => {
+        (!deleting) ? setDeleting(true) : setDeleting(false);
+    }
+    
     const deleteAdReader = async () => {
         //possible delete adReader from list
         const choice = window.confirm(
