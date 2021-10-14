@@ -88,14 +88,16 @@ const DeleteAdReader = ({
                         <p>Are you sure you want to delete member?</p>
                     </div>
                  <div className="modal-footer">
-                    <button
+                   <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Cancel</button>  
+                   <button
                         type="button"
+                        className="btn btn-warning"
                         onClick={() => deleteAdReader()}
+                        data-bs-dismiss="modal"
                     >
                         Delete
                     </button>
-                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>  
-                    </div>
+                   </div>
                 </div>
             </div>
         </div>
