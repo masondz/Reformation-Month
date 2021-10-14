@@ -6,13 +6,22 @@ const Register = ({ setAuth }) => {
     const [inputs, setInputs] = useState({
         email: '',
         user_password: '',
+        confirm_password: '',
         first_name: '',
         last_name: '',
     })
-    const { email, user_password, first_name, last_name } = inputs
+    const { email, user_password, confirm_password, first_name, last_name } = inputs
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
+    }
+    
+     const checkPassword = (user_password, confirm_password) => {
+        if (user_password !== confirm_password) {
+            return toast.error('Password does not match. Please try again.')
+        } else {
+            console.log('password matches')
+        }
     }
 
     const onSubmiForm = async (e) => {
@@ -73,6 +82,14 @@ const Register = ({ setAuth }) => {
                     name="user_password"
                     placeholder="Password"
                     value={user_password}
+                    onChange={(e) => onChange(e)}
+                />
+                <input
+                    className="form-control my-3"
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    value={confirm_password}
                     onChange={(e) => onChange(e)}
                 />
                 <button className="btn btn-success btn-block">Submit</button>
