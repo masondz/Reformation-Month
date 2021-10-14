@@ -149,7 +149,6 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
                                 Close
                             </button>
                             <button
-                                data-bs-dismiss="modal"
                                 type="submit"
                                 class="btn btn-primary"
                                 form="create-family-group"
