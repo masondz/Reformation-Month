@@ -47,11 +47,8 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
 
     //allow reader to leave family group
     const leaveFG = async () => {
-        const choice = window.confirm(
-            "Are you sure you want to leave this Family Group?"
-        )
         try {
-            if (choice === true) {
+
             let reader_id = reader.id
             let fg_id = famGroup.id
         
@@ -68,9 +65,6 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
             console.log(parsRes)
             // setInFamilyGroup(false);
             window.location = '/'
-           } else {
-               toast.warning("You did not leave the Family Group")
-            }
         } catch (err) {
             console.error(err.message)
         }
