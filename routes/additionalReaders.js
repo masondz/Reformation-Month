@@ -171,8 +171,8 @@ router.delete('/', authorization, async (req, res) => {
 // => /additional-readers
 
 router.get('/challenges/:ad_reader_id', authorization, async (req, res) => {
-    try{
-        const ad_reader_id  = req.params.ad_reader_id
+    try {
+        const ad_reader_id = req.params.ad_reader_id
         const challenges = await pool.query(
             `SELECT rc.challenge_name, rc.id FROM reading_challenges rc
             INNER JOIN adreaders_reading_challenges arc
@@ -181,8 +181,50 @@ router.get('/challenges/:ad_reader_id', authorization, async (req, res) => {
             [ad_reader_id]
         )
         res.json(challenges.rows)
-    } catch (err){
-        console.log(err.message);
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
+//add additional reader to new challenge independent of reader
+router.post('/challenges', authorization, async (req, res) => {
+    try {
+        const { ad_reader_id, challenge_id } = req.body
+        const checkChallenge = await pool.query(
+            `SELECT COUNT(*) FROM adreaders_reading_challenges
+            WHERE ad_reader_id = $1 AND challenge_id = $2`,
+            [ad_reader_id, challenge_id]
+        )
+        console.log(checkChallenge.rows[0].count)
+        if (checkChallenge.rows[0].count > 0) {
+            return res
+                .status(403)
+                .send('This reader is already in this challenged!')
+        }
+        const addAdReader = await pool.query(
+            `INSERT INTO adreaders_reading_challenges (ad_reader_id, challenge_id)
+            VALUEs ($1, $2) ON CONFLICT DO NOTHING`,
+            [ad_reader_id, challenge_id]
+        )
+        res.status(200).send('Member added to challenge!')
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+router.delete('/challenges', authorization, async (req, res) => {
+    try {
+        const { ad_reader_id, challenge_id } = req.body
+        console.log(`variables: ${ad_reader_id} and ${challenge_id}`)
+        const deleteAdReadChall = await pool.query(
+            `DELETE FROM adreaders_reading_challenges
+            WHERE ad_reader_id = $1 AND challenge_id = $2`,
+            [ad_reader_id, challenge_id]
+        )
+        console.log(deleteAdReadChall)
+        res.json(deleteAdReadChall)
+    } catch (err) {
+        console.log(err)
     }
 })
 
