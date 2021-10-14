@@ -25,7 +25,7 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
 
     const checkPassword = (familyPassword, confirmPassword) => {
         if (familyPassword !== confirmPassword) {
-            return toast.error('Password does not match. Please try again.')
+           toast.error('Password does not match. Please try again.')
         } else {
             console.log('password matches')
         }
@@ -37,7 +37,9 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
         let family_name = familyName
         let fg_password = familyPassword
         let reader_id = reader.id
-        checkPassword(familyPassword, confirmPassword);
+        if (familyPassword !== confirmPassword) {
+             return  toast.error('Password does not match. Please try again.')
+        } else {
         try {
             const body = { family_name, fg_password, reader_id }
             const response = await fetch('/family-group/', {
@@ -55,10 +57,13 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
             const familyName = parseRes.family_name
             setFamGroup({ family_name: familyName }) //will this work?
             setInFamGroup(true)
-            window.location = '/'
+            setTimeout(() => {
+            window.location = '/';
+            }, 2000);
         } catch (err) {
             console.error(err.message)
         }
+       }
     }
 
     return (
@@ -144,7 +149,7 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
                                 Close
                             </button>
                             <button
-                                data-dismiss="modal"
+                                data-bs-dismiss="modal"
                                 type="submit"
                                 class="btn btn-primary"
                                 form="create-family-group"
