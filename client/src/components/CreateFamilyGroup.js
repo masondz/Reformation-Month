@@ -37,6 +37,7 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
         let family_name = familyName
         let fg_password = familyPassword
         let reader_id = reader.id
+        checkPassword(familyPassword, confirmPassword);
         try {
             const body = { family_name, fg_password, reader_id }
             const response = await fetch('/family-group/', {
