@@ -1,5 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const getUser = createAsyncThunk(
-  
-)
+const getReader = createAsyncThunk(
+  async () => {
+    const response = await fetch('/dashboard/', {
+      method: 'GET',
+      headers: { token: localStorage.token },
+    }
+    const json = await response.json();
+    return json;
+  }
+);
+
+const checkChallenge = createAsyncthunk(
+  async () => {
+    const response = await fetch(
+      '/reader-dashboard/reader-challenge-id/',
+        {
+          method: 'GET',
+          headers: { token: localStorage.token },
+        }
+      );
+      const json = response.json();
+      return json;
+    }
+);
