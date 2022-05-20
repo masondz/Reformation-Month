@@ -28,7 +28,12 @@ export const checkChallenge = createAsyncthunk(
 export const readerSlice = createSlice({
   name: 'reader',
   initialState: {
-    
+    firstName: "",
+    lastName: "",
+    chaptersRead: "",
+    booksRead: "",
+    versesMemorized: "",
+    id: ""
   },
   reducers: {
   
