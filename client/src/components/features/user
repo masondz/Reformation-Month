@@ -11,6 +11,23 @@ export const getReader = createAsyncThunk(
   }
 );
 
+
+/*
+structure of objects
+request:
+first_name, last_name, chapters_read, books_read, verses_memorized, id
+
+how reader info is structured
+books_read: 0
+chapters_read: 96
+first_name: "Zach"
+id: "b1461e7c-4f57-4ebb-9aee-5b9d2e0498ed"
+last_name: "Mason"
+verses_memorized: 0
+
+challenge_name, organization, goal, challenge, id, challenge_admin 
+*/
+
 export const checkChallenge = createAsyncthunk(
   async () => {
     const response = await fetch(
