@@ -28,26 +28,37 @@ export const checkChallenge = createAsyncthunk(
 export const readerSlice = createSlice({
   name: 'reader',
   initialState: {
-    firstName: "",
-    lastName: "",
-    chaptersRead: "",
-    booksRead: "",
-    versesMemorized: "",
-    id: ""
+    first_name: "",
+    last_name: "",
+    chapters_read: "",
+    books_read: "",
+    verses_memorized: "",
+    id: "",
+    gettingReaderPending: false,
+    gettingReaderFailed: false
   },
   reducers: {
   
   },
   extraReducers: (builder) => {
     builder
-      .addCase(__.pending, (state) => {
-      
+      .addCase(getReader.pending, (state) => {
+        gettingReaderPending = true;
+        gettingReaderFailed = false;
       })
-      .addCase(__.fulfilled, (state, action) => {
-      
+      .addCase(getReader.fulfilled, (state, action) => {
+        state.first_name = action.payload.first_name;
+        state.last_name = action.payload.last_name;
+        state.chapters_read = action.payload.chapters_read;
+        state.books_read = action.payload.books_read;
+        state.verses_memorized = action.payload.verses_memorized;
+        state.id = action.payload.id;
+        gettingReaderPending = false;
+        gettingReaderFailed = false;
       })
-      .addCase(__.rejected, (state) => {
-      
+      .addCase(getReader.rejected, (state) => {
+        gettingReaderPending = false;
+        gettingReaderFailed = true;
       })
   }
 
