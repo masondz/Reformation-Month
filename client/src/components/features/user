@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const getReader = createAsyncThunk(
+export const getReader = createAsyncThunk(
   async () => {
     const response = await fetch('/dashboard/', {
       method: 'GET',
@@ -11,7 +11,7 @@ const getReader = createAsyncThunk(
   }
 );
 
-const checkChallenge = createAsyncthunk(
+export const checkChallenge = createAsyncthunk(
   async () => {
     const response = await fetch(
       '/reader-dashboard/reader-challenge-id/',
@@ -24,3 +24,28 @@ const checkChallenge = createAsyncthunk(
       return json;
     }
 );
+
+export const readerSlice = createSlice({
+  name: 'reader',
+  initialState: {
+    
+  },
+  reducers: {
+  
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(__.pending, (state) => {
+      
+      })
+      .addCase(__.fulfilled, (state, action) => {
+      
+      })
+      .addCase(__.rejected, (state) => {
+      
+      })
+  }
+
+});
+
+export const getReader
