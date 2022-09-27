@@ -4,6 +4,12 @@ object-assign
 @license MIT
 */
 
+/*!
+ * vary
+ * Copyright(c) 2014-2017 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
