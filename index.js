@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000
 
 //middleware
 app.use(cors())
+
 app.use(express.json()) //for req.body
 
 if (process.env.NODE_ENV === 'production') {
@@ -47,6 +48,9 @@ app.use('/additional-readers', require('./routes/additionalReaders'))
 //family-group routes
 
 app.use('/family-group', require('./routes/familyGroups'))
+
+//'/forgot-password' routes
+app.use('/forgot-password', require('./routes/forgotPassword'))
 
 app.get('*', Authorization, async (req, res) => {
     await res.sendFile(path.join(__dirname, 'client/build/index.html'))
