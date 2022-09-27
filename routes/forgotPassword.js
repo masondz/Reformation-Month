@@ -4,7 +4,7 @@ const validInfo = require('../middleware/validinfo') // checks for valid entries
 require('dotenv').config()
 const nodemailer = require('nodemailer')
 const { useRouteMatch } = require('react-router-dom')
-// const crypto = require('crypto')
+const crypto = require('crypto')
 
 router.post('/', validInfo, async (req, res) => {
     const { email, user_password } = req.body
@@ -15,8 +15,8 @@ router.post('/', validInfo, async (req, res) => {
     if (reader.rowCount === 0) {
         return res.status(403).json('email not in db')
     } else {
-        // const token = crypto.randomBytes(20).toString('hex')
-        const token = 'test'
+        const token = crypto.randomBytes(20).toString('hex')
+        // const token = 'test'
         const resetDate = Date.now() + 3600000
 
         const updatePassToken = await pool.query(
