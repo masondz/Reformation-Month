@@ -26,14 +26,16 @@ const ForgotPassword = () => {
                 setMessageFromServer('')
             } else {
                 const body = { email }
-                const response = await fetch('/auth/forgot-password', {
+                console.log(body)
+                const response = await fetch('/forgot-password', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                 })
+                // console.log(response)
                 const parseRes = await response.json()
-
-                if (parseRes.data === 'email not in db') {
+                console.log(parseRes)
+                if (parseRes === 'email not in db') {
                     setShowNullError(false)
                     setShowError(true)
                     setMessageFromServer('')

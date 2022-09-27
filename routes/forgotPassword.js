@@ -12,10 +12,11 @@ router.post('/', validInfo, async (req, res) => {
         email,
     ])
     console.log(reader)
-    if (reader.rows.length === 0) {
-        return res.status(403).send('email not in db')
+    if (reader.rowCount === 0) {
+        return res.status(403).json('email not in db')
     } else {
         const token = crypto.randomBytes(20).toString('hex')
+        // const token = 'test'
         const resetDate = Date.now() + 3600000
 
         const updatePassToken = await pool.query(
