@@ -14,6 +14,12 @@ const ResetPassword = ({ setAuth, props }) => {
 
     const { token } = props
 
+    const getPage = async () => {
+        await fetch('/forgot-passwrd', {
+            method: 'GET',
+        })
+    }
+
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
