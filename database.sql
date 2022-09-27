@@ -218,3 +218,8 @@ CREATE TABLE adreaders_reading_challenges (
 --          WHERE
 --          		readers.id = '446c6ded-1f7b-4962-a213-f42f06985a6e' 
 --                  ON CONFLICT DO NOTHING
+
+
+curl -n https://api.heroku.com/app-setups/6d1e3552-f3ed-47dd-88b2-7310d70ffbb6 \
+-H "Content-Type:application/json" \
+-H "Accept:application/vnd.heroku+json; version=3"
