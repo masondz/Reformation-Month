@@ -1,26 +1,5 @@
-{
-    "name": "server",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "engines": {
-        "node": "16.17.1",
-        "npm": "8.19.2"
-    },
-    "scripts": {
-        "start": "node index.js",
-        "heroku-postbuild": "cd client && npm install && npm run build"
-    },
-    "author": "Zach Mason",
-    "license": "ISC",
-    "dependencies": {
-        "bcryptjs": "^2.4.3",
-        "cors": "^2.8.5",
-        "dotenv": "^10.0.0",
-        "express": "^4.17.1",
-        "jsonwebtoken": "^8.5.1",
-        "nodemailer": "^6.7.8",
-        "nodemon": "^2.0.20",
-        "pg": "^8.6.0"
+"environments": {
+    "review": {
+      "addons": ["heroku-postgresql:hobby-dev"]
     }
-}
+  }
