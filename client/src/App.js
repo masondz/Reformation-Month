@@ -3,6 +3,7 @@ import './App.css'
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { createStore } from 'redux';
 
 //components
 
