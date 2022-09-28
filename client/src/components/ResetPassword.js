@@ -9,7 +9,7 @@ const ResetPassword = ({ setAuth, props }) => {
         confirmPassword: '',
     })
     const [updated, setUpdated] = useState('')
-    const [isLoading, setIsLoading] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
 
     const { email, user_password, confirm_password } = inputs
@@ -107,6 +107,10 @@ const ResetPassword = ({ setAuth, props }) => {
                         link.
                     </h4>
                 </div>
+            ) : isLoading ? (
+                <div>
+                    <h5>Loading User Data...</h5>
+                </div>
             ) : (
                 <form onSubmit={updatePassword}>
                     <input
@@ -138,7 +142,16 @@ const ResetPassword = ({ setAuth, props }) => {
                     </button>
                 </form>
             )}
+            {updated && (
+                <div>
+                    <p>
+                        Your password has been successfully reset, please try
+                        logging in again.
+                    </p>
+                </div>
+            )}
             <Link to="/forgot-passwrod">Forgot Password</Link>
+            <br></br>
             <Link to="/login">Login</Link>
         </Fragment>
     )
