@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -13,13 +13,22 @@ const ResetPassword = ({ setAuth, props }) => {
     const [error, setError] = useState('')
 
     //we need to get the token from the endpoint of the URL (comes after "/reset/")
-    const url = window.location.href;
-    const reference = url.lastIndexOf("/")
-    const start = reference + 1;
-    const token = url.slice(start);
+    const url = window.location.href
+    const reference = url.lastIndexOf('/')
+    const start = reference + 1
+    const token = url.slice(start)
     console.log(token.toString())
     ////////////////////////
-    
+
+    const checkResetToken = async () => {
+        const response = await fetch(`/reset/${token}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+    }
+
+    useEffect()
+
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
