@@ -27,8 +27,6 @@ const ResetPassword = ({ setAuth, props }) => {
         })
     }
 
-    useEffect()
-
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
