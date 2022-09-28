@@ -12,15 +12,10 @@ const ResetPassword = ({ setAuth, props }) => {
     const [isLoading, setIsLoading] = useState('')
     const [error, setError] = useState('')
 
-    // const { token } = props
-
-    // const getPage = async () => {
-    //     await fetch('/forgot-passwrd', {
-    //         method: 'GET',
-    //     })
-    // }
-
     let token = ''
+
+    const url = window.location.href
+    console.log(url.toString())
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
