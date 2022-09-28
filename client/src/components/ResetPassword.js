@@ -12,6 +12,8 @@ const ResetPassword = ({ setAuth, props }) => {
     const [isLoading, setIsLoading] = useState('')
     const [error, setError] = useState('')
 
+    const { email, user_password, confirm_password } = inputs
+
     //we need to get the token from the endpoint of the URL (comes after "/reset/")
     const url = window.location.href
     const reference = url.lastIndexOf('/')
@@ -21,15 +23,21 @@ const ResetPassword = ({ setAuth, props }) => {
     ////////////////////////
 
     const checkResetToken = async () => {
-        const response = await fetch(`/reset/${token}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        })
-        console.log(response)
-        if (response.message === 'password link a-ok') {
-            console.log('it worked')
-        } else {
-            console.log('token no longer good.')
+        try {
+            const response = await fetch(`/reset/${token}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            console.log(response)
+            if (response.message === 'password link a-ok') {
+                console.log('it worked')
+            } else {
+                setUpdated(false)
+                setIsLoading(false)
+                setError(true)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -41,7 +49,29 @@ const ResetPassword = ({ setAuth, props }) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
 
-    const { email, user_password, confirm_password } = inputs
+    const updatePassword = async (e) => {
+        e.preventDefault()
+        try {
+            const body = { email, user_password }
+            const response = await fetch('/auth/update-password', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            })
+            const parseRes = await response.json()
+            if (parseRes.token) {
+                localStorage.setItem('token', parseRes.token)
+                setAuth(true)
+                setUpdated(true)
+                setError(false)
+                toast.success('Password Reset Successfully')
+            }
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
 
     const onSubmiForm = async (e) => {
         e.preventDefault()
