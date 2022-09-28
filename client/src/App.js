@@ -97,7 +97,7 @@ function App() {
                         />
                         <Route
                             exact
-                            path="/reset"
+                            path="/reset*"
                             render={(props) =>
                                 !isAuthenticated ? (
                                     <ResetPassword
