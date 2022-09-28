@@ -12,11 +12,14 @@ const ResetPassword = ({ setAuth, props }) => {
     const [isLoading, setIsLoading] = useState('')
     const [error, setError] = useState('')
 
-    let token = ''
-
-    const url = window.location.href
+    //we need to get the token from the endpoint of the URL (comes after "/reset/")
+    const url = window.location.href;
+    const reference = url.search(/reset/)
+    const start = reference + 6;
+    const token = url.slice(start);
     console.log(url.toString())
-
+    ////////////////////////
+    
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
