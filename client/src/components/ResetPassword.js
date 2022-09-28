@@ -100,33 +100,45 @@ const ResetPassword = ({ setAuth, props }) => {
     return (
         <Fragment>
             <h1 className="text-center my-5">Reset Password</h1>
-            <form onSubmit={updatePassword}>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="form-control my-3"
-                    value={email}
-                    onChange={(e) => onChange(e)}
-                />
-                <input
-                    className="form-control my-3"
-                    type="password"
-                    name="user_password"
-                    placeholder="New Password"
-                    value={user_password}
-                    onChange={(e) => onChange(e)}
-                />
-                <input
-                    className="form-control my-3"
-                    type="password"
-                    name="confirm_password"
-                    placeholder="Confirm New Password"
-                    value={confirm_password}
-                    onChange={(e) => onChange(e)}
-                />
-                <button className="btn btn-success btn-block">Submit</button>
-            </form>
+            {error ? (
+                <div>
+                    <h4>
+                        Problem resetting password. Please send another reset
+                        link.
+                    </h4>
+                </div>
+            ) : (
+                <form onSubmit={updatePassword}>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="form-control my-3"
+                        value={email}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className="form-control my-3"
+                        type="password"
+                        name="user_password"
+                        placeholder="New Password"
+                        value={user_password}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <input
+                        className="form-control my-3"
+                        type="password"
+                        name="confirm_password"
+                        placeholder="Confirm New Password"
+                        value={confirm_password}
+                        onChange={(e) => onChange(e)}
+                    />
+                    <button className="btn btn-success btn-block">
+                        Submit
+                    </button>
+                </form>
+            )}
+            <Link to="/forgot-passwrod">Forgot Password</Link>
             <Link to="/login">Login</Link>
         </Fragment>
     )
