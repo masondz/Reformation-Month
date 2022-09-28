@@ -47,7 +47,7 @@ app.use('/additional-readers', require('./routes/additionalReaders'))
 
 //family-group routes
 
-// app.use('/family-group', require('./routes/familyGroups'))
+app.use('/family-group', require('./routes/familyGroups'))
 
 //'/forgot-password' routes
 app.use('/forgot-password', require('./routes/forgotPassword'))
