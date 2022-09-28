@@ -12,6 +12,7 @@ import Login from './components/Login'
 import ChallengeDashboard from './components/ChallengeDashboard'
 import ReaderInfo from './components/ReaderInfo'
 import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword'
 
 toast.configure()
 
@@ -80,12 +81,29 @@ function App() {
                                 )
                             }
                         />
-                        <Route 
+                        <Route
                             exact
                             path="/forgot-passwrod"
                             render={(props) =>
                                 !isAuthenticated ? (
-                                    <ForgotPassword {...props} setAuth={setAuth} />
+                                    <ForgotPassword
+                                        {...props}
+                                        setAuth={setAuth}
+                                    />
+                                ) : (
+                                    <Redirect to="/login" />
+                                )
+                            }
+                        />
+                        <Route
+                            exact
+                            path="/reset"
+                            render={(props) =>
+                                !isAuthenticated ? (
+                                    <ResetPassword
+                                        {...props}
+                                        setAuth={setAuth}
+                                    />
                                 ) : (
                                     <Redirect to="/login" />
                                 )

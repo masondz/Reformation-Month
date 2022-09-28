@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify/dist/components'
+import { toast } from 'react-toastify'
 
 const ResetPassword = ({ setAuth, props }) => {
     const [inputs, setInputs] = useState({
@@ -12,13 +12,15 @@ const ResetPassword = ({ setAuth, props }) => {
     const [isLoading, setIsLoading] = useState('')
     const [error, setError] = useState('')
 
-    const { token } = props
+    // const { token } = props
 
-    const getPage = async () => {
-        await fetch('/forgot-passwrd', {
-            method: 'GET',
-        })
-    }
+    // const getPage = async () => {
+    //     await fetch('/forgot-passwrd', {
+    //         method: 'GET',
+    //     })
+    // }
+
+    let token = ''
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
@@ -84,3 +86,5 @@ const ResetPassword = ({ setAuth, props }) => {
         </Fragment>
     )
 }
+
+export default ResetPassword

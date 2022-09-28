@@ -39,7 +39,7 @@ router.post('/', validInfo, async (req, res) => {
             text:
                 `You are receiving this because you or someone else have requested to reset your password.\n\n` +
                 `Please click on the following link, or paste this intor your browser to complete the process within one hour of receiving it:\n\n` +
-                `http://reformation-month.herokuapp.com/forgot-password/${token}\n\n` +
+                `http://reformation-month.herokuapp.com/reset/${token}\n\n` +
                 `If you did not request to change your password, please ignore.`,
         }
 
