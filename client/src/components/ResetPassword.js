@@ -25,7 +25,17 @@ const ResetPassword = ({ setAuth, props }) => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
+        console.log(response)
+        if (response.message === 'password link a-ok') {
+            console.log('it worked')
+        } else {
+            console.log('token no longer good.')
+        }
     }
+
+    useEffect(() => {
+        checkResetToken()
+    }, [])
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
