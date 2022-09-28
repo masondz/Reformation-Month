@@ -73,34 +73,34 @@ const ResetPassword = ({ setAuth, props }) => {
         }
     }
 
-    const onSubmiForm = async (e) => {
-        e.preventDefault()
-        if (user_password !== confirm_password) {
-            return toast.error('Password does not match. Please try again.')
-        } else {
-            try {
-                const body = { email, user_password, resetPasswordToken: token } //the api will need the email to find the correct user
-                const response = await fetch('*****THE LINK*******', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body),
-                })
-                const parseRes = await response.json()
-                if (parseRes.token) {
-                    localStorage.setItem('token', parseRes.token)
-                    setAuth(true)
-                    toast.success('Password Reset Successfully')
-                }
-            } catch (error) {
-                console.error(error.message)
-            }
-        }
-    }
+    // const onSubmiForm = async (e) => {
+    //     e.preventDefault()
+    //     if (user_password !== confirm_password) {
+    //         return toast.error('Password does not match. Please try again.')
+    //     } else {
+    //         try {
+    //             const body = { email, user_password, resetPasswordToken: token } //the api will need the email to find the correct user
+    //             const response = await fetch('*****THE LINK*******', {
+    //                 method: 'POST',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify(body),
+    //             })
+    //             const parseRes = await response.json()
+    //             if (parseRes.token) {
+    //                 localStorage.setItem('token', parseRes.token)
+    //                 setAuth(true)
+    //                 toast.success('Password Reset Successfully')
+    //             }
+    //         } catch (error) {
+    //             console.error(error.message)
+    //         }
+    //     }
+    // }
 
     return (
         <Fragment>
             <h1 className="text-center my-5">Reset Password</h1>
-            <form onSubmit={onSubmiForm}>
+            <form onSubmit={updatePassword}>
                 <input
                     type="email"
                     name="email"
