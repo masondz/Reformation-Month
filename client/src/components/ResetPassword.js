@@ -14,10 +14,10 @@ const ResetPassword = ({ setAuth, props }) => {
 
     //we need to get the token from the endpoint of the URL (comes after "/reset/")
     const url = window.location.href;
-    const reference = url.search(/reset/)
-    const start = reference + 6;
+    const reference = url.lastIndexOf("/")
+    const start = reference + 1;
     const token = url.slice(start);
-    console.log(url.toString())
+    console.log(token.toString())
     ////////////////////////
     
     const onChange = (e) => {
