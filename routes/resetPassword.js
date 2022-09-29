@@ -4,6 +4,7 @@ const validInfo = require('../middleware/validinfo') // checks for valid entries
 require('dotenv').config()
 const { useRouteMatch } = require('react-router-dom')
 
+
 router.get('/reset/:token', async (req, res) => {
     try {
         const token = req.params.token
@@ -31,6 +32,17 @@ router.get('/reset/:token', async (req, res) => {
         //res.json(reader.rows[0])
     } catch (err) {
         console.error(err.message)
+    }
+})
+
+router.put('/reset/:token', async (req, res) => {
+    try{
+        const { email, user_password, token } = req.body
+        const reader = await pool.query(
+            'UPDATE'
+        )
+    } catch (err) {
+    
     }
 })
 
