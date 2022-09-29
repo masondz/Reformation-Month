@@ -29,3 +29,5 @@ router.get('/reset', async (req, res) => {
         console.error(err.message)
     }
 })
+
+module.exports = router
