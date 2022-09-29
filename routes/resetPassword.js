@@ -4,15 +4,15 @@ const validInfo = require('../middleware/validinfo') // checks for valid entries
 require('dotenv').config()
 const { useRouteMatch } = require('react-router-dom')
 
-router.get('/reset', async (req, res) => {
+router.get('/reset/:token', async (req, res) => {
     try {
-        const {email, token} = req.body;
+        const token = req.params.token
         const reader = await pool.query(
-            'SELECT resettoken, resetexpires, email FROM readers WHERE email = $1 AND resettoken = $2',
-            [email, token]
+            'SELECT resettoken, resetexpires, email FROM readers WHERE resettoken = $2',
+            [token]
         )
         if (reader.rowCount === 0) {
-           return res.status(401).json('Reader is not in database, or reset token is incorrect')
+           return res.status(401).json('Token is not valid')
         }
         //need to check token
         /*if (reader.resettoken < Date.now()) {
