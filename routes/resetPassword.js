@@ -3,6 +3,7 @@ const pool = require('../db') // allows us to do CRUD requrest with postgresql d
 const validInfo = require('../middleware/validinfo') // checks for valid entries (first_name, last_name. user_password, email)
 require('dotenv').config()
 const { useRouteMatch } = require('react-router-dom')
+const bcrypt = require('bcryptjs')
 
 
 router.get('/reset/:token', async (req, res) => {
