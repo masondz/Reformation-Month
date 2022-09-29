@@ -39,8 +39,18 @@ router.get('/reset/:token', async (req, res) => {
 router.put('/reset/:token', async (req, res) => {
     try{
         const { email, user_password, token } = req.body
+        
+        const saltRound = 10
+        const salt = await bcrypt.genSalt(saltRound)
+        const bcryptPassword = await bcrypt.hash(user_password, salt)
+        
         const reader = await pool.query(
-            'UPDATE'
+            `UPDATE readers
+                SET user_password = $1,
+                resettoken = null,
+                resetexpires = null
+                WHERE email = $2 AND resettoken = $3`,
+            [user_password, email, token]
         )
     } catch (err) {
     
