@@ -53,7 +53,7 @@ router.put('/reset/:token', async (req, res) => {
             [user_password, email, token]
         )
     } catch (err) {
-    
+        console.error(err.message)
     }
 })
 
