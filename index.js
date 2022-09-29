@@ -52,6 +52,9 @@ app.use('/family-group', require('./routes/familyGroups'))
 //'/forgot-password' routes
 app.use('/forgot-password', require('./routes/forgotPassword'))
 
+//reset routes
+app.use('/reset', require('./routes/resetPassword'))
+
 app.get('*', Authorization, async (req, res) => {
     await res.sendFile(path.join(__dirname, 'client/build/index.html'))
 })
