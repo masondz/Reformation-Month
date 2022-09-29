@@ -41,30 +41,30 @@ THEN
 
     */
 
-    // const checkResetToken = async () => {
-    //     try {
-    //         const response = await fetch(`/reset/${token}`, {
-    //             method: 'GET',
-    //             headers: { 'Content-Type': 'application/json' },
-    //         })
-    //         console.log(response)
-    //         if (response.message === 'password link a-ok') {
-    //             setUpdated(false)
-    //             setIsLoading(false)
-    //             setError(false)
-    //         } else {
-    //             setUpdated(false)
-    //             setIsLoading(false)
-    //             setError(true)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const checkResetToken = async () => {
+        try {
+            const response = await fetch(`/reset/${token}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            console.log(response)
+            if (response.message === 'password link a-ok') {
+                setUpdated(false)
+                setIsLoading(false)
+                setError(false)
+            } else {
+                setUpdated(false)
+                setIsLoading(false)
+                setError(true)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    // useEffect(() => {
-    //     checkResetToken()
-    // }, [])
+    useEffect(() => {
+        checkResetToken()
+    }, [])
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
