@@ -82,13 +82,15 @@ THEN
                 body: JSON.stringify(body),
             })
             const parseRes = await response.json()
-            if (parseRes.token) {
+            //need to figure out a way to check if password is changed
+            /*if (parseRes.token) {
                 localStorage.setItem('token', parseRes.token)
                 setAuth(true)
                 setUpdated(true)
                 setError(false)
                 toast.success('Password Reset Successfully')
             }
+            */
         } catch (error) {
             console.error(error.message)
         }
