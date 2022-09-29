@@ -52,7 +52,7 @@ const ResetPassword = ({ setAuth, props }) => {
     const updatePassword = async (e) => {
         e.preventDefault()
         try {
-            const body = { email, user_password }
+            const body = { email, user_password, token }
             const response = await fetch('/auth/update-password', {
                 method: 'PUT',
                 headers: {
