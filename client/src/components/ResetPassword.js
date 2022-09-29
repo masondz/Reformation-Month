@@ -21,11 +21,30 @@ const ResetPassword = ({ setAuth, props }) => {
     const token = url.slice(start)
     console.log(token.toString())
     ////////////////////////
+    
+    /*
+    When sending the request to reset password it should:
+
+1. Check to see if user exists.
+
+2. Check to see if token matches database.
+
+3. Check to see if token is not expired.
+
+THEN
+
+4. generate new password using bcrypt.
+
+5. update database with new password.
+
+6. set resettoken and resetexpires to null.
+
+    */
 
     const checkResetToken = async () => {
         try {
             const response = await fetch(`/reset/${token}`, {
-                method: 'GET',
+                method: 'GET',  
                 headers: { 'Content-Type': 'application/json' },
             })
             console.log(response)
