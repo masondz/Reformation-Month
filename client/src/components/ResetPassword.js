@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-const ResetPassword = ({ props }) => {
-    const [inputs, setInputs] = useState({
+const ResetPassword = () => {
+    let [inputs, setInputs] = useState({
         email: '',
         user_password: '',
         confirmPassword: '',
@@ -19,7 +19,7 @@ const ResetPassword = ({ props }) => {
     const reference = url.lastIndexOf('/')
     const start = reference + 1
     const token = url.slice(start)
-    console.log(token.toString())
+    console.log(typeof token.toString())
     ////////////////////////
 
     /*
@@ -41,14 +41,36 @@ THEN
 
     */
 
+    // const checkResetToken = async () => {
+    //     try {
+    //         const response = await fetch(`/reset/${token}`, {
+    //             method: 'GET',
+    //             headers: { 'Content-Type': 'application/json' },
+    //         })
+    //         console.log(response)
+    //         if (response.message === 'password link a-ok') {
+    //             setUpdated(false)
+    //             setIsLoading(false)
+    //             setError(false)
+    //         } else {
+    //             setUpdated(false)
+    //             setIsLoading(false)
+    //             setError(true)
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
     const checkResetToken = async () => {
+        toast.warning('checking')
         try {
-            const response = await fetch(`/reset/${token}`, {
+            const response = await fetch(`/auth/reset/${token}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             })
-            console.log(response)
-            if (response.message === 'password link a-ok') {
+            if (response.status == 200) {
+                console.log('status is 200')
                 setUpdated(false)
                 setIsLoading(false)
                 setError(false)
@@ -57,8 +79,8 @@ THEN
                 setIsLoading(false)
                 setError(true)
             }
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.error(err.message)
         }
     }
 
@@ -72,9 +94,12 @@ THEN
 
     const updatePassword = async (e) => {
         e.preventDefault()
+        if (user_password !== confirm_password) {
+            return toast.error('Password does not match. Please try again.')
+        }
         try {
             const body = { email, user_password, token }
-            const response = await fetch('/update-password', {
+            const response = await fetch(`/auth/reset/${token}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
