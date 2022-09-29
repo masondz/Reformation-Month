@@ -1,6 +1,5 @@
 const router = require('express').Router() //easeir navigate paths
 const pool = require('../db') // allows us to do CRUD requrest with postgresql database
-const validInfo = require('../middleware/validinfo') // checks for valid entries (first_name, last_name. user_password, email)
 require('dotenv').config()
 const { useRouteMatch } = require('react-router-dom')
 const bcrypt = require('bcryptjs')
@@ -15,9 +14,10 @@ router.get('/reset/:token', async (req, res) => {
         if (reader.rowCount === 0) {
             return res.status(401).json('Token is not valid')
         } else if (reader.rows[0].resetexpires < Date.now()) {
+            console.log('token is expired')
             return res.status(403).json('Token is expired')
         } else {
-            return res.satus(200).send({
+            return res.status(200).send({
                 email: reader.email,
                 message: 'password reset link a-ok',
             })
@@ -49,7 +49,7 @@ router.put('/reset/:token', async (req, res) => {
                 resettoken = null,
                 resetexpires = null
                 WHERE email = $2 AND resettoken = $3`,
-            [user_password, email, token]
+            [bcryptPassword, email, token]
         )
     } catch (err) {
         console.error(err.message)
