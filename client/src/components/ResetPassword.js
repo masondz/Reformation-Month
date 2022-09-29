@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-const ResetPassword = ({ setAuth, props }) => {
+const ResetPassword = ({ props }) => {
     const [inputs, setInputs] = useState({
         email: '',
         user_password: '',
@@ -21,7 +21,7 @@ const ResetPassword = ({ setAuth, props }) => {
     const token = url.slice(start)
     console.log(token.toString())
     ////////////////////////
-    
+
     /*
     When sending the request to reset password it should:
 
@@ -41,30 +41,30 @@ THEN
 
     */
 
-    const checkResetToken = async () => {
-        try {
-            const response = await fetch(`/reset/${token}`, {
-                method: 'GET',  
-                headers: { 'Content-Type': 'application/json' },
-            })
-            console.log(response)
-            if (response.message === 'password link a-ok') {
-                setUpdated(false)
-                setIsLoading(false)
-                setError(false)
-            } else {
-                setUpdated(false)
-                setIsLoading(false)
-                setError(true)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const checkResetToken = async () => {
+    //     try {
+    //         const response = await fetch(`/reset/${token}`, {
+    //             method: 'GET',
+    //             headers: { 'Content-Type': 'application/json' },
+    //         })
+    //         console.log(response)
+    //         if (response.message === 'password link a-ok') {
+    //             setUpdated(false)
+    //             setIsLoading(false)
+    //             setError(false)
+    //         } else {
+    //             setUpdated(false)
+    //             setIsLoading(false)
+    //             setError(true)
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-    useEffect(() => {
-        checkResetToken()
-    }, [])
+    // useEffect(() => {
+    //     checkResetToken()
+    // }, [])
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
@@ -124,7 +124,6 @@ THEN
 
     */
 
-    
     return (
         <Fragment>
             <h1 className="text-center my-5">Reset Password</h1>

@@ -8,6 +8,7 @@ const ForgotPassword = () => {
     let [showNullError, setShowNullError] = useState(false)
     let [showError, setShowError] = useState(false)
     let [messageFromServer, setMessageFromServer] = useState('')
+    let [sending, setSending] = useState(false)
 
     const onChange = (e) => {
         setEmail(e.target.value)
@@ -25,6 +26,7 @@ const ForgotPassword = () => {
                 setShowNullError(true)
                 setMessageFromServer('')
             } else {
+                setSending(true)
                 const body = { email }
                 console.log(body)
                 const response = await fetch('/forgot-password', {
@@ -39,9 +41,11 @@ const ForgotPassword = () => {
                     setShowNullError(false)
                     setShowError(true)
                     setMessageFromServer('')
-                } else if (response.data === 'recovery email sent') {
+                    setSending(false)
+                } else if (parseRes === 'recovery email sent') {
                     setShowError(false)
                     setShowNullError(false)
+                    setSending(false)
                     setMessageFromServer('recovery email sent')
                 }
             }
@@ -87,7 +91,14 @@ const ForgotPassword = () => {
             )}
             {messageFromServer === 'recovery email sent' && (
                 <div>
-                    <h3>Reset password email sent!</h3>
+                    <br></br>
+                    <h3>Reset password email sent! Check your email.</h3>
+                </div>
+            )}
+            {sending && (
+                <div>
+                    <br></br>
+                    <h3>Sending Recovery Email...</h3>
                 </div>
             )}
         </Fragment>
