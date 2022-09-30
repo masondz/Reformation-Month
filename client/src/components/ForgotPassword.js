@@ -1,4 +1,3 @@
-import e from 'cors'
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -14,10 +13,10 @@ const ForgotPassword = () => {
         setEmail(e.target.value)
     }
 
-    const onSubmitForm = async (e) => {
-        e.preventDefault()
-        console.log(`submit: ${email}`)
-    }
+    // const onSubmitForm = async (e) => {
+    //     e.preventDefault()
+    //     console.log(`submit: ${email}`)
+    // }
 
     const sendEmail = async (e) => {
         e.preventDefault()
@@ -34,7 +33,7 @@ const ForgotPassword = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                 })
-                // console.log(response)
+                console.log(response)
                 const parseRes = await response.json()
                 console.log(parseRes)
                 if (parseRes === 'email not in db') {
