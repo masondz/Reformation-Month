@@ -126,7 +126,7 @@ router.get('/reset/:token', async (req, res) => {
 router.put('/reset/:token', async (req, res) => {
     try {
         const { email, user_password, token } = req.body
-
+        console.log('attempting changing password')
         const saltRound = 10
         const salt = await bcrypt.genSalt(saltRound)
         const bcryptPassword = await bcrypt.hash(user_password, salt)
@@ -136,9 +136,19 @@ router.put('/reset/:token', async (req, res) => {
                 SET user_password = $1,
                 resettoken = null,
                 resetexpires = null
-                WHERE email = $2 AND resettoken = $3`,
+                WHERE email = $2 AND resettoken = $3
+                RETURNING user_password`,
             [bcryptPassword, email, token]
         )
+        const validResetPassword = await bcrypt.compare(
+            //"compare" returns a boolean. bcyrpt takes some time, therefore we must await
+            user_password, //the user's inputted password
+            reader.rows[0].user_password //the password stored in the database
+        )
+        if (validResetPassword) {
+            console.log('the reset password is valid')
+            res.json('valid')
+        }
     } catch (err) {
         console.error(err.message)
     }
