@@ -41,34 +41,13 @@ THEN
 
     */
 
-    // const checkResetToken = async () => {
-    //     try {
-    //         const response = await fetch(`/reset/${token}`, {
-    //             method: 'GET',
-    //             headers: { 'Content-Type': 'application/json' },
-    //         })
-    //         console.log(response)
-    //         if (response.message === 'password link a-ok') {
-    //             setUpdated(false)
-    //             setIsLoading(false)
-    //             setError(false)
-    //         } else {
-    //             setUpdated(false)
-    //             setIsLoading(false)
-    //             setError(true)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
     const checkResetToken = async () => {
-        toast.warning('checking')
         try {
             const response = await fetch(`/auth/reset/${token}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             })
+            console.log(response)
             if (response.status == 200) {
                 console.log('status is 200')
                 setUpdated(false)
@@ -98,6 +77,7 @@ THEN
             return toast.error('Password does not match. Please try again.')
         }
         try {
+            setIsLoading(true)
             const body = { email, user_password, token }
             const response = await fetch(`/auth/reset/${token}`, {
                 method: 'PUT',
@@ -107,15 +87,12 @@ THEN
                 body: JSON.stringify(body),
             })
             const parseRes = await response.json()
-            //need to figure out a way to check if password is changed
-            /*if (parseRes.token) {
-                localStorage.setItem('token', parseRes.token)
-                setAuth(true)
+
+            console.log(parseRes)
+            if (parseRes === 'valid') {
+                setIsLoading(false)
                 setUpdated(true)
-                setError(false)
-                toast.success('Password Reset Successfully')
             }
-            */
         } catch (error) {
             console.error(error.message)
         }
