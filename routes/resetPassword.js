@@ -1,7 +1,6 @@
 const router = require('express').Router() //easeir navigate paths
 const pool = require('../db') // allows us to do CRUD requrest with postgresql database
 require('dotenv').config()
-const { useRouteMatch } = require('react-router-dom')
 const bcrypt = require('bcryptjs')
 
 router.get('/reset/:token', async (req, res) => {
