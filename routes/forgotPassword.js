@@ -3,7 +3,6 @@ const pool = require('../db') // allows us to do CRUD requrest with postgresql d
 const validInfo = require('../middleware/validinfo') // checks for valid entries (first_name, last_name. user_password, email)
 require('dotenv').config()
 const nodemailer = require('nodemailer')
-const { useRouteMatch } = require('react-router-dom')
 const crypto = require('crypto')
 
 let emailLink = ''
