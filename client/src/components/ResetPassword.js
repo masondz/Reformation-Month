@@ -11,6 +11,7 @@ const ResetPassword = () => {
     const [updated, setUpdated] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
+    const [showForm, setShowForm] = useState(true)
 
     const { email, user_password, confirm_password } = inputs
 
@@ -92,46 +93,20 @@ THEN
             if (parseRes === 'valid') {
                 setIsLoading(false)
                 setUpdated(true)
+                setShowForm(false)
             }
         } catch (error) {
             console.error(error.message)
         }
     }
 
-    //ALTERNATIVE UPDATEPASSWORD FUNCTION
-    /* might need response.data instead of just response
-    const updatePassword = async (e) => {
-        e.preventDefault()
-        try {
-            const body = { email, user_password }
-            const response = await fetch('/auth/update-password', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body),
-            })
-            console.log(response);
-            if (response.message === 'password updated') {
-                setUpdated(true)
-                setError(false)
-            } else {
-                setUpdated(false)
-                setError(true)
-            }
-        } catch (error) {
-            console.error(error.message)
-        }
-    }
-
-    */
 
     return (
         <Fragment>
             <h1 className="text-center my-5">Reset Password</h1>
             {error ? (
                 <div>
-                    <h4>
+                    <h4 className="text-center my-5">
                         Problem resetting password. Please send another reset
                         link.
                     </h4>
@@ -140,8 +115,8 @@ THEN
                 <div>
                     <h5>Loading User Data...</h5>
                 </div>
-            ) : (
-                <form onSubmit={updatePassword}>
+            ) : showForm && (
+                <form onSubmit={updatePassword} id="reset-form">
                     <input
                         type="email"
                         name="email"
