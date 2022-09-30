@@ -55,7 +55,7 @@ const ForgotPassword = () => {
 
     return (
         <Fragment>
-            <h1>Forgot Password Page!</h1>
+            <h1 className="text-center my-5">Enter your email to reset your password.</h1>
             <form onSubmit={sendEmail}>
                 <input
                     className="form-control my-3"
