@@ -9,7 +9,7 @@ let emailLink = ''
 
 if (
     process.env.NODE_ENV === 'production'
-        ? (emailLink = 'reformation-month.herokuapp.com')
+        ? (emailLink = 'reformation-month.herokuapp.com/#')
         : (emailLink = 'localhost:3000/#')
 )
     router.post('/', validInfo, async (req, res) => {
