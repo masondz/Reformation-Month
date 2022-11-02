@@ -100,13 +100,68 @@ router.post('/login', validInfo, async (req, res) => {
     }
 })
 
+router.get('/reset/:token', async (req, res) => {
+    try {
+        const token = req.params.token
+        const reader = await pool.query(
+            'SELECT resettoken, resetexpires, email FROM readers WHERE resettoken = $1',
+            [token]
+        )
+        if (reader.rowCount === 0) {
+            return res.status(401).json('Token is not valid')
+        } else if (reader.rows[0].resetexpires < Date.now()) {
+            console.log('token is expired')
+            return res.status(403).json('Token is expired')
+        } else {
+            return res.status(200).send({
+                email: reader.email,
+                message: 'password reset link a-ok',
+            })
+        }
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+router.put('/reset/:token', async (req, res) => {
+    try {
+        const { email, user_password, token } = req.body
+        console.log('attempting changing password')
+        const saltRound = 10
+        const salt = await bcrypt.genSalt(saltRound)
+        const bcryptPassword = await bcrypt.hash(user_password, salt)
+
+        const reader = await pool.query(
+            `UPDATE readers
+                SET user_password = $1,
+                resettoken = null,
+                resetexpires = null
+                WHERE email = $2 AND resettoken = $3
+                RETURNING user_password`,
+            [bcryptPassword, email, token]
+        )
+        const validResetPassword = await bcrypt.compare(
+            //"compare" returns a boolean. bcyrpt takes some time, therefore we must await
+            user_password, //the user's inputted password
+            reader.rows[0].user_password //the password stored in the database
+        )
+        if (validResetPassword) {
+            console.log('the reset password is valid')
+            res.json('valid')
+        }
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 router.get('/is-verify', Authorization, async (req, res) => {
     //checks authorization. Bulk of code is handles by middleware
     try {
         res.json(true)
     } catch (err) {
+        console.log('is-verify route error')
         console.error(err.message)
-        res.status(500).send('Server Error: is-verify Route')
+        // res.status(500).send('Server Error: is-verify Route')
     }
 })
 

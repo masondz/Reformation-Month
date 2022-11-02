@@ -63,6 +63,8 @@ const Login = ({ setAuth }) => {
                 </button>
             </form>
             <Link to="/register">Register</Link>
+            <br></br>
+            <Link to="/forgot-passwrod">Forgot Password</Link>
         </Fragment>
     )
 }
