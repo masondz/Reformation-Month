@@ -12,7 +12,7 @@ export const getReader = createAsyncThunk(
 );
 
 
-/8
+/*
 structure of objects
 request:
 first_name, last_name, chapters_read, books_read, verses_memorized, id
