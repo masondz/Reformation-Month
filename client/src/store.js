@@ -1,12 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { getReader } from './components/features/user';
-
+import { configureStore } from '@reduxjs/toolkit'
+import readerSlice from './components/features/user'
 
 const store = configureStore({
-  reducer: {
-    reader: getReader,
-  }
+    reducer: {
+        reader: readerSlice,
+    },
 })
 
-const export store
-
+export default store

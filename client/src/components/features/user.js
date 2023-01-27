@@ -1,16 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export const getReader = createAsyncThunk(
-  async () => {
+export const getReader = createAsyncThunk(async () => {
     const response = await fetch('/dashboard/', {
-      method: 'GET',
-      headers: { token: localStorage.token },
-    }
-    const json = await response.json();
-    return json;
-  }
-);
-
+        method: 'GET',
+        headers: { token: localStorage.token },
+    })
+    const json = await response.json()
+    return json
+})
 
 /*
 structure of objects
@@ -28,57 +25,49 @@ verses_memorized: 0
 challenge_name, organization, goal, challenge, id, challenge_admin 
 */
 
-export const checkChallenge = createAsyncthunk(
-  async () => {
-    const response = await fetch(
-      '/reader-dashboard/reader-challenge-id/',
-        {
-          method: 'GET',
-          headers: { token: localStorage.token },
-        }
-      );
-      const json = response.json();
-      return json;
-    }
-);
+export const checkChallenge = createAsyncThunk(async () => {
+    const response = await fetch('/reader-dashboard/reader-challenge-id/', {
+        method: 'GET',
+        headers: { token: localStorage.token },
+    })
+    const json = response.json()
+    return json
+})
 
 export const readerSlice = createSlice({
-  name: 'reader',
-  initialState: {
-    first_name: "",
-    last_name: "",
-    chapters_read: "",
-    books_read: "",
-    verses_memorized: "",
-    id: "",
-    gettingReaderPending: false,
-    gettingReaderFailed: false
-  },
-  reducers: {
-  
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getReader.pending, (state) => {
-        gettingReaderPending = true;
-        gettingReaderFailed = false;
-      })
-      .addCase(getReader.fulfilled, (state, action) => {
-        state.first_name = action.payload.first_name;
-        state.last_name = action.payload.last_name;
-        state.chapters_read = action.payload.chapters_read;
-        state.books_read = action.payload.books_read;
-        state.verses_memorized = action.payload.verses_memorized;
-        state.id = action.payload.id;
-        gettingReaderPending = false;
-        gettingReaderFailed = false;
-      })
-      .addCase(getReader.rejected, (state) => {
-        gettingReaderPending = false;
-        gettingReaderFailed = true;
-      })
-  }
+    name: 'reader',
+    initialState: {
+        first_name: '',
+        last_name: '',
+        chapters_read: '',
+        books_read: '',
+        verses_memorized: '',
+        id: '',
+        gettingReaderPending: false,
+        gettingReaderFailed: false,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getReader.pending, (state) => {
+                state.gettingReaderPending = true
+                state.gettingReaderFailed = false
+            })
+            .addCase(getReader.fulfilled, (state, action) => {
+                state.first_name = action.payload.first_name
+                state.last_name = action.payload.last_name
+                state.chapters_read = action.payload.chapters_read
+                state.books_read = action.payload.books_read
+                state.verses_memorized = action.payload.verses_memorized
+                state.id = action.payload.id
+                state.gettingReaderPending = false
+                state.gettingReaderFailed = false
+            })
+            .addCase(getReader.rejected, (state) => {
+                state.gettingReaderPending = false
+                state.gettingReaderFailed = true
+            })
+    },
+})
 
-});
-
-export const getReader
+export default readerSlice.reducer
