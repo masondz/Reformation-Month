@@ -9,6 +9,7 @@ import ChallengeDashboard from './ChallengeDashboard'
 import ReaderInfo from './ReaderInfo'
 import ReportReading from './ReportReading'
 import FamilyGroup from './FamilyGroup'
+import { getReader } from './features/user'
 
 const Dashboard = ({ setAuth }) => {
     const [reader, setReader] = useState('')

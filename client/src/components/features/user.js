@@ -62,6 +62,7 @@ export const readerSlice = createSlice({
                 state.id = action.payload.id
                 state.gettingReaderPending = false
                 state.gettingReaderFailed = false
+                console.log('we made it to user.js!')
             })
             .addCase(getReader.rejected, (state) => {
                 state.gettingReaderPending = false
