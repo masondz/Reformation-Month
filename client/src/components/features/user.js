@@ -71,3 +71,5 @@ export const readerSlice = createSlice({
 })
 
 export default readerSlice.reducer
+
+export const selectReader = (state) => state.reader
