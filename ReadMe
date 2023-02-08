@@ -1,23 +1,11 @@
-Readers:
-C - Create at server/jwtAuth => Registration Component
-R - Read at server/jwtAuth => Login compenent/Dashboard compenent
-U - Update at server/readerDashboard => ??
-D - Delete at server/readerDashboard => ??
+# Reformation Month
 
-Challenges:
-C - Create at server/challengeDashboard => ??
-R - Read at (single and every) server/challengeDashboard AND server/findChallenge => FindChallenge Component
-U - Update at server/challengeDashboard => ??
-D - Delete at server/challengeDashboard => ??
+This web app allows users to participate in reading challenges, track the number of chapters they've read, track chapters for others, as well as create family-groups and 
+there own reading challenge.
 
-Readers_Challenges:
-C - Create at server/findChallenge => FindChallene component
-R - Read at (single/ ??) server/readerDashboard => ReaderChallenges component
-U - none
-D - Delete at server/readerDashboard => ReaderChallenes component
+## Tech stack
 
-====Features====
+This uses a React.js frontend with some bootstrap for styling. The webapp runs on an Express server in a Nodejs environmnet. User profiles are stored on a
+PostgreSQL database. The project is hosted on Heroku.
 
-Show reader's stats dyncamically:
- - if stats are above zero, display stats
- -- else hide them
+It's free to sign-up, and only requires an email and password.
