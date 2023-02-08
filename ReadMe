@@ -1,9 +1,9 @@
-# Reformation Month
+Reformation Month
 
 This web app allows users to participate in reading challenges, track the number of chapters they've read, track chapters for others, as well as create family-groups and 
 there own reading challenge.
 
-## Tech stack
+Tech stack
 
 This uses a React.js frontend with some bootstrap for styling. The webapp runs on an Express server in a Nodejs environmnet. User profiles are stored on a
 PostgreSQL database. The project is hosted on Heroku.
