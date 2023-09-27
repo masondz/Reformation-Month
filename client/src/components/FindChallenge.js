@@ -1,7 +1,19 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-const SearchResults = ({ challenge }) => {
+const SearchResultsContainer = ({challengeList, selectedChallenge, setSelectedChallenge)} => {
+   const [narrowingList, setNarrowingList] = useState(challengeList);
+    
+    let output;
+    if(narrowingList.length > 0) {
+        output = narrowingList.map((challenge) => {
+            return <SearchResults challenge={challenge} />
+        })
+    };
+    return <div>{output}</div>
+};
+
+const SearchResults = ({ challenge, setSelectedChallenge }) => {
     function onClick() {
         setSelectedChallenge({
             challenge_name: challenge.challenge_name,
@@ -30,6 +42,7 @@ const FindChallenge = ({
     setFindingChallenge,
 }) => {
     const [challengeList, setChallengeList] = useState([])
+    const [selectedChallenge, setSelectedChallenge] = useState({challenge_name: "", id: ""});
     const [inputs, setInputs] = useState({
         challenge_name: '',
         id: '',
@@ -85,20 +98,20 @@ const FindChallenge = ({
     //
     //
     //update inputs
-    useEffect(() => {
-        const updateInputs = () => {
-            for (let i = 0; i < challengeList.length; i++) {
-                if (challengeList[i].challenge_name === inputs.challenge_name) {
-                    setInputs({
-                        challenge_name: challengeList[i].challenge_name,
-                        organization: challengeList[i].organization,
-                        id: challengeList[i].id,
-                    })
-                }
-            }
-        }
-        updateInputs()
-    }, [challenge_name, challengeList])
+    // useEffect(() => {
+    //     const updateInputs = () => {
+    //         for (let i = 0; i < challengeList.length; i++) {
+    //             if (challengeList[i].challenge_name === inputs.challenge_name) {
+    //                 setInputs({
+    //                     challenge_name: challengeList[i].challenge_name,
+    //                     organization: challengeList[i].organization,
+    //                     id: challengeList[i].id,
+    //                 })
+    //             }
+    //         }
+    //     }
+    //     updateInputs()
+    // }, [challenge_name, challengeList])
     //
     //
     //
@@ -200,6 +213,8 @@ const FindChallenge = ({
                         {challengeList.length > 0 && (
                             <SearchResultsContainer
                                 challengeList={challengeList}
+                                selectedChallenge={selectedChallenge}
+                                setSelectedChallenge={setSelectedChallenge}
                             />
                         )}
                     </div>
