@@ -162,24 +162,22 @@ main {
     font-size: 0.8em;
 }
 
-
 #delete-adreader-modal {
-            height: 200px;
-            width: 400px;
-            padding: 60px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 999;
-            background-color: green;
-            color: white;
-        }
-  
-        .hidden {
-            display: none;
-        }
+    height: 200px;
+    width: 400px;
+    padding: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background-color: green;
+    color: white;
+}
 
+.hidden {
+    display: none;
+}
 
 .adreader-join {
     background-color: rgb(2, 145, 75);
@@ -199,6 +197,17 @@ main {
     margin-bottom: 1em;
 }
 
+.challenge-option {
+    background-color: #ffffff;
+    padding: 7px;
+    border-bottom: 1px solid #c4c2c2;
+}
+
+.challenge-option:hover {
+    background-color: rgb(245, 104, 2);
+    color: #ffffff;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 815px) {
     main {
