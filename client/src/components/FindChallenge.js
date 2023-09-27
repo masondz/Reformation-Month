@@ -149,7 +149,7 @@ const FindChallenge = ({
         let narrowWords = challengeList.filter((challenge) => {
             return (
                 challenge.challenge_name.includes(e.target.value) ||
-                challenge.challenge_name.includes(e.target.value.toLowerCase()
+                challenge.challenge_name.includes(e.target.value.toLowerCase())
             )
         });
         setInputs({ ...inputs, challenge_name: e.target.value })
