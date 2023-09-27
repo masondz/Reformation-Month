@@ -1,6 +1,24 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
+const SearchResults = ({ challenge }) => {
+    function onClick() {
+        setSelectedChallenge({
+            challenge_name: challenge.challenge_name,
+            id: challenge.id,
+        })
+    }
+
+    return (
+        <div className="challeng-option">
+            <h5>{challenge.challenge_name}</h5>
+            <h6>{challenge.goal}</h6>
+        </div>
+    )
+}
+
+
+
 const FindChallenge = ({
     setAuth,
     inReadingChallenge,
@@ -128,8 +146,19 @@ const FindChallenge = ({
     //
     //onChange function
     const onChange = (e) => {
+        let narrowWords = challengeList.filter((challenge) => {
+            return (
+                challenge.challenge_name.includes(e.target.value) ||
+                challenge.challenge_name.includes(e.target.value.toLowerCase()
+            )
+        });
         setInputs({ ...inputs, challenge_name: e.target.value })
+        if(e.target.value === "" || e.target.value === " ") {
+            setChallengeList([]);
+        } else {
+            setChallengeList(narrowWords);
     }
+    };
 
     const [verb, setVerb] = useState('')
 
@@ -153,33 +182,33 @@ const FindChallenge = ({
                         +
                     </p>
                 )}
-                <div className="row align-items-end">
+                <div className="container">
                     <label htmlFor="chal-list">Find a reading Challenge</label>
-                    <input
-                        value={challenge_name}
-                        onChange={(e) => onChange(e)}
-                        className="form-control"
-                        list="challenge-list"
-                        name="chal-list"
-                        id="chal-list"
-                        placeholder="Search for reading challenge"
-                    />
-                    <datalist id="challenge-list">
-                        {challengeList.map((challenge) => {
-                            return (
-                                <option
-                                    value={challenge.challenge_name}
-                                    key={challenge.id}
-                                >
-                                    {challenge.challenge}: {challenge.goal}
-                                </option>
-                            )
-                        })}
-                    </datalist>
+
+                    <div className="input-group">
+                        <input
+                            id="chal-list"
+                            className="form-control mr-sm-2"
+                            type="search"
+                            placeholder="Search"
+                            name="chal-list"
+                            aria-label="Search"
+                            onKeyUp={(e) => onChange(e)}
+                        />
+                    </div>
+                    <div className="form-control" id="chal-options">
+                        {challengeList.length > 0 && (
+                            <SearchResultsContainer
+                                challengeList={challengeList}
+                            />
+                        )}
+                    </div>
+
                     <button className="btn btn-outline-success my-2">
                         Join
                     </button>
                 </div>
+
             </form>
         </Fragment>
     )
