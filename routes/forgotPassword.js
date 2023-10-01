@@ -14,6 +14,7 @@ if (
 )
     router.post('/', validInfo, async (req, res) => {
         const { email, user_password } = req.body
+        console.log(`route: ${email}`)
         const reader = await pool.query(
             'SELECT * FROM readers WHERE email = $1',
             [email]

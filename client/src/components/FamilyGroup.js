@@ -5,8 +5,6 @@ import CreateFamilyGroup from './CreateFamilyGroup'
 import CreateAdditionalReader from './CreateAdditionalReader'
 import DeleteAdReader from './DeleteAdReader'
 import AdReaderChallenge from './AdReaderChallenge'
-import { toast } from 'react-toastify'
-
 
 const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
     const [inFamGroup, setInFamGroup] = useState(false)
@@ -48,10 +46,9 @@ const FamilyGroup = ({ setAuth, reader, displayTotal, setDisplayTotal }) => {
     //allow reader to leave family group
     const leaveFG = async () => {
         try {
-
             let reader_id = reader.id
             let fg_id = famGroup.id
-        
+
             const body = { reader_id, fg_id }
             const request = await fetch('/family-group/remove-reader', {
                 method: 'PUT',

@@ -25,7 +25,7 @@ const FindChallenge = ({
     const [narrowingList, setNarrowingList] = useState(challengeList)
     const [searchBarValue, setSearchBarValue] = useState('')
 
-    const { challenge_name, id, organization } = inputs //destructure reading-challenge info
+    const { challenge_name, id } = inputs //destructure reading-challenge info: "organization" is also assocaiated with challenges
     //
     //
     //
@@ -100,6 +100,7 @@ const FindChallenge = ({
             const reader_id = readerId
             const challenge_id = id
             const body = { reader_id, challenge_id }
+            // eslint-disable-next-line
             const response = await fetch('/find-challenges', {
                 method: 'POST',
                 headers: {

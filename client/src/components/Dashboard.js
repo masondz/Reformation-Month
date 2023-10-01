@@ -108,14 +108,14 @@ const Dashboard = ({ setAuth }) => {
         </Fragment>
     )
 
-    const navButton = {
-        margin: '5px',
-        minWidth: '150px',
-        padding: '3px',
-        border: 'double 5px rgb(245, 105, 2)',
-        backgroundColor: 'white',
-        color: 'rgb(255, 75, 82)',
-    }
+    // const navButton = {
+    //     margin: '5px',
+    //     minWidth: '150px',
+    //     padding: '3px',
+    //     border: 'double 5px rgb(245, 105, 2)',
+    //     backgroundColor: 'white',
+    //     color: 'rgb(255, 75, 82)',
+    // }
 
     // 1. have find-challenge component and create challenge button loaded if reader not in any challenges.
     // 2. hide find-challenge compenent and create challenge button if in a challenge

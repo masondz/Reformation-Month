@@ -100,7 +100,6 @@ THEN
         }
     }
 
-
     return (
         <Fragment>
             <h1 className="text-center my-5">Reset Password</h1>
@@ -115,36 +114,38 @@ THEN
                 <div>
                     <h5>Loading User Data...</h5>
                 </div>
-            ) : showForm && (
-                <form onSubmit={updatePassword} id="reset-form">
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        className="form-control my-3"
-                        value={email}
-                        onChange={(e) => onChange(e)}
-                    />
-                    <input
-                        className="form-control my-3"
-                        type="password"
-                        name="user_password"
-                        placeholder="New Password"
-                        value={user_password}
-                        onChange={(e) => onChange(e)}
-                    />
-                    <input
-                        className="form-control my-3"
-                        type="password"
-                        name="confirm_password"
-                        placeholder="Confirm New Password"
-                        value={confirm_password}
-                        onChange={(e) => onChange(e)}
-                    />
-                    <button className="btn btn-success btn-block">
-                        Submit
-                    </button>
-                </form>
+            ) : (
+                showForm && (
+                    <form onSubmit={updatePassword} id="reset-form">
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            className="form-control my-3"
+                            value={email}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="form-control my-3"
+                            type="password"
+                            name="user_password"
+                            placeholder="New Password"
+                            value={user_password}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <input
+                            className="form-control my-3"
+                            type="password"
+                            name="confirm_password"
+                            placeholder="Confirm New Password"
+                            value={confirm_password}
+                            onChange={(e) => onChange(e)}
+                        />
+                        <button className="btn btn-success btn-block">
+                            Submit
+                        </button>
+                    </form>
+                )
             )}
             {updated && (
                 <div>
@@ -154,7 +155,7 @@ THEN
                     </p>
                 </div>
             )}
-            <Link to="/forgot-passwrod">Forgot Password</Link>
+            <Link to="/forgot-password">Forgot Password</Link>
             <br></br>
             <Link to="/login">Login</Link>
         </Fragment>

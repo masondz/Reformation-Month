@@ -1,6 +1,6 @@
 // inputs may need to be defined by the recieved data in the parent state, then passed as props to EditChallenge.js
 
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { toast } from 'react-toastify'
 //third test
 const EditChallenge2 = ({

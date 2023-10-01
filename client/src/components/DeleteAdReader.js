@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
 const DeleteAdReader = ({
@@ -9,36 +9,33 @@ const DeleteAdReader = ({
     setAdReaders,
     famGroup,
 }) => {
-    
-    const [deleting, setDeleting] = useState(false);
-    
-//     const toggleDeleting = () => {
-//         (!deleting) ? setDeleting(true) : setDeleting(false);
-//     }
-    
+    //     const toggleDeleting = () => {
+    //         (!deleting) ? setDeleting(true) : setDeleting(false);
+    //     }
+
     //controls the modal
-    const modal = document.querySelector("#delete-adreader-modal");
-        const body = document.querySelector("body");
-  
-        const showModal = function (e) {
-            modal.classList.toggle("hidden");
-  
-            if (!modal.classList.contains("hidden")) {
-                // Disable scroll
-                body.style.overflow = "hidden";
-            } else {
-                // Enable scroll
-                body.style.overflow = "auto";
-            }
-        };
-    
+    // const modal = document.querySelector("#delete-adreader-modal");
+    //     const body = document.querySelector("body");
+
+    // const showModal = function (e) {
+    //     modal.classList.toggle("hidden");
+
+    //     if (!modal.classList.contains("hidden")) {
+    //         // Disable scroll
+    //         body.style.overflow = "hidden";
+    //     } else {
+    //         // Enable scroll
+    //         body.style.overflow = "auto";
+    //     }
+    // };
+
     const deleteAdReader = async () => {
         //possible delete adReader from list
-     try {
-        let reader_id = reader.id
-        let ad_reader_id = adReader.ad_reader_id
-        let fg_id = famGroup.id
-        
+        try {
+            let reader_id = reader.id
+            let ad_reader_id = adReader.ad_reader_id
+            let fg_id = famGroup.id
+
             const body = { reader_id, ad_reader_id, fg_id }
             const response = await fetch('/additional-readers', {
                 method: 'DELETE',
@@ -62,46 +59,63 @@ const DeleteAdReader = ({
             console.error(err.message)
         }
     }
-    
+
     let jsxId = `del-ad${adReader.ad_reader_id}`
     let targetId = `#del-ad${adReader.ad_reader_id}`
 
     return (
-      <div>
-        <button
-            type="button"
-            style={{ float: 'right' }}
-            className="delete-adreader"
-            data-bs-toggle="modal"
-            data-bs-target={targetId}
-        >
-            Delete Reader
-        </button>
+        <div>
+            <button
+                type="button"
+                style={{ float: 'right' }}
+                className="delete-adreader"
+                data-bs-toggle="modal"
+                data-bs-target={targetId}
+            >
+                Delete Reader
+            </button>
 
-       <div className="modal fade" id={jsxId} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div
+                className="modal fade"
+                id={jsxId}
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div className="modal-body">
+                            <p>Are you sure you want to delete member?</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={() => deleteAdReader()}
+                                data-bs-dismiss="modal"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                    <div className="modal-body">
-                        <p>Are you sure you want to delete member?</p>
-                    </div>
-                 <div className="modal-footer">
-                   <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Cancel</button>  
-                   <button
-                        type="button"
-                        className="btn btn-warning"
-                        onClick={() => deleteAdReader()}
-                        data-bs-dismiss="modal"
-                    >
-                        Delete
-                    </button>
-                   </div>
                 </div>
             </div>
         </div>
-      </div>
     )
 }
 

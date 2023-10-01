@@ -23,13 +23,13 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
         })
     }
 
-    const checkPassword = (familyPassword, confirmPassword) => {
-        if (familyPassword !== confirmPassword) {
-           toast.error('Password does not match. Please try again.')
-        } else {
-            console.log('password matches')
-        }
-    }
+    // const checkPassword = (familyPassword, confirmPassword) => {
+    //     if (familyPassword !== confirmPassword) {
+    //        toast.error('Password does not match. Please try again.')
+    //     } else {
+    //         console.log('password matches')
+    //     }
+    // }
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
@@ -38,32 +38,32 @@ const CreateFamilyGroup = ({ setAuth, reader, setFamGroup, setInFamGroup }) => {
         let fg_password = familyPassword
         let reader_id = reader.id
         if (familyPassword !== confirmPassword) {
-             return  toast.error('Password does not match. Please try again.')
+            return toast.error('Password does not match. Please try again.')
         } else {
-        try {
-            const body = { family_name, fg_password, reader_id }
-            const response = await fetch('/family-group/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    token: localStorage.token,
-                },
-                body: JSON.stringify(body),
-            })
-            const parseRes = await response.json()
-            if (parseRes.status === 401) {
-                return toast.error('family name already taken!')
+            try {
+                const body = { family_name, fg_password, reader_id }
+                const response = await fetch('/family-group/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        token: localStorage.token,
+                    },
+                    body: JSON.stringify(body),
+                })
+                const parseRes = await response.json()
+                if (parseRes.status === 401) {
+                    return toast.error('family name already taken!')
+                }
+                const familyName = parseRes.family_name
+                setFamGroup({ family_name: familyName }) //will this work?
+                setInFamGroup(true)
+                setTimeout(() => {
+                    window.location = '/'
+                }, 2000)
+            } catch (err) {
+                console.error(err.message)
             }
-            const familyName = parseRes.family_name
-            setFamGroup({ family_name: familyName }) //will this work?
-            setInFamGroup(true)
-            setTimeout(() => {
-            window.location = '/';
-            }, 2000);
-        } catch (err) {
-            console.error(err.message)
         }
-       }
     }
 
     return (
