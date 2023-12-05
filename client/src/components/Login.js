@@ -7,7 +7,7 @@ const Login = ({ setAuth }) => {
         user_password: '',
     })
 
-    cont [inputType, setInputType] = useState("password")
+    const [inputType, setInputType] = useState("password")
 
     const { email, user_password } = inputs
 
@@ -58,7 +58,7 @@ const Login = ({ setAuth }) => {
                 />
                 <input
                     className="form-control"
-                    type="password"
+                    type={inputType}
                     name="user_password"
                     placeholder="Password"
                     value={user_password}
