@@ -16,7 +16,7 @@ const Login = ({ setAuth }) => {
     }
 
     const togglePeek = () => {
-        inputType === "password" ? setPeekPass("text") : setPeekPass("password");
+        inputType === "password" ? setInputType("text") : setInputType("password");
     };
 
     const onSubmitForm = async (e) => {
