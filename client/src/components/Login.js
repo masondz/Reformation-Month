@@ -67,8 +67,8 @@ const Login = ({ setAuth }) => {
                 <button className="btn btn-success btn-block my-2">
                     Submit
                 </button>
-                <input type="checkbox" id="peekPassword" name="peek-password" value="Show Password" onChange={() => togglePeek()}>
-                <label for="peek-password">Show Password</label><br>       
+                <input type="checkbox" id="peekPassword" name="peek-password" value="Show Password" onChange={() => togglePeek()}/>
+                <label for="peek-password">Show Password</label>       
             </form>
             <Link to="/register">Register</Link>
             <br></br>
