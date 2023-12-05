@@ -7,11 +7,17 @@ const Login = ({ setAuth }) => {
         user_password: '',
     })
 
+    cont [inputType, setInputType] = useState("password")
+
     const { email, user_password } = inputs
 
     const onChange = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
+
+    const togglePeek = () => {
+        inputType === "password" ? setPeekPass("text") : setPeekPass("password);
+    };
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
@@ -61,6 +67,8 @@ const Login = ({ setAuth }) => {
                 <button className="btn btn-success btn-block my-2">
                     Submit
                 </button>
+                <input type="checkbox" id="peekPassword" name="peek-password" value="Show Password" onChange={() => togglePeek()}>
+                <label for="peek-password">Show Password</label><br>       
             </form>
             <Link to="/register">Register</Link>
             <br></br>
